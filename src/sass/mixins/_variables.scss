@@ -1,0 +1,36 @@
+/*
+* Copyright (c) 2012 Alexander Aivars, Kramgo AB
+*/
+
+$color-cream: #F5F5F5;
+$color-white: #FFF;
+$color-blue: #4E7F9B;
+$color-dark-blue: #263E4D;
+
+
+/* TYPOGRAPHY */
+
+$color-text: #263E4E;
+$color-link: $color-blue;
+$color-inverted-text: $color-white;
+
+/* COMPASS VARIABLES */
+$legacy-support-for-ie6 : false;
+$legacy-support-for-ie7 : true;
+$legacy-support-for-ie8 : true;
+
+/* BASE SIZES FOR TYPES */
+
+$basefont:		14;
+$size-text:		$basefont;
+$size-h1:			24;				// Titel
+$size-h2:			20;				// Rubrik
+$size-h3:			16;				// Underrubrik
+$size-h4:			14;				// Text rubrik
+$size-h5:			$size-text;
+$size-button:	$size-h3;	// Text knappar
+$size-menu:		$size-h3;		// Huvud meny knappar
+$size-input:	15;				// Input field
+$size-note:		10;				// Fotnot
+$size-line:		22;				// default line height 
+

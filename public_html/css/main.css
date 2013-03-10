@@ -1,0 +1,303 @@
+/*
+* Copyright (c) 2012 Alexander Aivars, Kramgo AB 
+*/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*
+* Copyright (c) 2012 Alexander Aivars, Kramgo AB
+*/
+/* TYPOGRAPHY */
+/* COMPASS VARIABLES */
+/* BASE SIZES FOR TYPES */
+/*
+* Copyright © 2012 Alexander Aivars, Kramgo AB
+ */
+@font-face {
+  font-family: 'bodoni_black';
+  src: url("fonts/BodoniBlack-webfont.eot");
+  src: url("fonts/BodoniBlack-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/BodoniBlack-webfont.woff") format("woff"), url("fonts/BodoniBlack-webfont.ttf") format("truetype"), url("fonts/BodoniBlack-webfont.svg#bodoni_black_fsregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni_black_italic';
+  src: url("fonts/odoniBlack-Italic-webfont.eot");
+  src: url("fonts/BodoniBlack-Italic-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/BodoniBlack-Italic-webfont.woff") format("woff"), url("fonts/BodoniBlack-Italic-webfont.ttf") format("truetype"), url("fonts/BodoniBlack-Italic-webfont.svg#bodoni_black_fsitalic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni_bold';
+  src: url("fonts/Bodoni-Bold-webfont.eot");
+  src: url("fonts/Bodoni-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-Bold-webfont.woff") format("woff"), url("fonts/Bodoni-Bold-webfont.ttf") format("truetype"), url("fonts/Bodoni-Bold-webfont.svg#bodoni_fsbold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni_bold_italic';
+  src: url("fonts/Bodoni-BoldIt-webfont.eot");
+  src: url("fonts/Bodoni-BoldIt-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-BoldIt-webfont.woff") format("woff"), url("fonts/Bodoni-BoldIt-webfont.ttf") format("truetype"), url("fonts/Bodoni-BoldIt-webfont.svg#bodoni_fsbold_italic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni_italic';
+  src: url("fonts/Bodoni-It-webfont.eot");
+  src: url("fonts/Bodoni-It-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-It-webfont.woff") format("woff"), url("fonts/Bodoni-It-webfont.ttf") format("truetype"), url("fonts/Bodoni-It-webfont.svg#bodoni_fsitalic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni';
+  src: url("fonts/Bodoni-Regular-webfont.eot");
+  src: url("fonts/Bodoni-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-Regular-webfont.woff") format("woff"), url("fonts/Bodoni-Regular-webfont.ttf") format("truetype"), url("fonts/Bodoni-Regular-webfont.svg#bodoni_fsregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni_semibold';
+  src: url("fonts/Bodoni-Semibold-webfont.eot");
+  src: url("fonts/Bodoni-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-Semibold-webfont.woff") format("woff"), url("fonts/Bodoni-Semibold-webfont.ttf") format("truetype"), url("fonts/Bodoni-Semibold-webfont.svg#bodoni_fssemibold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bodoni_semibold_italic';
+  src: url("fonts/Bodoni-SemiboldIt-webfont.eot");
+  src: url("fonts/Bodoni-SemiboldIt-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-SemiboldIt-webfont.woff") format("woff"), url("fonts/Bodoni-SemiboldIt-webfont.ttf") format("truetype"), url("fonts/Bodoni-SemiboldIt-webfont.svg#bodoni_fssemibold_italic") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+* Copyright © 2012 Alexander Aivars, Kramgo AB
+*/
+select.rmStyle {
+  border: none;
+  display: block;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  opacity: 0;
+  position: absolute;
+}
+
+/*
+* Copyright © 2012 Alexander Aivars, Kramgo AB
+*/
+/*******************************************************************************
+*
+* MEDIAQUERIES
+*
+****************************************************************************** */
+/* TYPO START */
+html {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 14px;
+  font-size: 0.875rem;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+#bar {
+  line-height: 36px;
+  line-height: 2.57142857rem;
+  background: orange;
+}
+
+#container {
+  /* Acceptable values are border, content, and padding - content is the default W3C model */
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  position: relative;
+  margin-left: -18.57142857em;
+  overflow: hidden;
+  background: url("img/navbar-bg.gif") repeat-y -18em top;
+  background-color: red;
+  min-height: 100%;
+}
+
+#container.show-menu {
+  -webkit--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -moz--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -ms--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -o--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -webkit-backface-visibility: hidden;
+}
+
+.animate {
+  -webkit-transition: all 0.05s ease-in;
+  -moz-transition: all 0.05s ease-in;
+  -ms-transition: all 0.05s ease-in;
+  -o-transition: all 0.05s ease-in;
+  transition: all 0.05s ease-in;
+}
+
+#nav {
+  color: white;
+  width: 18.57142857em;
+  float: left;
+}
+
+#content {
+  margin-left: 20em;
+  margin-right: 1.42857143em;
+}
+
+.nav-bar {
+  background: #CCC;
+  margin: 0 1.42857143em;
+}
+.nav-bar a {
+  font-size: 20px;
+  font-size: 1.42857143rem;
+  line-height: 30px;
+  line-height: 2.14285714rem;
+}
+
+.grid {
+  position: relative;
+  overflow: hidden;
+  margin: 0.71428571em;
+}
+
+.teaser {
+  position: relative;
+  width: 50%;
+  float: left;
+}
+.teaser h2 {
+  font-size: 60px;
+  font-size: 4.28571429rem;
+  line-height: 90px;
+  line-height: 6.42857143rem;
+}
+.teaser h3 {
+  font-size: 20px;
+  font-size: 1.42857143rem;
+  line-height: 30px;
+  line-height: 2.14285714rem;
+}
+
+.hero .teaser {
+  float: none;
+  width: 100%;
+}
+
+.hero .teaser-wrapper {
+  padding-bottom: 66%;
+}
+
+.hero .teaser-gutter {
+  padding: 1.42857143em 1.42857143em 0 1.42857143em;
+}
+
+.teaser-gutter {
+  padding: 0.71428571em;
+}
+
+.teaser-wrapper {
+  width: 100%;
+  position: relative;
+  padding-bottom: 150%;
+}
+
+.teaser-content {
+  position: absolute;
+  background: pink;
+  width: 100%;
+  height: 100%;
+}
+
+.teaser-content > img {
+  width: 100%;
+}
+
+.teaser-content > table {
+  height: 100%;
+  width: 100%;
+}
+.teaser-content > table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.test {
+  display: none;
+}
+
+@media only screen and (min-width: 50em) {
+  .teaser {
+    width: 25%;
+  }
+}
+.oldie .teaser {
+  width: 25%;
+}

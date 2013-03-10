@@ -1,0 +1,64 @@
+/*
+* Copyright © 2012 Alexander Aivars, Kramgo AB
+*/
+// hide text
+@mixin hide-text() {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+// opacity mixin from COMPASS
+@mixin opacity($opacity) {
+  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
+    filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})"); }
+  opacity: $opacity; 
+}
+
+// IE7 inline-block
+@mixin ie7-inline-block() {
+  *display: inline; // IE7 inline-block hack
+  *zoom: 1;
+}
+
+@mixin box-sizing($type:"border") {
+	/* Acceptable values are border, content, and padding - content is the default W3C model */ 
+	box-sizing: #{$type}-box;
+	-webkit-box-sizing: #{$type}-box;
+	-moz-box-sizing: #{$type}-box;
+	-ms-box-sizing: #{$type}-box;
+}
+
+@mixin experimental($property, $value, $moz: true, $webkit: true, $o: true, $ms: true, $khtml: false , $official: true) {
+  @if $webkit {
+    -webkit-#{$property}: $value; }
+  @if $khtml {
+    -khtml-#{$property}: $value; }
+  @if $moz {
+    -moz-#{$property}: $value; }
+  @if $ms {
+    -ms-#{$property}: $value; }
+  @if $o {
+    -o-#{$property}: $value; }
+  @if $official {
+    #{$property}: $value; } }
+
+select.rmStyle {
+	border: none;
+	display:block;
+	padding:0;
+	margin:0;
+	background-color: transparent;
+	-webkit-appearance: none;
+	-moz-appearance : none;
+	opacity: 0;
+	position: absolute;
+}
+
+@mixin transition($transition-property, $transition-time, $method) {
+    -webkit-transition: $transition-property $transition-time $method;
+    -moz-transition: $transition-property $transition-time $method;
+    -ms-transition: $transition-property $transition-time $method;
+    -o-transition: $transition-property $transition-time $method;
+    transition: $transition-property $transition-time $method;
+}

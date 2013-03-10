@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Alexander Aivars -- @alexaivars
+    Andreas Källbom  -- @andreaskallbom
+    Daniel Källbom  -- @danielolof
+
+# THANKS
+		
+		Family and friends
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, HTML5 Boilerplate, Grunt
+
