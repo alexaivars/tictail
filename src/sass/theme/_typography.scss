@@ -1,0 +1,138 @@
+html {
+	font-size: em($basefont,16);
+}
+
+body {
+	font-family: Arial;
+	@include experimental(font-smoothing, antialiased);
+	color: #FFF;
+}
+
+.inverted {
+	color: #000;
+}
+div {
+	font-family: Arial;
+}
+
+p {
+	@include font-size(18);
+	@include line-height(27);
+	font-style: normal;
+	font-weight: 400;
+	font-family: "PT Serif";
+	text-align: center;
+}
+
+p + p {
+	margin-top: em(24,18);
+}
+
+li {
+	@include font-size(16);
+	@include line-height(24);
+	text-align: center;
+	color: #8C8C8C;
+	margin-bottom: 12px;
+	margin-top: 12px;
+	font-family: "PT Serif";
+	font-style: normal;
+	font-weight: 400;
+}
+
+
+p.listselected {
+	@include font-size(16);
+	margin-bottom: 12px;
+	line-height: 24px;
+	font-family: "PT Serif";
+	font-style: normal;
+	font-weight: 400;
+}
+
+
+p.alt {
+	@include line-height(30);
+	margin-top: 36px;
+	margin-bottom: 36px;
+	font-family: "PT Serif";
+	font-style: normal;
+	font-weight: 400;
+}
+
+h1 {
+	@include font-size(72);
+	text-transform: uppercase;
+	letter-spacing: em(2,72);
+	font-style: normal;
+	font-weight: 700;
+	font-family: "Open Sans";
+	margin-top: 120px;
+	text-align: center;
+	margin-bottom: 32px;
+}
+
+
+h2 {
+	@include font-size(24);
+	@include line-height(27);
+	font-style: normal;
+	font-weight: 600;
+	font-family: "Open Sans";
+	margin-top: 120px;
+	line-height: 100%;
+	text-align: center;
+	margin-bottom: 6px;
+	text-transform: uppercase;
+	letter-spacing: em(2,24);
+}
+
+
+h3 {
+	text-align: center;
+	font-style: normal;
+	font-weight: 400;
+	font-family: "PT Serif";
+	letter-spacing: 3px;
+}
+
+
+h4 {
+	@include font-size(14);
+	@include line-height(24);
+	font-style: normal;
+	font-weight: 600;
+	font-family: "Open Sans";
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: em(1,14);
+}
+
+
+.main-navigation h2 {
+	@include font-size(12);
+	@include line-height($basefont);
+	font-style: normal;
+	font-weight: 800;
+	font-family: "Open Sans";
+	color: #666;
+	letter-spacing: em(2,12);
+	text-align: center;
+	margin-top: 120px;
+}
+
+
+.button,
+h6 {
+	@include font-size(18);
+	text-align: center;
+	font-style: normal;
+	font-weight: 600;
+	font-family: "Open Sans";
+	margin-top: 24px;
+}
+
+
+
+
+

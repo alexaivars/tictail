@@ -15,6 +15,7 @@
         <meta name="viewport" content="width=device-width">
 
 				<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+				<link href='http://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:600,800' rel='stylesheet' type='text/css'>
 
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -25,7 +26,7 @@
       <![endif]-->
 			<div id="container"> 
 				<aside id="nav">
-					<nav>
+					<nav class="main-navigation">
 						<h2>CATEGORIES</h2>
 						<ul>
 							<li>Show All (307)</li>
@@ -73,13 +74,24 @@
 					<div id="main-content">
 						<nav class="nav-bar">
 							<ul>
-								<li><a href="#main-nav">SHOW MENU</a></li>
+								<li><a href="#main-nav" data-action="menu-toggle"><img src="img/menu.gif" alt="Toggle menu"></a></li>
 							</ul>
 						</nav>
 					
-						<header>
+						<header class="main-header inverted">
+							<h1>My Tictail Store</h1>
 						</header>
-					
+						
+						<section class="hero gutter">
+							<div id='slider' class='swipe'>
+								<div class='swipe-wrap'>
+									<div>Swipe me</div>
+									<div>Slide no2</div>
+									<div>Slide no3</div>
+								</div>
+							</div>	
+						</section>
+
 						<section class="hero">
 							<article class="teaser">
 								<div class="teaser-gutter"><div class="teaser-wrapper">
@@ -265,6 +277,10 @@
 				<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
         <script src="js/vendor/jquery.hammer-1.0.4.min.js"></script>
+        <!--
+				<script src="js/vendor/swipe-2.0.0.min.js"></script>
+				-->
+				<script src="js/swipe.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

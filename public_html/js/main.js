@@ -64,7 +64,12 @@
         flexbox = null;
       }
     }
-    return new SlideMenu($("#container"), $("#nav"), $("#content"));
+    new SlideMenu($("#container"), $("#nav"), $("#content"));
+    return window.mySwipe = new Swipe(document.getElementById("slider"), {
+      continuous: true,
+      disableScroll: false,
+      stopPropagation: false
+    });
   });
 
   SlideMenu = (function() {
@@ -80,6 +85,9 @@
       this.dragX = 0;
       this.touch.on("touch dragleft dragright swipeleft swiperight release", function(event) {
         return _this.touchHandler(event);
+      });
+      Hammer($("[data-action=menu-toggle]")[0]).on("tap", function(event) {
+        return _this.toggle(event);
       });
       return;
     }
@@ -107,6 +115,16 @@
           } else {
             this.setOffset(0, true);
           }
+      }
+    };
+
+    SlideMenu.prototype.toggle = function(event) {
+      event.preventDefault();
+      event.gesture.preventDefault();
+      if (this.dragX > this.width * 0.5) {
+        this.setOffset(0, true);
+      } else {
+        this.setOffset(this.width, true);
       }
     };
 

@@ -8,12 +8,10 @@
 @import "mixins/_utils";
 @import "mixins/_mediaqueries";
 
+@import "theme/_typography";
+
 /* TYPO START */
 
-html {
-	font-family: Georgia, Times, "Times New Roman", serif;
-	@include font-size($basefont, 16 );
-}
 
 html,body {
 	width: 100%;
@@ -31,13 +29,12 @@ html,body {
 	margin-left: em(-260);
 	overflow: hidden;
 	background: url("img/navbar-bg.gif") repeat-y em(-252) top;
-	background-color: red;
 	min-height: 100%;
 }
 
 
 #container.show-menu {
-  @include experimental(-webkit-transform, translate3d(200px,0,0) scale3d(1,1,1) );
+  @include experimental(transform, translate3d(200px,0,0) scale3d(1,1,1) );
 	-webkit-backface-visibility: hidden;
 }
 
@@ -53,16 +50,37 @@ html,body {
 }
 
 #content {
-	margin-left: em(280);
-	margin-right: em(20);
+	margin-left: em(260);
+	// margin-right: em(20);
 }
 
+
+.main-navigation {
+	padding: em(20);
+	text-align: center;
+	h2 {
+		margin-top: em(40);
+	}
+
+	h2 + ul {
+		margin-top: em(10);
+	}
+
+	@include line-height(25);
+}
+
+.main-header {
+	margin: em(20);
+	h1 {
+		text-align: center;
+	}
+}
 .nav-bar {
-	background: #CCC;
 	margin: 0 em(20);
+	margin-top: em(12);
 	a {
-		@include font-size(20);
-		@include line-height(30);
+		// @include font-size(20);
+		// @include line-height(30);
 	}
 }
 
@@ -76,15 +94,39 @@ html,body {
 	position: relative;
 	width: 50%;
 	float: left;
-	h2 {
-		@include font-size(60);
-		@include line-height(90);
-	}
-	h3 {
-		@include font-size(20);
-		@include line-height(30);
-	}
 }
+
+
+
+
+
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+	position: relative;
+}
+
+.swipe-wrap > div {
+	text-align: center;
+	@include font-size(60);
+	@include line-height(300);
+}
+
+.swipe-wrap {
+	div { background: green; }
+	div + div { background: red; }
+	div + div + div { background: blue; }
+}
+
 .hero .teaser {
 	float: none;
 	width: 100%;
@@ -94,9 +136,12 @@ html,body {
 }
 
 .hero .teaser-gutter { 
-	padding: em(20) em(20) 0 em(20);
+	padding: 0 em(20) 0 em(20);
 }
 
+.hero .swipe {
+	margin: em(20);
+}
 .teaser-gutter { 
 	padding: em(10);
 }

@@ -39,7 +39,8 @@ $(document).ready ->
   console.log "\\(x.×)/we are kramgo\\(x.×)/"
   console.log "-----^*_lopiloopilopi_*^-----"
   console.log "Copyright Alexander Aivars"
-  
+
+
   ref = $("X.product-teaser")
   teaser = null
   if ref.length
@@ -58,6 +59,12 @@ $(document).ready ->
   
   new SlideMenu $("#container"), $("#nav"), $("#content")
 
+  window.mySwipe = new Swipe(document.getElementById("slider"),
+    continuous: true
+    disableScroll: false
+    stopPropagation: false
+  )
+
 class SlideMenu
   
   constructor: (@container, @menu, @content) ->
@@ -66,6 +73,9 @@ class SlideMenu
     @delta = 0
     @dragX = 0
     @touch.on "touch dragleft dragright swipeleft swiperight release", (event) => @touchHandler(event)
+    
+    Hammer($("[data-action=menu-toggle]")[0]).on "tap", (event) => @toggle(event)
+
     return
 
   touchHandler: (event) ->
@@ -86,6 +96,15 @@ class SlideMenu
           @setOffset @width, true
         else
           @setOffset 0, true
+    return
+
+  toggle: (event) ->
+    event.preventDefault()
+    event.gesture.preventDefault()
+    if @dragX > @width * 0.5
+      @setOffset 0, true
+    else
+      @setOffset @width, true
     return
 
   setOffset:  (px, animate) ->

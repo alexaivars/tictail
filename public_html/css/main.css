@@ -64,70 +64,6 @@ table {
 /*
 * Copyright © 2012 Alexander Aivars, Kramgo AB
  */
-@font-face {
-  font-family: 'bodoni_black';
-  src: url("fonts/BodoniBlack-webfont.eot");
-  src: url("fonts/BodoniBlack-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/BodoniBlack-webfont.woff") format("woff"), url("fonts/BodoniBlack-webfont.ttf") format("truetype"), url("fonts/BodoniBlack-webfont.svg#bodoni_black_fsregular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni_black_italic';
-  src: url("fonts/odoniBlack-Italic-webfont.eot");
-  src: url("fonts/BodoniBlack-Italic-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/BodoniBlack-Italic-webfont.woff") format("woff"), url("fonts/BodoniBlack-Italic-webfont.ttf") format("truetype"), url("fonts/BodoniBlack-Italic-webfont.svg#bodoni_black_fsitalic") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni_bold';
-  src: url("fonts/Bodoni-Bold-webfont.eot");
-  src: url("fonts/Bodoni-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-Bold-webfont.woff") format("woff"), url("fonts/Bodoni-Bold-webfont.ttf") format("truetype"), url("fonts/Bodoni-Bold-webfont.svg#bodoni_fsbold") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni_bold_italic';
-  src: url("fonts/Bodoni-BoldIt-webfont.eot");
-  src: url("fonts/Bodoni-BoldIt-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-BoldIt-webfont.woff") format("woff"), url("fonts/Bodoni-BoldIt-webfont.ttf") format("truetype"), url("fonts/Bodoni-BoldIt-webfont.svg#bodoni_fsbold_italic") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni_italic';
-  src: url("fonts/Bodoni-It-webfont.eot");
-  src: url("fonts/Bodoni-It-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-It-webfont.woff") format("woff"), url("fonts/Bodoni-It-webfont.ttf") format("truetype"), url("fonts/Bodoni-It-webfont.svg#bodoni_fsitalic") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni';
-  src: url("fonts/Bodoni-Regular-webfont.eot");
-  src: url("fonts/Bodoni-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-Regular-webfont.woff") format("woff"), url("fonts/Bodoni-Regular-webfont.ttf") format("truetype"), url("fonts/Bodoni-Regular-webfont.svg#bodoni_fsregular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni_semibold';
-  src: url("fonts/Bodoni-Semibold-webfont.eot");
-  src: url("fonts/Bodoni-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-Semibold-webfont.woff") format("woff"), url("fonts/Bodoni-Semibold-webfont.ttf") format("truetype"), url("fonts/Bodoni-Semibold-webfont.svg#bodoni_fssemibold") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'bodoni_semibold_italic';
-  src: url("fonts/Bodoni-SemiboldIt-webfont.eot");
-  src: url("fonts/Bodoni-SemiboldIt-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/Bodoni-SemiboldIt-webfont.woff") format("woff"), url("fonts/Bodoni-SemiboldIt-webfont.ttf") format("truetype"), url("fonts/Bodoni-SemiboldIt-webfont.svg#bodoni_fssemibold_italic") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
 /*
 * Copyright © 2012 Alexander Aivars, Kramgo AB
 */
@@ -151,13 +87,153 @@ select.rmStyle {
 * MEDIAQUERIES
 *
 ****************************************************************************** */
-/* TYPO START */
 html {
-  font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 14px;
-  font-size: 0.875rem;
+  font-size: 1.125em;
 }
 
+body {
+  font-family: Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  color: #FFF;
+}
+
+.inverted {
+  color: #000;
+}
+
+div {
+  font-family: Arial;
+}
+
+p {
+  font-size: 18px;
+  font-size: 1rem;
+  line-height: 27px;
+  line-height: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "PT Serif";
+  text-align: center;
+}
+
+p + p {
+  margin-top: 1.33333333em;
+}
+
+li {
+  font-size: 16px;
+  font-size: 0.88888889rem;
+  line-height: 24px;
+  line-height: 1.33333333rem;
+  text-align: center;
+  color: #8C8C8C;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-family: "PT Serif";
+  font-style: normal;
+  font-weight: 400;
+}
+
+p.listselected {
+  font-size: 16px;
+  font-size: 0.88888889rem;
+  margin-bottom: 12px;
+  line-height: 24px;
+  font-family: "PT Serif";
+  font-style: normal;
+  font-weight: 400;
+}
+
+p.alt {
+  line-height: 30px;
+  line-height: 1.66666667rem;
+  margin-top: 36px;
+  margin-bottom: 36px;
+  font-family: "PT Serif";
+  font-style: normal;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 72px;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02777778em;
+  font-style: normal;
+  font-weight: 700;
+  font-family: "Open Sans";
+  margin-top: 120px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+h2 {
+  font-size: 24px;
+  font-size: 1.33333333rem;
+  line-height: 27px;
+  line-height: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  font-family: "Open Sans";
+  margin-top: 120px;
+  line-height: 100%;
+  text-align: center;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08333333em;
+}
+
+h3 {
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "PT Serif";
+  letter-spacing: 3px;
+}
+
+h4 {
+  font-size: 14px;
+  font-size: 0.77777778rem;
+  line-height: 24px;
+  line-height: 1.33333333rem;
+  font-style: normal;
+  font-weight: 600;
+  font-family: "Open Sans";
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.07142857em;
+}
+
+.main-navigation h2 {
+  font-size: 12px;
+  font-size: 0.66666667rem;
+  line-height: 18px;
+  line-height: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  font-family: "Open Sans";
+  color: #666;
+  letter-spacing: 0.16666667em;
+  text-align: center;
+  margin-top: 120px;
+}
+
+.button,
+h6 {
+  font-size: 18px;
+  font-size: 1rem;
+  text-align: center;
+  font-style: normal;
+  font-weight: 600;
+  font-family: "Open Sans";
+  margin-top: 24px;
+}
+
+/* TYPO START */
 html, body {
   width: 100%;
   height: 100%;
@@ -165,7 +241,7 @@ html, body {
 
 #bar {
   line-height: 36px;
-  line-height: 2.57142857rem;
+  line-height: 2rem;
   background: orange;
 }
 
@@ -176,19 +252,18 @@ html, body {
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   position: relative;
-  margin-left: -18.57142857em;
+  margin-left: -14.44444444em;
   overflow: hidden;
-  background: url("img/navbar-bg.gif") repeat-y -18em top;
-  background-color: red;
+  background: url("img/navbar-bg.gif") repeat-y -14em top;
   min-height: 100%;
 }
 
 #container.show-menu {
-  -webkit--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
-  -moz--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
-  -ms--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
-  -o--webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
   -webkit-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -moz-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -ms-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  -o-transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
+  transform: translate3d(200px, 0, 0) scale3d(1, 1, 1);
   -webkit-backface-visibility: hidden;
 }
 
@@ -202,30 +277,43 @@ html, body {
 
 #nav {
   color: white;
-  width: 18.57142857em;
+  width: 14.44444444em;
   float: left;
 }
 
 #content {
-  margin-left: 20em;
-  margin-right: 1.42857143em;
+  margin-left: 14.44444444em;
+}
+
+.main-navigation {
+  padding: 1.11111111em;
+  text-align: center;
+  line-height: 25px;
+  line-height: 1.38888889rem;
+}
+.main-navigation h2 {
+  margin-top: 2.22222222em;
+}
+.main-navigation h2 + ul {
+  margin-top: 0.55555556em;
+}
+
+.main-header {
+  margin: 1.11111111em;
+}
+.main-header h1 {
+  text-align: center;
 }
 
 .nav-bar {
-  background: #CCC;
-  margin: 0 1.42857143em;
-}
-.nav-bar a {
-  font-size: 20px;
-  font-size: 1.42857143rem;
-  line-height: 30px;
-  line-height: 2.14285714rem;
+  margin: 0 1.11111111em;
+  margin-top: 0.66666667em;
 }
 
 .grid {
   position: relative;
   overflow: hidden;
-  margin: 0.71428571em;
+  margin: 0.55555556em;
 }
 
 .teaser {
@@ -233,17 +321,40 @@ html, body {
   width: 50%;
   float: left;
 }
-.teaser h2 {
-  font-size: 60px;
-  font-size: 4.28571429rem;
-  line-height: 90px;
-  line-height: 6.42857143rem;
+
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
 }
-.teaser h3 {
-  font-size: 20px;
-  font-size: 1.42857143rem;
-  line-height: 30px;
-  line-height: 2.14285714rem;
+
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.swipe-wrap > div {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+.swipe-wrap > div {
+  text-align: center;
+  font-size: 60px;
+  font-size: 3.33333333rem;
+  line-height: 300px;
+  line-height: 16.66666667rem;
+}
+
+.swipe-wrap div {
+  background: green;
+}
+.swipe-wrap div + div {
+  background: red;
+}
+.swipe-wrap div + div + div {
+  background: blue;
 }
 
 .hero .teaser {
@@ -256,11 +367,15 @@ html, body {
 }
 
 .hero .teaser-gutter {
-  padding: 1.42857143em 1.42857143em 0 1.42857143em;
+  padding: 0 1.11111111em 0 1.11111111em;
+}
+
+.hero .swipe {
+  margin: 1.11111111em;
 }
 
 .teaser-gutter {
-  padding: 0.71428571em;
+  padding: 0.55555556em;
 }
 
 .teaser-wrapper {
