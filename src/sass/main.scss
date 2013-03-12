@@ -38,7 +38,6 @@ html,body {
 	-webkit-backface-visibility: hidden;
 }
 
-
 .animate {
 	@include transition(all, 0.05s, ease-in);
 }
@@ -54,7 +53,9 @@ html,body {
 	// margin-right: em(20);
 }
 
-
+.content-menu {
+	text-align: left;
+}
 .main-navigation {
 	padding: em(20);
 	text-align: center;
@@ -117,14 +118,14 @@ html,body {
 
 .swipe-wrap > div {
 	text-align: center;
-	@include font-size(60);
-	@include line-height(300);
 }
 
+.swipe img {
+	width: 100%;
+	display: block;
+}
 .swipe-wrap {
-	div { background: green; }
-	div + div { background: red; }
-	div + div + div { background: blue; }
+	background: #CCC;
 }
 
 .hero .teaser {

@@ -40,6 +40,9 @@ $(document).ready ->
   console.log "-----^*_lopiloopilopi_*^-----"
   console.log "Copyright Alexander Aivars"
 
+  # disable the dragging of images on desktop browsers
+  $("img").on "dragstart", () ->
+    return false
 
   ref = $("X.product-teaser")
   teaser = null

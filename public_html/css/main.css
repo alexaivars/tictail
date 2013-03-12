@@ -285,6 +285,10 @@ html, body {
   margin-left: 14.44444444em;
 }
 
+.content-menu {
+  text-align: left;
+}
+
 .main-navigation {
   padding: 1.11111111em;
   text-align: center;
@@ -341,20 +345,15 @@ html, body {
 
 .swipe-wrap > div {
   text-align: center;
-  font-size: 60px;
-  font-size: 3.33333333rem;
-  line-height: 300px;
-  line-height: 16.66666667rem;
 }
 
-.swipe-wrap div {
-  background: green;
+.swipe img {
+  width: 100%;
+  display: block;
 }
-.swipe-wrap div + div {
-  background: red;
-}
-.swipe-wrap div + div + div {
-  background: blue;
+
+.swipe-wrap {
+  background: #CCC;
 }
 
 .hero .teaser {

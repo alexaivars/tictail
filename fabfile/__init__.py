@@ -29,6 +29,7 @@ def _pull_code():
         ' --exclude "*.DS_Store"'+
         ' --exclude "*.swp"'+
         ' --exclude "*.gitignore"'+
+        ' --exclude "templates_c/**'+
         ' -pthrvz'+
         ' --rsh="ssh -i %(key_filename)s -l %(user)s"' % env+
         ' %(host)s:%(www_root)s/' % env+

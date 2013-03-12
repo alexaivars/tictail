@@ -41,6 +41,9 @@
     console.log("\\(x.×)/we are kramgo\\(x.×)/");
     console.log("-----^*_lopiloopilopi_*^-----");
     console.log("Copyright Alexander Aivars");
+    $("img").on("dragstart", function() {
+      return false;
+    });
     ref = $("X.product-teaser");
     teaser = null;
     if (ref.length) {
