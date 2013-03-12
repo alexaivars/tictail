@@ -5,16 +5,20 @@ html {
 body {
 	font-family: Arial;
 	@include experimental(font-smoothing, antialiased);
-	color: #FFF;
+	color: #000;
 }
 
 .inverted {
-	color: #000;
+	color: #FFF;
 }
 div {
 	font-family: Arial;
 }
 
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
 p {
 	@include font-size(18);
 	@include line-height(27);
@@ -93,7 +97,10 @@ h3 {
 	font-style: normal;
 	font-weight: 400;
 	font-family: "PT Serif";
-	letter-spacing: 3px;
+	letter-spacing: em(3);
+	p + & {
+		margin-top: em(24);
+	}
 }
 
 
@@ -124,12 +131,10 @@ h4 {
 
 .button,
 h6 {
-	@include font-size(18);
 	text-align: center;
 	font-style: normal;
 	font-weight: 600;
 	font-family: "Open Sans";
-	margin-top: 24px;
 }
 
 

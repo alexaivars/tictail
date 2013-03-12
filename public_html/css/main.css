@@ -98,15 +98,20 @@ body {
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  color: #FFF;
+  color: #000;
 }
 
 .inverted {
-  color: #000;
+  color: #FFF;
 }
 
 div {
   font-family: Arial;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 p {
@@ -192,7 +197,10 @@ h3 {
   font-style: normal;
   font-weight: 400;
   font-family: "PT Serif";
-  letter-spacing: 3px;
+  letter-spacing: 0.16666667em;
+}
+p + h3 {
+  margin-top: 1.33333333em;
 }
 
 h4 {
@@ -224,13 +232,10 @@ h4 {
 
 .button,
 h6 {
-  font-size: 18px;
-  font-size: 1rem;
   text-align: center;
   font-style: normal;
   font-weight: 600;
   font-family: "Open Sans";
-  margin-top: 24px;
 }
 
 /* TYPO START */
@@ -285,6 +290,44 @@ html, body {
   margin-left: 14.44444444em;
 }
 
+.article {
+  /* Acceptable values are border, content, and padding - content is the default W3C model */
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  padding: 4.5em;
+  margin: 1.11111111em auto 1.11111111em auto;
+}
+
+@media only screen and (min-width: 45em) {
+  .article {
+    border: 1.11111111em solid black;
+    padding: 4.5em;
+    max-width: 36.66666667em;
+  }
+}
+.oldie .article {
+  border: 1.11111111em solid black;
+  padding: 4.5em;
+  max-width: 36.66666667em;
+}
+
+.product-description {
+  /* Acceptable values are border, content, and padding - content is the default W3C model */
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  padding: 1.11111111em;
+  max-width: 36.66666667em;
+  margin: auto;
+}
+
+.product-image {
+  padding: 1.11111111em;
+}
+
 .content-menu {
   text-align: left;
 }
@@ -326,6 +369,35 @@ html, body {
   float: left;
 }
 
+.button {
+  /* Acceptable values are border, content, and padding - content is the default W3C model */
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  line-height: 50px;
+  line-height: 2.77777778rem;
+  display: block;
+  text-transform: uppercase;
+  border: 0.22222222em solid black;
+  max-width: 13.33333333em;
+  margin: auto;
+}
+.button + .button {
+  margin-top: 1.33333333em;
+}
+p + .button {
+  margin-top: 1.33333333em;
+}
+
+.button-text {
+  text-align: center;
+  display: block;
+  text-transform: uppercase;
+  max-width: 13.33333333em;
+  margin: auto;
+}
+
 .swipe {
   overflow: hidden;
   visibility: hidden;
@@ -334,6 +406,10 @@ html, body {
 
 .content-body {
   -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .swipe-wrap {
@@ -411,7 +487,7 @@ html, body {
   display: none;
 }
 
-@media only screen and (min-width: 50em) {
+@media only screen and (min-width: 45em) {
   .teaser {
     width: 25%;
   }

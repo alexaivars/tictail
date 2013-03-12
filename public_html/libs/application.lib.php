@@ -55,6 +55,7 @@ class Prototype {
   * @param array $data the webshop data
   */
 	function render($name = 'frontpage', $type = 'default') {
+		$this->tpl->assign('page',$name);
 		$this->tpl->assign('products',$this->getProducts());
 		$this->tpl->display($name . '.tpl');
   }

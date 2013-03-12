@@ -12,7 +12,6 @@
 
 /* TYPO START */
 
-
 html,body {
 	width: 100%;
 	height: 100%;
@@ -51,6 +50,31 @@ html,body {
 #content {
 	margin-left: em(260);
 	// margin-right: em(20);
+}
+
+.article {
+	@include box-sizing();
+	padding: em(81);
+	margin: em(20) auto em(20) auto;
+
+}
+@include mq-medium-large() {
+.article {
+	border: em(20) solid #000;
+	padding: em(81);
+	max-width: em(660);
+}
+
+}
+
+.product-description {
+	@include box-sizing();
+	padding: em(20);
+	max-width: em(660);
+	margin: auto;
+}
+.product-image {
+	padding: em(20);
 }
 
 .content-menu {
@@ -97,9 +121,29 @@ html,body {
 	float: left;
 }
 
+.button {
+	@include box-sizing();
+	@include line-height(50);
+	display: block;
+	text-transform: uppercase;
+	border: em(4) solid black;
+	max-width: em(240);
+	margin: auto;
+	& + & {
+		margin-top: em(24);
+	}
+	p + & {
+		margin-top: em(24);
+	}
+}
 
-
-
+.button-text {
+	text-align: center;
+	display: block;
+	text-transform: uppercase;
+	max-width: em(240);
+	margin: auto;
+}
 
 .swipe {
 	overflow: hidden;
@@ -108,7 +152,7 @@ html,body {
 }
 
 .content-body {
-	-webkit-backface-visibility: hidden;
+  @include experimental(backface-visibility, hidden );
 }
 .swipe-wrap {
   overflow: hidden;

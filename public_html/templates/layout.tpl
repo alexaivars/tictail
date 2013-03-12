@@ -39,15 +39,15 @@
 			<script src="js/vendor/modernizr-2.6.2.min.js"></script>
 			{block name=head}{/block}
 	</head>
-	<body>
+	<body class="pagetypee-{$page}">
 		{function menu level=0}          {* short-hand *}
 			<ul class="level{$level}">
 			{foreach $data as $entry}
 				{if is_array($entry)}
-					<li>{$entry@key} ({random in=1 out=100})</li>
+					<li><a href="/?p=product">{$entry@key} ({random in=1 out=100})</a></li>
 					{menu data=$entry level=$level+1}
 				{else}
-					<li>{$entry}  ({random in=1 out=100})</li>
+					<li><a href="/?p=product">{$entry}  ({random in=1 out=100})</a></li>
 				{/if}
 			{/foreach}
 			</ul>
@@ -69,9 +69,9 @@
 					<h2>brand</h2>
 					{menu data=$brands}
 					<ul>
-						<li>About</li>
-						<li>Contact</li>
-						<li>FAQ</li>
+						<li><a href="/?p=article">About</a></li>
+						<li><a href="/?p=article">Contact</a></li>
+						<li><a href="/?p=article">FAQ</a></li>
 					</ul>
 					{/block}
 				</nav>

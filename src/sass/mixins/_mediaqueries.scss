@@ -9,9 +9,9 @@
 ****************************************************************************** */
 
 $xsmall	: 0;		// 0 Ref IPHONES
-$small	: 38em; // Ref IPADS PORTRAIT
-$medium	: 50em; // Ref IPADS LANDSCAPE, SMALL LAPTOPS
-$large : 60em;
+$small	: em(612, $basefont); // Ref IPADS PORTRAIT
+$medium	: em(810, 18); // Ref IPADS LANDSCAPE, SMALL LAPTOPS
+$large  : em(1008, 18);
 
 
 // RETINA
