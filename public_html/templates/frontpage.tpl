@@ -28,15 +28,15 @@
 	{assign var='count' value=$count|default:'15'}
 	<section class="grid">
 	{foreach from=$products key=index item=product}
-		<a href="/?p=product">
 		<article class="teaser">
+		<a href="/?p=product">
 			<div class="teaser-gutter"><div class="teaser-wrapper">
 				<figure class="teaser-content">
 					<img src="{$product->file}" alt="{$product->name}" />
 				</figure>
 			</div></div>
-		</article>
 		</a>
+		</article>
 	{/foreach}
 	</section>
 

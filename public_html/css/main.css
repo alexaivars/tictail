@@ -453,6 +453,19 @@ p + .button {
   margin: 1.11111111em;
 }
 
+.no-touch .teaser:hover .teaser-wrapper:before,
+.teaser.hover .teaser-wrapper:before {
+  display: block;
+  content: '';
+  position: absolute;
+  z-index: 10;
+  background: red;
+  width: 100%;
+  height: 100%;
+  -moz-opacity: 0.30;
+  opacity: 0.30;
+}
+
 .teaser-gutter {
   padding: 0.55555556em;
 }

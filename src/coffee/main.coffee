@@ -43,6 +43,17 @@ $(document).ready ->
   # disable the dragging of images on desktop browsers
   $("img").on "dragstart", () ->
     return false
+  
+
+  if Modernizr.touch
+    ref = $(".teaser")
+    if ref.length
+      for elm in ref
+        j = $(elm)
+        j.on "touch tap release", j,  (event) ->
+          event.data.toggleClass "hover", (event.type == "touch")
+          if (event.type == "tap")
+            j.find("a")[0].click()
 
   ref = $("X.product-teaser")
   teaser = null
