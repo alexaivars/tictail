@@ -332,6 +332,10 @@ html, body {
   position: relative;
 }
 
+.content-body {
+  -webkit-backface-visibility: hidden;
+}
+
 .swipe-wrap {
   overflow: hidden;
   position: relative;

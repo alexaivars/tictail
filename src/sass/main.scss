@@ -102,9 +102,13 @@ html,body {
 
 
 .swipe {
-  overflow: hidden;
+	overflow: hidden;
   visibility: hidden;
   position: relative;
+}
+
+.content-body {
+	-webkit-backface-visibility: hidden;
 }
 .swipe-wrap {
   overflow: hidden;

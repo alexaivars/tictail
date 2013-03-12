@@ -65,7 +65,9 @@
     style.OTransitionDuration =
     style.transitionDuration = _speed + 'ms'
 
-    style.webkitTransform = "translate(#{_dist}px,0) translateZ(0)"
+    # style.webkitTransform = "translate3d(#{_dist}px,0) translateZ(0)"
+    style.webkitTransform = "translate3d(#{_dist}px, 0, 0) scale3d(1,1,1)"
+    # style.webkitTransform = "translate(#{_dist}px,0) translateZ(0)"
     style.msTransform =
     style.MozTransform =
     style.OTransform = "translateX(#{_dist}px)"
