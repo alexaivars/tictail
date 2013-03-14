@@ -10,6 +10,7 @@ window.console ?=
 ################################################################################
 
 # requestAnimationFrame and cancel polyfill
+###
 (->
   lastTime = 0
   vendors = ["ms", "moz", "webkit", "o"]
@@ -32,9 +33,12 @@ window.console ?=
     window.cancelAnimationFrame = (id) ->
       clearTimeout id
 )()
-
-
+###
 # jquery document ready
+
+hover = (event) ->
+  event.data.toggleClass "hover", (event.type == "touch")
+
 $(document).ready ->
   console.log "\\(x.×)/we are kramgo\\(x.×)/"
   console.log "-----^*_lopiloopilopi_*^-----"
@@ -44,6 +48,14 @@ $(document).ready ->
   $("img").on "dragstart", () ->
     return false
   
+  ### 
+  mySwipe = new Swipe(document.getElementById("slider"),
+    continuous: true
+    disableScroll: false
+    stopPropagation: false
+    auto: 0
+    delay: 100
+  )
 
   if Modernizr.touch
     ref = $(".teaser")
@@ -51,7 +63,7 @@ $(document).ready ->
       for elm in ref
         j = $(elm)
         j.on "touch tap release", j,  (event) ->
-          event.data.toggleClass "hover", (event.type == "touch")
+          requestAnimationFrame (event) => hover(event) 
           if (event.type == "tap")
             j.find("a")[0].click()
 
@@ -72,12 +84,8 @@ $(document).ready ->
       flexbox = null
   
   new SlideMenu $("#container"), $("#nav"), $("#content")
+ ###
 
-  window.mySwipe = new Swipe(document.getElementById("slider"),
-    continuous: true
-    disableScroll: false
-    stopPropagation: false
-  )
 
 class SlideMenu
   

@@ -1,5 +1,5 @@
 (function() {
-  var FlexBox, SlideMenu, Teaser, _ref;
+  var FlexBox, SlideMenu, Teaser, hover, _ref;
 
   if ((_ref = window.console) == null) {
     window.console = {
@@ -7,87 +7,81 @@
     };
   }
 
-  (function() {
-    var lastTime, vendors, x;
-    lastTime = 0;
-    vendors = ["ms", "moz", "webkit", "o"];
-    x = 0;
-    while (x < vendors.length && !window.requestAnimationFrame) {
-      window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
-      window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
-      ++x;
-    }
-    if (!window.requestAnimationFrame) {
-      window.requestAnimationFrame = function(callback, element) {
-        var currTime, id, timeToCall;
-        currTime = new Date().getTime();
-        timeToCall = Math.max(0, 16 - (currTime - lastTime));
-        id = window.setTimeout(function() {
-          return callback(currTime + timeToCall);
-        }, timeToCall);
-        lastTime = currTime + timeToCall;
-        return id;
-      };
-    }
-    if (!window.cancelAnimationFrame) {
-      return window.cancelAnimationFrame = function(id) {
-        return clearTimeout(id);
-      };
-    }
-  })();
+  /*
+  (->
+    lastTime = 0
+    vendors = ["ms", "moz", "webkit", "o"]
+    x = 0
+  
+    while x < vendors.length and not window.requestAnimationFrame
+      window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"]
+      window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] or window[vendors[x] + "CancelRequestAnimationFrame"]
+      ++x
+    unless window.requestAnimationFrame
+      window.requestAnimationFrame = (callback, element) ->
+        currTime = new Date().getTime()
+        timeToCall = Math.max(0, 16 - (currTime - lastTime))
+        id = window.setTimeout(->
+          callback currTime + timeToCall
+        , timeToCall)
+        lastTime = currTime + timeToCall
+        id
+    unless window.cancelAnimationFrame
+      window.cancelAnimationFrame = (id) ->
+        clearTimeout id
+  )()
+  */
+
+
+  hover = function(event) {
+    return event.data.toggleClass("hover", event.type === "touch");
+  };
 
   $(document).ready(function() {
-    var elm, flexbox, j, ref, teaser, _i, _j, _k, _len, _len1, _len2;
     console.log("\\(x.×)/we are kramgo\\(x.×)/");
     console.log("-----^*_lopiloopilopi_*^-----");
     console.log("Copyright Alexander Aivars");
-    $("img").on("dragstart", function() {
+    return $("img").on("dragstart", function() {
       return false;
     });
-    if (Modernizr.touch) {
-      ref = $(".teaser");
-      if (ref.length) {
-        for (_i = 0, _len = ref.length; _i < _len; _i++) {
-          elm = ref[_i];
-          j = $(elm);
-          j.on("touch tap release", j, function(event) {
-            event.data.toggleClass("hover", event.type === "touch");
-            if (event.type === "tap") {
-              return j.find("a")[0].click();
-            }
-          });
-        }
-      }
-    }
-    ref = $("X.product-teaser");
-    teaser = null;
-    if (ref.length) {
-      for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
-        elm = ref[_j];
-        if (!teaser) {
-          teaser = new Teaser();
-        }
-        teaser.add($(elm));
-      }
-    }
-    if (teaser) {
-      teaser.draw();
-    }
-    ref = $(".jsFlexbox");
-    if (ref.length) {
-      for (_k = 0, _len2 = ref.length; _k < _len2; _k++) {
-        elm = ref[_k];
-        flexbox = new FlexBox($(elm));
-        flexbox.draw();
-        flexbox = null;
-      }
-    }
-    new SlideMenu($("#container"), $("#nav"), $("#content"));
-    return window.mySwipe = new Swipe(document.getElementById("slider"), {
-      continuous: true,
-      disableScroll: false,
+    /* 
+    mySwipe = new Swipe(document.getElementById("slider"),
+      continuous: true
+      disableScroll: false
       stopPropagation: false
-    });
+      auto: 0
+      delay: 100
+    )
+    
+    if Modernizr.touch
+      ref = $(".teaser")
+      if ref.length
+        for elm in ref
+          j = $(elm)
+          j.on "touch tap release", j,  (event) ->
+            requestAnimationFrame (event) => hover(event) 
+            if (event.type == "tap")
+              j.find("a")[0].click()
+    
+    ref = $("X.product-teaser")
+    teaser = null
+    if ref.length
+      for elm in ref
+        unless teaser
+          teaser = new Teaser()
+        teaser.add($(elm))
+    if teaser then teaser.draw()
+    
+    ref = $(".jsFlexbox")
+    if ref.length
+      for elm in ref
+        flexbox = new FlexBox($(elm))
+        flexbox.draw()
+        flexbox = null
+    
+    new SlideMenu $("#container"), $("#nav"), $("#content")
+    */
+
   });
 
   SlideMenu = (function() {
