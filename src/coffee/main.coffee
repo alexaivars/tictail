@@ -66,6 +66,7 @@ $(document).ready ->
     continuous: true
     disableScroll: false
     stopPropagation: false
+    mouse: true
     auto: 0
     delay: 15000
   )

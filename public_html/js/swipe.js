@@ -66,8 +66,13 @@
       this.interval = null;
       this.touch = Hammer(this.container);
       this.touch.on("touch dragleft swipeleft dragright swiperight release", function(event) {
-        return _this.handleEvent(event);
+        return _this.handleTouch(event);
       });
+      if (options.mouse) {
+        this.touch.on("click mousemove mouseout", function(event) {
+          return _this.handleMouse(event);
+        });
+      }
       this.onresize = function() {
         return requestAnimationFrame(function() {
           return _this.setup();
@@ -141,6 +146,7 @@
         }
       }
       this.touch.off("touch dragleft swipeleft dragright swiperight release");
+      this.touch.off("click mousemove mouseout");
       if (BROWSER.addEventListener) {
         window.removeEventListener("resize", this.onresize);
       } else {
@@ -149,10 +155,12 @@
     };
 
     Swipe.prototype.setup = function() {
-      var pos, slide;
+      var bounds, pos, slide;
       this.slides = this.element.children;
       this.slidePos = new Array(this.slides.length);
-      this.width = this.container.getBoundingClientRect().width || this.container.offsetWidth;
+      bounds = this.container.getBoundingClientRect();
+      this.width = bounds.width || this.container.offsetWidth;
+      this.height = bounds.height || this.container.offsetHeight;
       this.element.style.width = (this.slides.length * this.width) + 'px';
       pos = this.slides.length;
       while (pos--) {
@@ -278,7 +286,46 @@
       }
     };
 
-    Swipe.prototype.handleEvent = function(event) {
+    Swipe.prototype.handleMouse = function(event) {
+      var bounds;
+      if (!this.interactive) {
+        if (event.type === "click") {
+          if (this.clickAction === "next") {
+            this.next();
+          }
+          if (this.clickAction === "prev") {
+            this.prev();
+          }
+        } else if (event.type === "mouseout") {
+          bounds = this.container.getBoundingClientRect();
+          if (event.clientY <= bounds.top || event.clientY >= (bounds.height + bounds.top) || event.clientX <= bounds.left || event.clientX >= (bounds.width + bounds.left)) {
+            this.container.removeAttribute("data-click");
+            this.clickAction = "none";
+          }
+        } else if (event.clientX > this.width * 0.5) {
+          if (this.clickAction === "next") {
+            return;
+          }
+          this.container.setAttribute("data-click", "next");
+          this.clickAction = "next";
+        } else {
+          if (this.clickAction === "prev") {
+            return;
+          }
+          this.container.setAttribute("data-click", "prev");
+          this.clickAction = "prev";
+        }
+      } else {
+        if (this.clickAction === "none") {
+          return;
+        }
+        console.log("crap");
+        this.container.removeAttribute("data-click");
+        this.clickAction = "none";
+      }
+    };
+
+    Swipe.prototype.handleTouch = function(event) {
       var deltaX, isPastBounds, isValidSlide,
         _this = this;
       event.stopPropagation();

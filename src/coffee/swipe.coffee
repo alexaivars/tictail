@@ -64,7 +64,11 @@ class (exports ? this).Swipe
   
     # setup initial vars
     @touch = Hammer @container
-    @touch.on "touch dragleft swipeleft dragright swiperight release", (event) => @handleEvent(event)
+    @touch.on "touch dragleft swipeleft dragright swiperight release", (event) => @handleTouch(event)
+    
+    if options.mouse
+      @touch.on "click mousemove mouseout", (event) => @handleMouse(event)
+
     @onresize = () =>
       requestAnimationFrame () => @setup()
  
@@ -126,7 +130,7 @@ class (exports ? this).Swipe
       if BROWSER.transitions then @translate(pos, 0, 0)
     #removed event listeners
     @touch.off "touch dragleft swipeleft dragright swiperight release"
-    
+    @touch.off "click mousemove mouseout"
     if BROWSER.addEventListener
       window.removeEventListener "resize", @onresize
     else
@@ -141,8 +145,9 @@ class (exports ? this).Swipe
     @slidePos = new Array @slides.length
     
     # determine width of each slide
-    @width = @container.getBoundingClientRect().width || @container.offsetWidth
-
+    bounds = @container.getBoundingClientRect()
+    @width = bounds.width || @container.offsetWidth
+    @height = bounds.height || @container.offsetHeight
     @element.style.width = (@slides.length * @width) + 'px'
     
     # stack slide elements
@@ -251,8 +256,37 @@ class (exports ? this).Swipe
       @translate(@index-1, @lastDelta + @slidePos[@index-1], 0)
       @translate(@index, @lastDelta + @slidePos[@index], 0)
       @translate(@index+1, @lastDelta + @slidePos[@index+1], 0)
-    
-  handleEvent: (event) ->
+  
+  handleMouse: (event) ->
+    unless @interactive
+      if event.type == "click"
+        if @clickAction == "next" then @next()
+        if @clickAction == "prev" then @prev()
+      else if event.type == "mouseout"
+        bounds = @container.getBoundingClientRect()
+        if event.clientY <= bounds.top ||
+           event.clientY >= (bounds.height + bounds.top) ||
+           event.clientX <= bounds.left ||
+           event.clientX >= (bounds.width + bounds.left)
+            
+          @container.removeAttribute "data-click"
+          @clickAction = "none"
+      else if event.clientX > @width*0.5
+        if @clickAction == "next" then return
+        @container.setAttribute "data-click", "next"
+        @clickAction = "next"
+      else
+        if @clickAction == "prev" then return
+        @container.setAttribute "data-click", "prev"
+        @clickAction = "prev"
+    else
+      if @clickAction == "none" then return
+      console.log "crap"
+      @container.removeAttribute "data-click"
+      @clickAction = "none"
+    return
+
+  handleTouch: (event) ->
     event.stopPropagation()
     event.stopImmediatePropagation()
     deltaX = event.gesture.deltaX

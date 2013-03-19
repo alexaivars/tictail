@@ -209,7 +209,28 @@ html,body {
 .swipe-wrap {
 }
 
+.swipe[data-click="next"] {
+	cursor: url(next.png) 32 32, e-resize;
+}
+.swipe[data-click="prev"] {
+	cursor: url(prev.png) 0 32, w-resize;
+}
+
+.lt-ie9 {
+	.swipe[data-click="next"] {
+		cursor: url(css/next.cur), e-resize;
+	}
+	.swipe[data-click="prev"] {
+		cursor: url(css/prev.cur), w-resize;
+	}
+}
+
+.product-image {
+	position: relative;
+}
+
 .hero .teaser {
+
 	float: none;
 	width: 100%;
 }
