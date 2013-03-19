@@ -10,7 +10,7 @@
 {block name=body}
 	<header class="main-header">
 		<a href="/">
-		<h1>My Tictail Store</h1>
+		<h1 class="logotype">My Tictail Store</h1>
 		</a>
 	</header>
 	<article class="product">
@@ -25,17 +25,27 @@
 			</div>
 		</figure>
 		<div class="product-description">
-			<h2>A.P.C. Backpack Dark Green</h2>
+			<h2 class="product-title">A.P.C. Backpack Dark Green</h2>
 			<p>The Backpack from A.P.C. is a classically designed rucksack, made from ultra-durable Japanese Nylon. It features a zipped main compartment and front pocket, adjustable padded shoulder straps and a waist strap, and plenty of inner storage pockets. This backpack is perfect for daily usage while ensuring an artsy look.</p>
-			<h3>Material:</h3>
-			<p>100% nylon, 100% calf leather base</p>
-			<h3>Measurements:</h3>
-			<p>Width 52cm, height 28cm, depth 36cm</p>
-		
-			<a href="#" class="button">Select size</a>
-			<a href="#" class="button disabled">Add to cart</a>
+			<div class="product-cart">
+				<form class="button button-select">
+					<select name="variations" id="variations">	
+						<option value="small" data-noprefix="true">Small</option>
+						<option value="medium">Medium</option>
+						<option value="large">Large</option>
+					</select>
+					<noscript>
+						<button type="submit" value="go" name="go"/>;
+					</noscript>
+					<label class="selectLabel jsSelectLable" for="variations" data-prefix="">Small</label>				
+				</form>	
+				<a href="#" class="button">Add to cart</a>
+				<a href="#" class="button disabled">Add to cart</a>
+			</div>
+			<div class="product-legal">
 			<a href="#" class="button-text">Return policy</a>
-			<a href="#" class="button-text">Terms &amp; conditions</a>
+				<a href="#" class="button-text">Terms &amp; conditions</a>
+			</div>
 		</div>
 	
 	</article>

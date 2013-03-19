@@ -61,6 +61,14 @@
 		<div id="container"> 
 			<aside id="nav">
 				<nav class="main-navigation">
+						<div id="search_container" class="search-wrapper">
+					    <form id="tictail_search" class="tictail_form tictail_search">
+      			  	<input id="tictail_search_box" name="q" autocomplete="off" type="text" class="placeholder search-input" placeholder="Search...">
+					    	<div id="tictail_search_results" class="results_box results-box search-result" style="display: none; ">No products found</div>
+							</form>
+            </div>
+					
+					
 					{block name=navigation}
 					{* run the array through the function *}
 					<h2>categorie</h2>
@@ -68,7 +76,7 @@
 
 					<h2>brand</h2>
 					{menu data=$brands}
-					<ul>
+					<ul class="legal">
 						<li><a href="/?p=article">About</a></li>
 						<li><a href="/?p=article">Contact</a></li>
 						<li><a href="/?p=article">FAQ</a></li>

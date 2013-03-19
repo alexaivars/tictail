@@ -60,15 +60,18 @@
       this.slidePos = null;
       this.width = null;
       this.timer = null;
+      this.interactive = false;
+      this.swiped = false;
       this.delay = options.auto || 0;
       this.interval = null;
       this.touch = Hammer(this.container);
       this.touch.on("touch dragleft swipeleft dragright swiperight release", function(event) {
         return _this.handleEvent(event);
       });
-      this.isSwipe = false;
       this.onresize = function() {
-        return offloadFn(_this.setup.call(_this));
+        return requestAnimationFrame(function() {
+          return _this.setup();
+        });
       };
       if (BROWSER.transitions) {
         fn = (function(event) {
@@ -81,15 +84,17 @@
         this.element.addEventListener('transitionend', fn, false);
       }
       if (BROWSER.addEventListener) {
-        window.addEventListener("resize", this.onresize);
-      } else {
-        window.onresize = function() {
+        window.addEventListener("resize", function() {
           return _this.onresize();
-        };
+        });
+      } else {
+        window.onresize = this.onresize;
       }
       this.setup();
       if (this.delay) {
-        this.begin();
+        setTimeout((function() {
+          return _this.begin();
+        }), options.delay || 0);
       }
       api = {
         setup: function() {
@@ -243,12 +248,10 @@
     };
 
     Swipe.prototype.begin = function() {
-      var fn,
-        _this = this;
-      fn = function() {
+      var _this = this;
+      this.interval = setTimeout((function() {
         return _this.next();
-      };
-      this.interval = setTimeout(fn, this.delay);
+      }), this.delay);
     };
 
     Swipe.prototype.stop = function() {
@@ -257,20 +260,18 @@
     };
 
     Swipe.prototype.handleTransition = function(event) {
-      var fn,
-        _this = this;
+      var _this = this;
       if (parseInt(event.target.getAttribute('data-index'), 10) === this.index) {
-        fn = function() {
-          if (_this.delay) {
+        if (this.delay) {
+          requestAnimationFrame(function() {
             return _this.begin();
-          }
-        };
-        offloadFn(fn);
+          });
+        }
       }
     };
 
     Swipe.prototype.render = function() {
-      if (this.mouseIsDown) {
+      if (this.interactive) {
         this.translate(this.index - 1, this.lastDelta + this.slidePos[this.index - 1], 0);
         this.translate(this.index, this.lastDelta + this.slidePos[this.index], 0);
         return this.translate(this.index + 1, this.lastDelta + this.slidePos[this.index + 1], 0);
@@ -283,11 +284,11 @@
       event.stopPropagation();
       event.stopImmediatePropagation();
       deltaX = event.gesture.deltaX;
+      clearTimeout(this.interval);
       switch (event.type) {
         case "touch":
-          clearTimeout(this.interval);
-          this.mouseIsDown = true;
-          this.isSwipe = false;
+          this.interactive = true;
+          this.swiped = false;
           break;
         case "dragright":
         case "dragleft":
@@ -303,12 +304,12 @@
         case "swiperight":
         case "swipeleft":
           event.gesture.preventDefault();
-          this.mouseIsDown = false;
-          this.isSwipe = true;
+          this.interactive = false;
+          this.swiped = false;
           break;
         case "release":
-          this.mouseIsDown = false;
-          isValidSlide = Math.abs(deltaX) > this.width * 0.5 || this.isSwipe;
+          this.interactive = false;
+          isValidSlide = Math.abs(deltaX) > this.width * 0.5 || this.swiped;
           isPastBounds = !this.index && deltaX > 0 || this.index === this.slides.length - 1 && deltaX < 0;
           if (isValidSlide && !isPastBounds) {
             if (event.gesture.direction === "left") {

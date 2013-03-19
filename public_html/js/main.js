@@ -1,5 +1,5 @@
 (function() {
-  var FlexBox, SlideMenu, Teaser, hover, _ref;
+  var ElementLayout, FlexBox, SelectLable, SlideMenu, Teaser, ToggleElement, hover, _ref;
 
   if ((_ref = window.console) == null) {
     window.console = {
@@ -38,31 +38,52 @@
   };
 
   $(document).ready(function() {
+    var elm, instance, layout, mySwipe, ref, _i, _j, _len, _len1;
     console.log("\\(x.×)/we are kramgo\\(x.×)/");
     console.log("-----^*_lopiloopilopi_*^-----");
     console.log("Copyright Alexander Aivars");
-    return $("img").on("dragstart", function() {
+    $("img").on("dragstart", function() {
       return false;
     });
-    /* 
-    mySwipe = new Swipe(document.getElementById("slider"),
-      continuous: true
-      disableScroll: false
-      stopPropagation: false
-      auto: 0
-      delay: 100
-    )
-    
+    layout;
+    ref = $(".js-align-vertical");
+    if (ref.length) {
+      for (_i = 0, _len = ref.length; _i < _len; _i++) {
+        elm = ref[_i];
+        if (!layout) {
+          layout = new ElementLayout();
+        }
+        layout.add(elm);
+      }
+      layout.render();
+    }
+    ref = $(".jsSelectLable");
+    if (ref.length) {
+      for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
+        elm = ref[_j];
+        instance = new SelectLable(elm);
+      }
+    }
+    mySwipe = new Swipe(document.getElementById("slider"), {
+      continuous: true,
+      disableScroll: false,
+      stopPropagation: false,
+      auto: 0,
+      delay: 15000
+    });
+    /*
     if Modernizr.touch
       ref = $(".teaser")
       if ref.length
         for elm in ref
           j = $(elm)
           j.on "touch tap release", j,  (event) ->
-            requestAnimationFrame (event) => hover(event) 
             if (event.type == "tap")
               j.find("a")[0].click()
+            else
+              requestAnimationFrame ( (event) => hover(event) )
     
+     
     ref = $("X.product-teaser")
     teaser = null
     if ref.length
@@ -78,11 +99,59 @@
         flexbox = new FlexBox($(elm))
         flexbox.draw()
         flexbox = null
-    
-    new SlideMenu $("#container"), $("#nav"), $("#content")
     */
 
+    return new SlideMenu($("#container"), $("#nav"), $("#content"));
   });
+
+  ElementLayout = (function() {
+
+    function ElementLayout() {
+      var _this = this;
+      this.elements = [];
+      this.invalid = false;
+      this.waiting = false;
+      $(window).on("resize", function(event) {
+        return _this.render();
+      });
+      return;
+    }
+
+    ElementLayout.prototype.add = function(elm) {
+      var obj;
+      this.invalid = true;
+      obj = $(elm);
+      this.elements.push(obj);
+    };
+
+    ElementLayout.prototype.render = function() {
+      var _this = this;
+      if (!this.waiting) {
+        requestAnimationFrame(function() {
+          return _this.draw();
+        });
+      }
+      this.waiting = true;
+    };
+
+    ElementLayout.prototype.draw = function() {
+      var elm, _i, _j, _len, _len1, _ref1, _ref2;
+      this.waiting = false;
+      _ref1 = this.elements;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        elm = _ref1[_i];
+        elm.py = Math.floor((elm.parent().outerHeight() - elm.outerHeight()) * 0.5);
+      }
+      _ref2 = this.elements;
+      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+        elm = _ref2[_j];
+        elm.css("bottom", elm.py);
+      }
+    };
+
+    return ElementLayout;
+
+  })();
 
   SlideMenu = (function() {
 
@@ -105,6 +174,7 @@
     }
 
     SlideMenu.prototype.touchHandler = function(event) {
+      event.preventDefault();
       switch (event.type) {
         case "touch":
           this.delta = this.dragX;
@@ -253,6 +323,104 @@
     };
 
     return Teaser;
+
+  })();
+
+  SelectLable = (function() {
+
+    SelectLable.prototype.prefix = '';
+
+    function SelectLable(element) {
+      var prefix,
+        _this = this;
+      this.source = (element instanceof jQuery ? element : $(element));
+      prefix = this.source.data('prefix');
+      if (prefix) {
+        this.prefix = prefix;
+      }
+      if (this.source[0].tagName.toLowerCase() === 'label') {
+        this.target = $("#" + this.source.attr('for'));
+      } else {
+        this.target = $("#" + this.source.data('for'));
+      }
+      if (this.target) {
+        this.target.on('change', function(event) {
+          return _this.targetChanged();
+        });
+        this.targetChanged();
+      }
+      return;
+    }
+
+    SelectLable.prototype.targetChanged = function() {
+      var $elm;
+      try {
+        $elm = $(this.target[0].options[this.target[0].selectedIndex]);
+        if (!$elm.data('noprefix')) {
+          return this.source.html(this.prefix + $elm[0].innerHTML);
+        } else {
+          return this.source.html($elm[0].innerHTML);
+        }
+      } catch (e) {
+        console.log(this.source.attr('for'));
+        console.log("Missing target element for this label");
+        return console.log(this.source);
+      }
+    };
+
+    return SelectLable;
+
+  })();
+
+  ToggleElement = (function() {
+
+    function ToggleElement(element) {
+      var elm, _i, _len, _ref1, _target,
+        _this = this;
+      this.source = (element instanceof jQuery ? element : $(element));
+      this.statusClass = this.source.data("statusclass") || "toggled";
+      this.activeClass = this.source.data("activeclass") || "active";
+      this.toggleClass = this.source.data("toggleclass") || "jsDisplayNone";
+      _target = this.source.data('target');
+      if (_target === 'previous') {
+        this.target = [this.source.prev()];
+      } else if (_target === 'parent') {
+        this.target = [this.source.parent()];
+      } else if (_target.indexOf('#') >= 0 || _target.indexOf('.') >= 0) {
+        this.target = [];
+        _ref1 = _target.split(/\s+/);
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          elm = _ref1[_i];
+          this.target.push($(elm));
+        }
+      } else {
+        this.target = [this.source.next()];
+      }
+      if (this.target) {
+        this.source.on("click", function(event) {
+          event.stopPropagation();
+          _this.clicked(event);
+        });
+      }
+      return;
+    }
+
+    ToggleElement.prototype.click = function() {
+      return this.source.click();
+    };
+
+    ToggleElement.prototype.clicked = function(event) {
+      var _elm, _i, _len, _ref1;
+      event.preventDefault();
+      _ref1 = this.target;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        _elm = _ref1[_i];
+        _elm.toggleClass(this.toggleClass);
+      }
+      return this.source.toggleClass(this.statusClass);
+    };
+
+    return ToggleElement;
 
   })();
 

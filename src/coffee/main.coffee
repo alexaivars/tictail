@@ -48,25 +48,41 @@ $(document).ready ->
   $("img").on "dragstart", () ->
     return false
   
-  ### 
+  layout
+  ref = $(".js-align-vertical")
+  if ref.length
+    for elm in ref
+      unless layout
+        layout = new ElementLayout()
+      layout.add(elm)
+    layout.render()
+  
+  ref = $(".jsSelectLable")
+  if ref.length
+    for elm in ref
+      instance = new SelectLable(elm)
+
   mySwipe = new Swipe(document.getElementById("slider"),
     continuous: true
     disableScroll: false
     stopPropagation: false
     auto: 0
-    delay: 100
+    delay: 15000
   )
-
+  
+  ###
   if Modernizr.touch
     ref = $(".teaser")
     if ref.length
       for elm in ref
         j = $(elm)
         j.on "touch tap release", j,  (event) ->
-          requestAnimationFrame (event) => hover(event) 
           if (event.type == "tap")
             j.find("a")[0].click()
+          else
+            requestAnimationFrame ( (event) => hover(event) )
 
+   
   ref = $("X.product-teaser")
   teaser = null
   if ref.length
@@ -83,10 +99,41 @@ $(document).ready ->
       flexbox.draw()
       flexbox = null
   
+  ###
   new SlideMenu $("#container"), $("#nav"), $("#content")
- ###
 
+class ElementLayout
+  constructor: ->
+    @elements = []
+    @invalid = false
+    @waiting = false
+    $(window).on "resize", (event) => @render()
+    return
 
+  add: (elm) ->
+    @invalid = true
+    obj = $(elm)
+    @elements.push obj
+    return
+  
+  render: () ->
+    unless @waiting
+      requestAnimationFrame () => @draw()
+    @waiting = true
+
+    return
+
+  draw: () ->
+    # Do nothing if ther's no change.
+    @waiting = false
+    for elm in @elements
+      elm.py = Math.floor (elm.parent().outerHeight() - elm.outerHeight() ) * 0.5
+      
+    for elm in @elements
+      elm.css "bottom", elm.py
+
+    return
+  
 class SlideMenu
   
   constructor: (@container, @menu, @content) ->
@@ -102,6 +149,7 @@ class SlideMenu
 
   touchHandler: (event) ->
     # disable browser scrolling
+    event.preventDefault()
     switch event.type
       when "touch"
         @delta = @dragX
@@ -194,3 +242,75 @@ class Teaser
     unless event.target.nodeName.toLowerCase() == "a"
       elm.find("a")[0].click()
     return
+ 
+class SelectLable
+  
+  prefix: ''
+
+  constructor: (element) ->
+    @source = (if (element instanceof jQuery) then element else $(element))
+    prefix = @source.data('prefix')
+    if prefix
+      @prefix = prefix
+  
+
+    if @source[0].tagName.toLowerCase() is 'label'
+      @target = $("#" + @source.attr('for'))
+    else
+      @target = $("#" + @source.data('for'))
+
+    if @target
+      @target.on 'change', (event) => @targetChanged()
+      @targetChanged()
+    return
+
+  targetChanged: () ->
+    try
+      $elm = $(@target[0].options[@target[0].selectedIndex])
+      if not $elm.data('noprefix')
+        @source.html(@prefix + $elm[0].innerHTML)
+      else
+        @source.html($elm[0].innerHTML)
+    catch e
+      console.log @source.attr('for')
+      console.log "Missing target element for this label"
+      console.log @source
+
+class ToggleElement
+  constructor: (element) ->
+    @source = (if (element instanceof jQuery) then element else $(element))
+    @statusClass = @source.data("statusclass") or "toggled"
+    @activeClass = @source.data("activeclass") or "active"
+    @toggleClass = @source.data("toggleclass") or "jsDisplayNone"
+    
+    _target = @source.data('target')
+    if _target == 'previous'
+      @target = [@source.prev()]
+    else if _target == 'parent'
+      @target = [@source.parent()]
+    else if _target.indexOf('#') >= 0 || _target.indexOf('.') >= 0
+      @target = []
+      for elm in _target.split(/\s+/)
+        @target.push $(elm)
+    else
+      @target = [@source.next()]
+
+    if @target
+      @source.on "click", (event) =>
+        event.stopPropagation()
+        @clicked event
+        return
+    return
+  click: () ->
+    @source.click()
+
+  clicked: (event) ->
+    event.preventDefault()
+    
+    for _elm in @target
+      # console.log $(window).scrollTop()
+      # console.log _elm.offset()
+      _elm.toggleClass @toggleClass
+    @source.toggleClass @statusClass
+
+

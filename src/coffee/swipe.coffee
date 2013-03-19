@@ -1,6 +1,6 @@
 
 "use strict"
-# polyfil
+# requestAnimationFrame polyfil
 (->
   lastTime = 0
   vendors = ["ms", "moz", "webkit", "o"]
@@ -54,7 +54,9 @@ class (exports ? this).Swipe
     @slidePos = null
     @width = null
     @timer = null
-    
+    @interactive = false
+    @swiped = false
+ 
     # setup auto slideshow
     @delay = options.auto || 0
     
@@ -63,9 +65,8 @@ class (exports ? this).Swipe
     # setup initial vars
     @touch = Hammer @container
     @touch.on "touch dragleft swipeleft dragright swiperight release", (event) => @handleEvent(event)
-    @isSwipe = false
     @onresize = () =>
-      offloadFn(@setup.call(@))
+      requestAnimationFrame () => @setup()
  
     if BROWSER.transitions
       fn = ((event) => @handleTransition(event))
@@ -75,18 +76,18 @@ class (exports ? this).Swipe
       @element.addEventListener 'otransitionend', fn, false
       @element.addEventListener 'transitionend', fn, false
     if BROWSER.addEventListener
-      window.addEventListener "resize", @onresize
+      window.addEventListener "resize", () => @onresize()
     else
-      window.onresize = () =>
-        @onresize()
+      window.onresize = @onresize
 
     # setup
     @setup()
     
     # start auto slideshow if applicable
-    @begin() if @delay
+    if @delay
+      setTimeout (() => @begin()), options.delay || 0
     
-    #setup our exposed public api
+    #return our exposed public api and hide our "private" methods
     api =
       setup: =>
         @setup()
@@ -131,6 +132,7 @@ class (exports ? this).Swipe
     else
       window.onresize = null
     return
+  
   setup: ->
     # cache slides
     @slides = @element.children
@@ -170,8 +172,6 @@ class (exports ? this).Swipe
     style.msTransitionDuration =
     style.OTransitionDuration =
     style.transitionDuration = speed + 'ms'
-
-    # style.webkitTransform = "translate3d(#{dist}px,0) translateZ(0)"
     style.webkitTransform = "translate3d(#{dist}px, 0, 0) scale3d(1,1,1)"
     # style.webkitTransform = "translate(#{_dist}px,0) translateZ(0)"
     style.msTransform =
@@ -232,8 +232,7 @@ class (exports ? this).Swipe
     return
 
   begin: ->
-    fn = () => @next()
-    @interval = setTimeout(fn, @delay)
+    @interval = setTimeout((() => @next()), @delay)
     return
 
   stop: ->
@@ -243,42 +242,39 @@ class (exports ? this).Swipe
 
   handleTransition: (event) ->
     if (parseInt(event.target.getAttribute('data-index'), 10) == @index)
-      fn = () => @begin() if @delay
-      offloadFn(fn)
+      if @delay
+        requestAnimationFrame () => @begin()
     return
 
   render: ->
-    if(@mouseIsDown)
+    if @interactive
       @translate(@index-1, @lastDelta + @slidePos[@index-1], 0)
       @translate(@index, @lastDelta + @slidePos[@index], 0)
       @translate(@index+1, @lastDelta + @slidePos[@index+1], 0)
     
   handleEvent: (event) ->
-    # prevent page scroll
     event.stopPropagation()
     event.stopImmediatePropagation()
     deltaX = event.gesture.deltaX
+    clearTimeout @interval
     
     switch event.type
       when "touch"
-        clearTimeout @interval
-        @mouseIsDown = true
-        @isSwipe = false
+        @interactive = true
+        @swiped = false
       when "dragright", "dragleft"
         event.gesture.preventDefault()
         # determine resistance level
         deltaX = deltaX / (Math.abs(deltaX) / @width + 1) if not @index and deltaX > 0 or @index is @slides.length - 1 and deltaX < 0
         @lastDelta = deltaX
         requestAnimationFrame () => @render()
-
-
       when "swiperight", "swipeleft"
         event.gesture.preventDefault()
-        @mouseIsDown = false
-        @isSwipe = true
+        @interactive = false
+        @swiped = false
       when "release"
-        @mouseIsDown = false
-        isValidSlide = Math.abs(deltaX) > @width*0.5 || @isSwipe
+        @interactive = false
+        isValidSlide = Math.abs(deltaX) > @width*0.5 || @swiped
         isPastBounds = not @index &&
                        deltaX > 0 ||
                        @index == @slides.length - 1 &&
