@@ -1,0 +1,29 @@
+
+.product_slide {
+	@include experimental(backface-visibility, hidden );
+  display:block;
+  overflow: hidden;
+  // visibility: hidden;
+  overflow: hidden;
+  position: relative;
+}
+.product_slide_wrapper {
+	@include experimental(backface-visibility, hidden );
+  display:block;
+  overflow: hidden;
+  position: relative;
+	width:100%;
+
+}
+.product_slide_figure {
+	@include experimental(backface-visibility, hidden );
+  display:block;
+	float:left;
+  width:100%;
+  position: relative;
+}
+.product_slide_figure img { 
+	display: block;
+	height: 100%;
+	margin: auto;
+}

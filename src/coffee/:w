@@ -1,0 +1,37 @@
+loadImage = (elm, fn) ->
+  img = new Image()
+  src = elm.getAttribute("data-src")
+  img.onload = ->
+    unless not elm.parent
+      elm.parent.replaceChild img, elm
+    else
+      elm.src = src
+    (if fn then fn() else null)
+  img.src = src
+
+inViewport = (elm) ->
+  rect = elm.getBoundingClientRect()
+  rect.top >= 0 and rect.left >= 0 and rect.top <= (window.innerHeight or document.documentElement.clientHeight)
+
+addEventListener = (event, fn) ->
+  (if window.addEventListener then @addEventListener(event, fn, false) else (if (window.attachEvent) then @attachEvent("on" + event, fn) else this["on" + event] = fn))
+
+_has = (obj, key) ->
+  Object::hasOwnProperty.call obj, key
+
+images = $("img.lazy")
+processScroll = ->
+  i = 0
+  while i < images.length
+    if inViewport(images[i])
+      tmp = Math.random()
+      loadImage images[i], (num) ->
+        console.log "test"
+        console.log i 
+      (i)
+    i++
+		
+
+processScroll()
+
+# addEventListener "scroll", processScroll

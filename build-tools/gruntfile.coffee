@@ -31,9 +31,9 @@ module.exports = (grunt) ->
         ext: ".js"
     
     regarde:
-      dist:
-        files: "../public_html/**/*"
-        tasks: ["livereload"]
+      # dist:
+      #   files: "../public_html/**/*"
+      #   tasks: ["livereload"]
       style:
         files: "../src/sass/**/*.scss"
         tasks: ["sass:dev"]
@@ -52,4 +52,5 @@ module.exports = (grunt) ->
 
   # grunt.loadNpmTasks "grunt-contrib-watch"
   # Register task(s).
-  grunt.registerTask "default", ['sass:dev','coffee', 'livereload-start', 'regarde']
+  grunt.registerTask "default", ['sass:dev','coffee', 'regarde']
+  # grunt.registerTask "default", ['sass:dev','coffee', 'livereload-start', 'regarde']

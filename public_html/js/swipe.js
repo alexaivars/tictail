@@ -173,7 +173,7 @@
         }
       }
       if (!BROWSER.transitions) {
-        this.element.style.left = (index * -width) + 'px';
+        this.element.style.left = (this.index * -this.width) + 'px';
       }
       this.container.style.visibility = 'visible';
     };
@@ -216,16 +216,19 @@
       if (this.index === to) {
         return;
       }
+      if (speed == null) {
+        speed = this.speed;
+      }
       if (BROWSER.transitions) {
         diff = Math.abs(this.index - to) - 1;
         direction = Math.abs(this.index - to) / (this.index - to);
         while (diff--) {
           this.move((to > this.index ? to : this.index) - diff - 1, this.width * direction, 0);
         }
-        this.move(this.index, this.width * direction, speed || this.speed);
-        this.move(to, 0, speed || this.speed);
+        this.move(this.index, this.width * direction, speed);
+        this.move(to, 0, speed);
       } else {
-        this.animate(this.index * -this.width, to * -this.width, speed || this.speed);
+        this.animate(this.index * -this.width, to * -this.width, speed);
       }
       this.index = to;
       offloadFn(this.options.callback && this.options.callback(this.index, this.slides[this.index]));
@@ -275,6 +278,7 @@
             return _this.begin();
           });
         }
+        this.options.transitionEnd && this.options.transitionEnd.call(event, this.index, this.slides[this.index]);
       }
     };
 
@@ -302,7 +306,7 @@
             this.container.removeAttribute("data-click");
             this.clickAction = "none";
           }
-        } else if (event.clientX > this.width * 0.5) {
+        } else if (event.offsetX > this.width * 0.5) {
           if (this.clickAction === "next") {
             return;
           }
@@ -319,7 +323,6 @@
         if (this.clickAction === "none") {
           return;
         }
-        console.log("crap");
         this.container.removeAttribute("data-click");
         this.clickAction = "none";
       }

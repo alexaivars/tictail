@@ -1,0 +1,103 @@
+
+$box-grid-gutter: 12;
+
+.box-grid%two .box { width: 50%; }
+.box-grid%four .box { width: 25%; }
+.box%left {
+	.box-header {
+		width: 25%;
+		float: left;
+	}
+	.box-body {
+		width: 75%;
+		float: right;
+	}
+}
+.box%right {
+	.box-header {
+		width: 25%;
+		float: right;
+	}
+	.box-body {
+		width: 75%;
+		float: left;
+	}
+}
+
+
+.box-wrapper {
+	background: #EEE;
+	overflow: hidden;
+	position: relative;
+}
+
+.box-header {
+	background: #CCE;
+}
+.box-body {
+	background: #ECC;
+}
+.box-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #C00;
+	visibility:hidden;
+}
+.box:hover {
+	.box-overlay {
+		visibility:visible;
+	}
+}
+
+
+.box {
+	// @extend %right;
+}
+
+
+
+.box-grid {
+	@extend %four;
+	overflow: hidden;
+	margin: 0 em(-$box-grid-gutter) em(-$box-grid-gutter) em(-$box-grid-gutter);
+	.box {
+		float: left;
+	}
+	.box-wrapper {
+		margin: 0 em($box-grid-gutter) em($box-grid-gutter) em($box-grid-gutter);
+	}
+}
+
+.page-container {
+	width: em(400);
+	margin: auto;
+}
+
+
+.box-row {
+	overflow: hidden;
+	width: 100%;
+	clear: both;
+	display: none;
+}
+
+.active .box-header:before {
+	display: block;
+	content: "";
+	width: 32px;
+	height: 32px;
+	margin-left: -16px;
+	position: absolute;;
+	z-index: 1000;
+	left: 50%;
+}
+.box-header img {
+	height: auto;
+	width: 100%;
+	display: block;
+}
+.box-row .box-wrapper {
+	margin-bottom: 0;
+	padding: em(12);
+}

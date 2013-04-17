@@ -1,0 +1,71 @@
+$navigation_width: 200;
+$navigation_color: #000000;
+$content_color: #FFFFFF;
+$unit: 16;
+
+.page {
+	position: relative;
+	overflow: hidden;	
+}
+.page_body {
+	*zoom: 1;
+	position: relative;
+	left:  em(-$navigation_width);
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+}
+.page_navigation {
+	width: em($navigation_width);
+	float: left;
+	margin-right: em(-$navigation_width);
+	height: 100%;
+}
+.page_navigation nav {
+	margin: em($unit);
+}
+
+.page_content {
+	background: $content_color;
+	min-height: 100%;
+	margin-left: em($navigation_width);
+	width: 100%;
+	float: left;
+}
+
+.page_header {
+	display: block;
+	margin-bottom: em($unit*3);
+	a {
+		text-decoration: none;
+		background: red;
+	}
+}
+
+h1 {
+	@include font-size($unit*2);
+	text-align: center;
+	color: #000;
+	text-transform: uppercase;
+}
+
+.page_menu {
+	margin: em($unit) em($unit) 0 em($unit);
+}
+.product_list {
+	margin: em($unit);
+}
+
+.page_body {
+	background: $navigation_color; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: -moz-linear-gradient(left,  $navigation_color em(200), $content_color em(200)); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(em(200),$navigation_color), color-stop(em(200),$content_color)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  $navigation_color em(200),$content_color em(200)); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  $navigation_color em(200),$content_color em(200)); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  $navigation_color em(200),$content_color em(200)); /* IE10+ */
+	background: linear-gradient(to right,  $navigation_color em(200),$content_color em(200)); /* W3C */
+}

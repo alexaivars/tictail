@@ -1,0 +1,96 @@
+$size_stroke: 4;
+$color_stroke: #000;
+
+
+.product_detail_description {
+	@include font-size(18);
+	@include line-height(27);
+	margin: em($unit,18) auto 0 auto;
+	font-style: normal;
+	font-weight: 400;
+	font-family: "PT Serif";
+	text-align: center;
+	max-width: em($unit*33);
+}
+
+p + p {
+	margin-top: em(24,18);
+}
+
+.product_detail_name {
+	@include font-size(24);
+	@include line-height($unit*2);
+	font-weight: 400;
+	font-family: "Open Sans";
+	letter-spacing: em(2,24);
+	margin: em($unit,24) em($unit,24) 0 em($unit,24);
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.product_detail_price {
+	text-align: center;
+	margin: em($unit,18) em($unit,18) 0 em($unit,18);
+}
+
+.product_detail_button {
+	@include experimental(appearance, none);
+	@include font-size(18);
+	@include line-height($unit*2);
+	@include box-sizing();
+	border-collapse:collapse;
+	display: block;
+	font-weight: 400;
+	font-family: "Open Sans";
+	border: em($size_stroke,18) solid $color_stroke;
+	background: #FFF;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	max-width: em($unit*14,18);
+	text-align: center;
+	margin: auto;
+	margin-top: em($unit);
+}
+
+.tictail_button {
+	@extend .product_detail_button;
+}
+
+.variations_select_label {
+	@extend .product_detail_button;
+	display: none;
+}
+.tictail_variations_select {
+	@extend .product_detail_button;
+	display: block;
+	margin-bottom: em(($size_stroke + $unit)*-2 -$unit, 18);
+	opacity: 0;
+}
+.tictail_variations_select + .variations_select_label {
+	display: block;
+}
+
+.product_detail_terms {
+	margin: em($unit*2) auto 0 auto;
+	max-width: em($unit*14);
+	a {
+		@include font-size(12);
+		font-weight: 400;
+		font-family: "Open Sans";		
+		display: block;
+		color: #595959;
+		text-decoration: none;
+		text-transform: uppercase;
+		text-align: center;
+	}
+}
+.product_detail_social {
+	margin: em($unit*2) auto 0 auto;
+	overflow: hidden;
+	text-align: center;
+	.tictail_social_button {
+		padding: 0 em($unit*0.5);
+		display: inline-block;
+	}
+}

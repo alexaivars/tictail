@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!-- 
+     __  __ ______ _______ _______ _______ _______    _______ _______
+	|  |/  |   __ \   _   |   |   |     __|       |  |     __|    ___|
+	|     <|      <       |       |    |  |   -   |__|__     |    ___|
+	|__|\__|___|__|___|___|__|_|__|_______|_______|__|_______|_______|
+	@alexaivars
+-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head xmlns:og="http://opengraphprotocol.org/schema/"
+		xmlns:fb="http://developers.facebook.com/schema/"
+		profile="http://www.w3.org/1999/xhtml/vocab">
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Alex Aivars, Kramgo AB">
+        <meta name="generator" content="Vi IMproved 7.3">
+        <meta name="no-email-collection" content="http://www.metatags.info/nospamharvesting">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>
+            {{store_name}}
+            {{! Add the label of the current navigation item on list pages }}
+            {{#list_page}}{{#navigation}}{{#is_current}}- {{label}}{{/is_current}}{{/navigation}}{{/list_page}}
+            {{! Add the product title on product pages }}
+            {{#product_page}}{{#product}}- {{title}}{{/product}}{{/product_page}}
+            {{! Add "About" on the about page }}
+            {{#about_page}}- About{{/about_page}}
+        </title>
+        
+        <link href='http://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:600,800' rel='stylesheet' type='text/css'>
+        <link href="{{assets_url}}/shared/css/base.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://tictail.krmg.se/css/main.css">
+        <script src="http://tictail.krmg.se/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    
+<body>
+    <div id="container">
+    <aside id="nav">
+        <nav class="main-navigation">
+		    <div id="search_container" class="search-wrapper">
+                {{search}}                
+            </div>
+
+            <h2>categories</h2>
+            <ul class="navigation-categories">
+                {{! Highlight "All items" if we are on a list page and no navigation item is selected }}
+                <li class="{{#list_page}}{{#no_current_navigation}}selected{{/no_current_navigation}}{{/list_page}}">
+                    <a href="{{store_url}}/products">
+                        All items
+                    </a>
+                </li>
+
+                {{#navigation}}
+                <li class="{{#is_current}}selected{{/is_current}}">
+                    <a href="{{url}}">
+                        {{label}}
+                    </a>
+                    {{#is_current}}
+                    {{! Render the submenu if it has any navigation items }}
+                    {{#children?}}
+                    <ul class="child_navigation">
+                        {{#children}}
+                        <li>
+                            <a href="{{url}}">
+                                {{label}}
+                            </a>
+                        </li>
+                        {{/children}}
+                    </ul>
+                    {{/children?}}
+                    {{/is_current}}
+                </li>
+                {{/navigation}}
+            </ul>
+            
+            <ul class="navigation-pages">
+               {{#store_blog_url}}
+                <li>
+                    <a href="{{store_blog_url}}" target="_blank">
+                        Blog
+                    </a>
+                </li>
+                {{/store_blog_url}}
+                <li class="{{#about_page}}selected{{/about_page}}">
+                    <a href="{{store_url}}/page/about">
+                        About
+                    </a>
+                </li>
+            </ul>    
+
+        </nav>
+        
+        {{! Render logotypes of all available payment alternatives }}
+        {{#payment_alternatives?}}
+        <div class="payments">
+            {{#payment_alternatives}}
+            <img src="{{logo}}" alt="{{type}}">
+            {{/payment_alternatives}}
+        </div>
+        {{/payment_alternatives?}}
+    </aside>
+    <div id="content">
+        <div id="main-content">
+            <nav class="content-menu nav-bar">
+                <a href="#main-nav" data-action="menu-toggle"><img src="http://tictail.krmg.se/img/menu.gif" alt="Toggle menu"></a>
+            </nav>
+            <section class="content-body">
+                <header class="main-header">
+                    <a href="{{store_url}}">
+                    {{#logotype}}
+                        <img src="{{url-300}}" alt="{{store_name}}">
+                    {{/logotype}}
+                    {{#no_logotype}}
+		                <h1 class="logotype">{{store_name}}</h1>
+                    {{/no_logotype}}
+    	            </a>
+            	</header>
+
+                {{#list_page}}
+                {{! This block is rendered when displaying a list of products }}
+                
+                <section id="products" class="grid">
+                {{! Output a list if we have any products }}
+    	            {{#products}}
+                    <article class="teaser">
+		                <a href="{{url}}">
+			            <div class="teaser-gutter"><div class="teaser-wrapper">
+				            <div class="teaser-description js-align-vertical">
+					            <!-- h3 class="teaser-category">wood wood</h3 -->
+					            <h2 class="teaser-title">{{title}}</h2>
+					            <!-- h4 class="teaser-variation">White/striped</h4 -->
+                                {{#in_stock}}
+                                    <span class="teaser-price">{{price_with_currency}}</span>
+                                {{/in_stock}}
+                                {{#out_of_stock}}
+                                    <span class="teaser-no-stock">Out of stock</span>
+                                {{/out_of_stock}}
+                            </div>
+                            {{#primary_image}}
+				            <figure class="teaser-content">
+                                <img src="{{url-300}}" alt="{{title}}"/>
+            				</figure>
+                            {{/primary_image}}
+			            </div></div>
+                		</a>
+            		</article>
+                    {{/products}}
+                {{/list_page}}
+                {{! END list of products }}
+                
+                {{#product_page}}
+                {{! This block is rendered when displaying a single product }}
+                {{#product}}
+                
+                <figure class="product-image">
+			        <div id='slider' class='swipe'>
+				        <div class='swipe-wrap'>
+					        {{#all_images}}
+                            <div><img src="{{url-1000}}" alt="" /></div>
+                            {{/all_images}}
+                        </div>
+			        </div>
+		        </figure>
+                <article class="product">
+                    <div class="product-description">
+                        <h2 class="product-title">{{title}}</h2>
+                        <div class="html_content product-description-body">{{description}}</div>
+                    </div>
+                    <div class="product-cart">
+                        {{#add_to_cart}}
+                        <div class="button button-select">
+                            <select name="variation_id" id="variation_id">
+                            {{#variations}}<option value="{{id}}">{{label}}</option>{{/variations}}
+                            </select>
+                            <label class="selectLabel jsSelectLable" for="variation_id" data-prefix="">
+                            {{#variations}}{{#is_default}}{{label}}{{/is_default}}{{/variations}}
+                            </label>                        
+                        </div>
+                        {{#add_to_cart_button}}Add to cart{{/add_to_cart_button}}
+                        {{/add_to_cart}}
+                    </div>
+                </article>
+                {{/product}}
+                {{/product_page}}
+                {{! END single product }}
+            </section>
+            <footer>
+            
+            </footer>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+	<script src="//tictail.krmg.se/js/vendor/jquery.hammer-1.0.4.min.js"></script>
+	<script src="//tictail.krmg.se/js/swipe.js"></script>
+	<script src="//tictail.krmg.se/js/main.js"></script>
+	</body>
+</html>
+<!--
+
+{{#product_page}}
+{{! This block is rendered when displaying a single product }}
+
+        <article id="product" class="column" itemscope itemtype="http://schema.org/Product">
+            {{#product}}
+            <div id="product_info" class="row">
+                <figure class="image_container column">
+                    {{#slideshow-500}}{{/slideshow-500}}
+                </figure>
+
+                <section class="details_container column">
+                    <h1 itemprop="name">{{title}}</h1>
+
+                    <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span itemprop="price">{{price_with_currency}}</span>
+
+                        {{! This is meta data for search engines etc. }}
+                        <meta itemprop="priceCurrency" content="{{currency_code}}">
+                        {{#in_stock}}
+                        <link itemprop="availability" href="http://schema.org/InStock">
+                        {{/in_stock}}
+                        {{#out_of_stock}}
+                        <link itemprop="availability" href="http://schema.org/OutOfStock">
+                        {{/out_of_stock}}
+                    </div>
+
+                    {{#klarna?}}
+                    <div class="klarna_monthly_payment">
+                        {{#klarna}}
+                        <a href="https://online.klarna.com/account_se.yaws?eid={{eid}}" target="_blank" class="klarna_popup">
+                            Delbetala från {{price_with_currency}} per månad
+                        </a>
+                        {{/klarna}}
+                    </div>
+                    {{/klarna?}}
+
+                    <div class="description html_content" itemprop="description">
+                        {{description}}
+                    </div>
+
+                    {{! The #add_to_cart block is only rendered if the product is in stock }}
+                    {{#add_to_cart}}
+                    <div class="variations_container">
+                        {{#variations_select}}{{/variations_select}}
+                    </div>
+
+                    <div class="add_to_cart">
+                        {{#add_to_cart_button}}
+                        Add to cart
+                        {{/add_to_cart_button}}
+                    </div>
+                    {{/add_to_cart}}
+
+                    {{! This block will be rendered instead of the #add_to_cart block when the product is out of stock }}
+                    {{#out_of_stock}}
+                    <div class="out_of_stock">
+                        This product is out of stock
+                    </div>
+                    {{/out_of_stock}}
+
+                    {{social_buttons}}
+
+                    <ul class="terms">
+                        <li>
+                            {{#return_policy}}
+                            Return Policy
+                            {{/return_policy}}
+                        </li>
+                        <li>
+                            {{#terms}}
+                            Terms &amp; Conditions
+                            {{/terms}}
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            {{/product}}
+
+            {{! Render a list of related products if there are any }}
+            {{#related_products?}}
+            <aside id="related_products">
+                <h2>You might also like...</h2>
+
+                <ul class="product_list row">
+                    {{#related_products}}
+                    <li class="column">
+                        <a href="{{url}}">
+                            <div class="image_container">
+                                {{#primary_image}}
+                                <img src="{{url-300}}" alt="{{title}}">
+                                {{/primary_image}}
+                            </div>
+
+                            <h3>{{title}}</h3>
+                            {{#in_stock}}
+                            <span class="price">{{price_with_currency}}</span>
+                            {{/in_stock}}
+                            {{#out_of_stock}}
+                            <span class="price out_of_stock">Out of stock</span>
+                            {{/out_of_stock}}
+                        </a>
+                    </li>
+                    {{/related_products}}
+                </ul>
+            </aside>
+            {{/related_products?}}
+        </article>
+
+{{/product_page}}
+
+
+{{#about_page}}
+
+    <article id="about" class="column page_container">
+        <h1>About</h1>
+
+        <div class="html_content">
+            {{store_description}}
+        </div>
+    </article>
+
+{{/about_page}}
+
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+$('a.klarna_popup').click(function(e) {
+    e.preventDefault();
+    var win = window.open($(this).attr('href'), 'klarnaPopupWindow', 'width=600,height=500,menubar=no,location=no,toolbar=no,status=no,directories=no');
+    win.focus();
+});
+</script>
+
+</body>
+</html>
+-->
+
+<!--
+Want to create your own Tictail theme?
+Check out the documentation at https://tictail.com/docs
+-->
+

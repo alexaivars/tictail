@@ -161,7 +161,7 @@ class (exports ? this).Swipe
         @move pos, (if @index > pos then -@width else ((if @index < pos then @width else 0))), 0
     
     unless BROWSER.transitions
-      @element.style.left = (index * -width) + 'px'
+      @element.style.left = (@index * -@width) + 'px'
     
     @container.style.visibility = 'visible'
     return
@@ -206,14 +206,16 @@ class (exports ? this).Swipe
   slide: (to, speed) ->
     # do nothing if already on requested slide
     return if @index is to
+    speed = @speed unless speed?
     if BROWSER.transitions
       diff = Math.abs(@index - to) - 1
       direction = Math.abs(@index - to) / (@index - to) # 1:right -1:left
-      @move ((if to > @index then to else @index)) - diff - 1, @width * direction, 0  while diff--
-      @move @index, @width * direction, speed or @speed
-      @move to, 0, speed or @speed
+      while diff--
+        @move ((if to > @index then to else @index)) - diff - 1, @width * direction, 0
+      @move @index, @width * direction, speed
+      @move to, 0, speed
     else
-      @animate @index * -@width, to * -@width, speed or @speed
+      @animate @index * -@width, to * -@width, speed
     @index = to
     offloadFn @options.callback and @options.callback(@index, @slides[@index])
     return
@@ -249,6 +251,7 @@ class (exports ? this).Swipe
     if (parseInt(event.target.getAttribute('data-index'), 10) == @index)
       if @delay
         requestAnimationFrame () => @begin()
+      @options.transitionEnd && @options.transitionEnd.call(event, @index, @slides[@index])
     return
 
   render: ->
@@ -268,10 +271,10 @@ class (exports ? this).Swipe
            event.clientY >= (bounds.height + bounds.top) ||
            event.clientX <= bounds.left ||
            event.clientX >= (bounds.width + bounds.left)
-            
+
           @container.removeAttribute "data-click"
           @clickAction = "none"
-      else if event.clientX > @width*0.5
+      else if event.offsetX > @width*0.5
         if @clickAction == "next" then return
         @container.setAttribute "data-click", "next"
         @clickAction = "next"
@@ -281,7 +284,6 @@ class (exports ? this).Swipe
         @clickAction = "prev"
     else
       if @clickAction == "none" then return
-      console.log "crap"
       @container.removeAttribute "data-click"
       @clickAction = "none"
     return

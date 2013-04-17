@@ -8,7 +8,6 @@ window.console ?=
 # Initalization
 #
 ################################################################################
-
 # requestAnimationFrame and cancel polyfill
 ###
 (->

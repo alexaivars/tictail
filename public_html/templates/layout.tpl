@@ -35,7 +35,7 @@
 			<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 			<link href='http://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:600,800' rel='stylesheet' type='text/css'>
 
-			<link rel="stylesheet" href="css/main.css">
+			<link rel="stylesheet" href="css/old.css">
 			<script src="js/vendor/modernizr-2.6.2.min.js"></script>
 			{block name=head}{/block}
 	</head>
