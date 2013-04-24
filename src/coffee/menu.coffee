@@ -1,6 +1,5 @@
 $(document).ready ->
   menu = new SlideMenu $(".page_body").first()
-  $('.bar').show()
   # menu = new SlideMenu $(".page_body")
 
 
@@ -9,11 +8,13 @@ class SlideMenu
   constructor: (@container) ->
     @touch = Hammer @container
     @touch.on "touch dragleft dragright swipeleft swiperight release", (event) => @touchHandler(event)
+    @navigation =  @container.find(".page_navigation").first()
     @width = 200
     @left = 0
     @setOffset(@left)
     Hammer($("[data-action=menu-toggle]").first()).on "tap", (event) => @actionHandler(event)
- 
+    $(window).on "resize", () => @resize()
+    @resize()
     return
 
   actionHandler: (event) ->
@@ -44,6 +45,11 @@ class SlideMenu
           @setOffset 0, true
     return
 
+  resize: () ->
+    @navigation.css
+      minHeight: Math.max( @container.height(), $(window).height() )
+    @
+
   setOffset:  (px) ->
     @dragX = px
     @left = px
@@ -52,6 +58,7 @@ class SlideMenu
     else if Modernizr.csstransforms
       @container.css "transform", "translate(#{px}px, 0)"
     else
-      @container.css "left", "#{px}px"
+
+      @container.css "left", "#{px - @width}px"
 
 

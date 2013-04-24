@@ -3,8 +3,7 @@
 
   $(document).ready(function() {
     var menu;
-    menu = new SlideMenu($(".page_body").first());
-    return $('.bar').show();
+    return menu = new SlideMenu($(".page_body").first());
   });
 
   SlideMenu = (function() {
@@ -16,12 +15,17 @@
       this.touch.on("touch dragleft dragright swipeleft swiperight release", function(event) {
         return _this.touchHandler(event);
       });
+      this.navigation = this.container.find(".page_navigation").first();
       this.width = 200;
       this.left = 0;
       this.setOffset(this.left);
       Hammer($("[data-action=menu-toggle]").first()).on("tap", function(event) {
         return _this.actionHandler(event);
       });
+      $(window).on("resize", function() {
+        return _this.resize();
+      });
+      this.resize();
       return;
     }
 
@@ -63,6 +67,13 @@
       }
     };
 
+    SlideMenu.prototype.resize = function() {
+      this.navigation.css({
+        minHeight: Math.max(this.container.height(), $(window).height())
+      });
+      return this;
+    };
+
     SlideMenu.prototype.setOffset = function(px) {
       this.dragX = px;
       this.left = px;
@@ -71,7 +82,7 @@
       } else if (Modernizr.csstransforms) {
         return this.container.css("transform", "translate(" + px + "px, 0)");
       } else {
-        return this.container.css("left", "" + px + "px");
+        return this.container.css("left", "" + (px - this.width) + "px");
       }
     };
 

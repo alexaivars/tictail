@@ -1,5 +1,5 @@
 (function() {
-  var Handler, Product, ProductDetail, ProductTeaser, getNextRow, inView, layoutSlide, loadSlide, removeToInsertLater, slideImage, _ref;
+  var Handler, Product, ProductDetail, ProductTeaser, app, getNextRow, inView, layoutSlide, loadSlide, removeToInsertLater, slideImage, _ref;
 
   if ((_ref = window.console) == null) {
     window.console = {
@@ -43,6 +43,8 @@
     };
   };
 
+  app = null;
+
   $(document).ready(function() {
     var element, handler, ref, _i, _len;
     handler = null;
@@ -55,9 +57,85 @@
         }
         handler.add(new Product(element));
       }
-      return handler.draw();
+      handler.draw();
     }
+    app = $.sammy(".page_content", function() {
+      this.get("#/", function(context) {});
+      return this.get("#/product/:name", function(context) {
+        return handler.show("/product/" + this.params["name"]);
+      });
+    });
+    return app.run('#/');
   });
+
+  Handler = (function() {
+
+    function Handler() {
+      var _this = this;
+      this.container = $(".product_list")[0];
+      this.products = [];
+      this.draw_pending = false;
+      $(window).on("resize", function() {
+        return _this.redraw();
+      });
+      this;
+    }
+
+    Handler.prototype.add = function(product) {
+      this.products.push(product);
+      return this;
+    };
+
+    Handler.prototype.show = function(url) {
+      var product, _i, _len, _ref1;
+      _ref1 = this.products;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        product = _ref1[_i];
+        if (product.url === url) {
+          product.toggle();
+        }
+      }
+      return this;
+    };
+
+    Handler.prototype.redraw = function() {
+      var _this = this;
+      if (this.draw_pending) {
+        return;
+      }
+      this.draw_pending = true;
+      return requestAnimationFrame(function() {
+        return _this.draw();
+      });
+    };
+
+    Handler.prototype.draw = function() {
+      var height, max, product, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3;
+      max = 0;
+      _ref1 = this.products;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        product = _ref1[_i];
+        product.reset();
+      }
+      _ref2 = this.products;
+      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+        product = _ref2[_j];
+        height = product.height();
+        if (height > max) {
+          max = height;
+        }
+      }
+      _ref3 = this.products;
+      for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
+        product = _ref3[_k];
+        product.resize(max);
+      }
+      this.draw_pending = false;
+    };
+
+    return Handler;
+
+  })();
 
   Product = (function() {
 
@@ -66,30 +144,31 @@
       this.element = element instanceof jQuery ? element : $(element);
       this.teaser = new ProductTeaser(this.element.find(".product_teaser").first());
       this.detail = new ProductDetail(this.element.find(".product_detail")[0], this.element[0]);
-      this.element[0].addEventListener("click", (function(event) {
+      this.url = this.element.data("url");
+      this.element.on("click", function(event) {
         event.preventDefault();
         event.stopPropagation();
-        return event.stopImmediatePropagation();
-      }), false);
-      Hammer(this.element[0]).on("tap doubletap", function(event) {
-        return _this.toggle(event);
+        event.stopImmediatePropagation();
+        return false;
       });
-      /*
-      @teaser.element.on "click", (event) => @toggle(event)
-      @teaser.element.on "touch", (event) =>
-        alert( "touch" )
-      
-      @teaser.element.on "tap", (event) =>
-        alert( "touch" )
-      */
-
-      return;
+      Hammer(this.element[0]).on("tap doubletap", function(event) {
+        return _this.selected(event);
+      });
+      this;
     }
 
-    Product.prototype.toggle = function(event) {
+    Product.prototype.selected = function(event) {
+      app.setLocation("#" + this.url);
       event.preventDefault();
+    };
+
+    Product.prototype.toggle = function(event) {
+      if (event) {
+        event.preventDefault();
+      }
       this.detail.moveNode();
-      this.detail.show(this.teaser.height() * 0.5);
+      this.teaser.select();
+      this.detail.show(0);
       return false;
     };
 
@@ -156,10 +235,8 @@
 
   loadSlide = function(elm) {
     var src;
-    console.log(elm);
     src = elm.getAttribute("data-src");
     if (src != null) {
-      console.log(elm.removeAttribute("data-src"));
       return elm.src = src;
     }
   };
@@ -195,12 +272,12 @@
       }
       obj.toggleClass("selected", true);
       slides = obj.find(".product_slide_figure img");
+      if (swipe != null) {
+        swipe.setup();
+      }
       for (_i = 0, _len = slides.length; _i < _len; _i++) {
         slide = slides[_i];
         loadSlide(slide);
-      }
-      if (swipe != null) {
-        swipe.setup();
       }
       TweenLite.to(window, 0.25, {
         scrollTo: {
@@ -252,65 +329,52 @@
       return this;
     };
 
+    ProductTeaser.prototype.select = function(toggle) {
+      if (toggle == null) {
+        toggle = true;
+      }
+      $(".product_teaser").toggleClass("selected", false);
+      this.element.toggleClass("selected", toggle);
+      return this;
+    };
+
     return ProductTeaser;
 
   })();
 
-  Handler = (function() {
-
-    function Handler() {
-      var _this = this;
-      this.container = $(".product_list")[0];
-      this.products = [];
-      this.draw_pending = false;
-      $(window).on("resize", function() {
-        return _this.redraw();
-      });
-      this;
-    }
-
-    Handler.prototype.add = function(product) {
-      this.products.push(product);
-      return this;
-    };
-
-    Handler.prototype.redraw = function() {
-      var _this = this;
-      if (this.draw_pending) {
-        return;
-      }
-      this.draw_pending = true;
-      return requestAnimationFrame(function() {
-        return _this.draw();
-      });
-    };
-
-    Handler.prototype.draw = function() {
-      var height, max, product, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3;
-      max = 0;
-      _ref1 = this.products;
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        product = _ref1[_i];
-        product.reset();
-      }
-      _ref2 = this.products;
-      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-        product = _ref2[_j];
-        height = product.height();
-        if (height > max) {
-          max = height;
-        }
-      }
-      _ref3 = this.products;
-      for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
-        product = _ref3[_k];
-        product.resize(max);
-      }
-      this.draw_pending = false;
-    };
-
-    return Handler;
-
-  })();
+  enquire.register("screen and (min-width: 300px) and (max-width: 500px)", {
+    match: function() {
+      return console.log("match 1");
+    },
+    unmatch: function() {
+      return console.log("unmatch");
+    },
+    setup: function() {
+      return console.log("setup");
+    },
+    deferSetup: true
+  }).register("screen and (min-width: 500px) and (max-width: 800px)", {
+    match: function() {
+      return console.log("match 2");
+    },
+    unmatch: function() {
+      return console.log("unmatch");
+    },
+    setup: function() {
+      return console.log("setup");
+    },
+    deferSetup: true
+  }).register("screen and (min-width: 800px)", {
+    match: function() {
+      return console.log("match 3");
+    },
+    unmatch: function() {
+      return console.log("unmatch");
+    },
+    setup: function() {
+      return console.log("setup");
+    },
+    deferSetup: true
+  });
 
 }).call(this);

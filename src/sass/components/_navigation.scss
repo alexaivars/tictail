@@ -9,6 +9,47 @@
 
 	a {
 		display: block;
+		text-decoration: none;
+		padding: em($unit*0.5) 0;
+		color: #999;
+		&.selected {
+			color: #CCC;
+		}
 	}
+}
 
+.search_container {
+	input {
+		@include box-sizing();
+		@include font-size($basefont);
+		@include experimental(appearance, none);
+		font-weight: 400;
+		font-family: "PT Serif";
+		border: 1px solid #666; 
+		margin: 0;
+		display: block;
+		width: 100%;
+		padding: em($unit*.5);
+		background: transparent;	
+		&:focus {
+			@include experimental(appearance, none);
+			outline:0px none transparent;
+			border: 1px solid #CCC; 
+		}
+		.no-boxsizing & {
+			padding: em($unit) 0;
+			text-indent: em($unit);
+		}
+	}
+}
+
+.page_menu a {
+	display: block;
+	background: url('img/icon-menu.gif') center center no-repeat;
+	padding: em($unit*.5);
+	margin-left: em(-$unit*.5);
+	width: em($unit*2);
+	overflow: hidden;
+	text-indent: 150%;
+	
 }

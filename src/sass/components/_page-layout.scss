@@ -19,6 +19,7 @@ $unit: 16;
 
 }
 .page_navigation {
+	background: $navigation_color;
 	width: em($navigation_width);
 	float: left;
 	margin-right: em(-$navigation_width);
@@ -40,10 +41,17 @@ $unit: 16;
 	display: block;
 	margin-bottom: em($unit*3);
 	a {
+		color: #000;
 		text-decoration: none;
-		background: red;
 	}
 }
+
+.page_column {
+	margin: auto;
+	max-width: em(1200);
+	margin: auto;
+}
+
 
 h1 {
 	@include font-size($unit*2);

@@ -138,6 +138,9 @@ class (exports ? this).Swipe
     return
   
   setup: ->
+    
+    @pageWidth = $(window).width()
+
     # cache slides
     @slides = @element.children
 
@@ -146,10 +149,12 @@ class (exports ? this).Swipe
     
     # determine width of each slide
     bounds = @container.getBoundingClientRect()
-    @width = bounds.width || @container.offsetWidth
-    @height = bounds.height || @container.offsetHeight
+    # ToDo: Remove jquery dependeci. somtings not right with the bouds solution
+    @width =$(@container).width()
+    @height = $(@container).height()
+    # @width = bounds.width || @container.offsetWidth
+    # @height = bounds.height || @container.offsetHeight
     @element.style.width = (@slides.length * @width) + 'px'
-    
     # stack slide elements
     pos = @slides.length
     while pos--
@@ -274,7 +279,8 @@ class (exports ? this).Swipe
 
           @container.removeAttribute "data-click"
           @clickAction = "none"
-      else if event.offsetX > @width*0.5
+      ## nead to fix this and calculate mouse center relative to container.
+      else if event.pageX > @pageWidth * 0.5
         if @clickAction == "next" then return
         @container.setAttribute "data-click", "next"
         @clickAction = "next"

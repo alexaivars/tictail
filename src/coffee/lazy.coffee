@@ -1,3 +1,4 @@
+###
 images = $("img.lazy").toArray()
 pending = false
 
@@ -44,3 +45,5 @@ addEventListener "resize", ->
 addEventListener "scroll", ->
   pending = true
   requestAnimationFrame () -> processScroll()
+
+###

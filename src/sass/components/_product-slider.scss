@@ -1,29 +1,45 @@
 
 .product_slide {
-	@include experimental(backface-visibility, hidden );
+	// @include experimental(backface-visibility, hidden );
   display:block;
   overflow: hidden;
   // visibility: hidden;
   overflow: hidden;
   position: relative;
+	width:100%;
 }
 .product_slide_wrapper {
-	@include experimental(backface-visibility, hidden );
+	// @include experimental(backface-visibility, hidden );
   display:block;
   overflow: hidden;
   position: relative;
 	width:100%;
+	height: inherit;
 
 }
 .product_slide_figure {
-	@include experimental(backface-visibility, hidden );
+	// @include experimental(backface-visibility, hidden );
   display:block;
 	float:left;
   width:100%;
+	height: inherit;
   position: relative;
 }
 .product_slide_figure img { 
 	display: block;
 	height: 100%;
+	height: inherit;
 	margin: auto;
 }
+
+
+.product_slide {
+	&[data-click="next"] { cursor: url(next.png) 32 32, e-resize; }
+	&[data-click="prev"] { cursor: url(prev.png) 0 32, w-resize; }
+	.lt-ie9 &[data-click="next"] { cursor: url(css/next.cur), e-resize; }
+	.lt-ie9 &[data-click="prev"] { cursor: url(css/prev.cur), w-resize; }
+}
+
+// remove when slide js is implemented
+
+

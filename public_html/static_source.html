@@ -3,7 +3,7 @@
      __  __ ______ _______ _______ _______ _______    _______ _______
     |  |/  |   __ \   _   |   |   |     __|       |  |     __|    ___|
     |     <|      <       |       |    |  |   -   |__|__     |    ___|
-	|__|\__|___|__|___|___|__|_|__|_______|_______|__|_______|_______|
+    |__|\__|___|__|___|___|__|_|__|_______|_______|__|_______|_______|
 	@alexaivars
 -->
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -67,14 +67,17 @@
                         <li><div class="search_container">{{search}}</div></li>
                     </ul>
                     <ul>
+                        <li>
+                            <a href="/#" {{#is_current}}class="selected"{{/is_current}}>All Products</a>
+                        </li>
             		    {{#navigation}}
                         <li>
-                            <a href="{{url}}" {{#is_current}}class="selected"{{/is_current}}>{{label}}({{count}})</a>
+                            <a href="/#{{url}}" {{#is_current}}class="selected"{{/is_current}}>{{label}}({{count}})</a>
                             {{#is_current}}
                             {{! Render the submenu if it has any navigation items }}
                             {{#children?}}
                             <ul>
-                                {{#children}}<li><a href="{{url}}" {{#is_current}}class="selected"{{/is_current}}>{{label}}({{count}})</a></li>{{/children}}
+                                {{#children}}<li><a href="/#{{url}}" {{#is_current}}class="selected"{{/is_current}}>{{label}}({{count}})</a></li>{{/children}}
                             </ul>
                             {{/children?}}
                             {{/is_current}}
@@ -88,7 +91,7 @@
                         </li>
                         {{/store_blog_url}}
                         <li class="{{#about_page}}selected{{/about_page}}">
-                            <a href="{{store_url}}/page/about">About</a>
+                            <a href="/#/page/about">About</a>
                         </li>						
             		</ul>
                 </nav>
@@ -97,134 +100,160 @@
                 <menu class="page_menu">
                     <a href="#navigation" data-action="menu-toggle">navigation</a>
                 </menu>
-								<a href="{{store_url}}" class="page_header">
-									<h1>
-			            {{#logotype}}
-										<img src="{{url-300}}" alt="{{store_name}}"/>
-									{{/logotype}}
-									{{#no_logotype}}
-										{{store_name}}
-									{{/no_logotype}}
-									</h1>
-								</a> 
-                {{! This block is rendered when displaying a list of products }}        
-                {{#list_page}}
-                <section class="product_list">
-                    <div class="product_list_wrapper">
-                        {{! Output a list if we have any products }}
-                        {{#products}}
-                        <article id="{{id}}" class="product" data-url="{{url}}" data-price="{{price}}">
-                            <a class="product_teaser" data-product-id="{{id}}">
-                                <div class="product_teaser_image">
-                                    {{#primary_image}}
-                                        <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-300}}" class="lazy" alt="{{title}}"/>
-                                        <noscript>
-                                            <img src="{{url-300}}" data-src="{{url-300}}" class="noscript" alt="{{title}}"/>
-                                        </noscript>
-                                    {{/primary_image}}                  
-                                </div>
-                                <div class="product_teaser_hover">
-                                    <div class="wrapper">
-                                        <h2 class="product_teaser_title">{{title}}</h2>
-                                        <span class="product_teaser_price">{{price_with_currency}}</span>
-                                        {{#out_of_stock}}<span class="product_teaser_stock">out of stock</span>{{/out_of_stock}}
-                                    </div>
-                                </div>
-                            </a>
-                            <section class="product_detail" data-product-id="{{id}}">
-                                <div class="product_slide">
-                                    <div class="product_slide_wrapper">
-                                        {{#all_images}}
-                                        <figure class="product_slide_figure">
-                                            <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-500}}" alt="{{title}} - {{position}}"/>
+				
+				    <h1 class="page_header">
+                    <a href="{{store_url}}">
+                    {{#logotype}}<img src="{{url-300}}" alt="{{store_name}}"/>{{/logotype}}
+					{{#no_logotype}}{{store_name}}{{/no_logotype}}
+                    </a>
+					</h1>
+				 
+                <section class="page_column">
+
+                    {{! This block is rendered when displaying a list of products }}        
+                    {{#list_page}}
+                    <div class="product_list">
+                        <div class="product_list_wrapper">
+                            {{! Output a list if we have any products }}
+                            {{#products}}
+                            <article id="{{id}}" class="product" data-url="{{url}}" data-price="{{price}}">
+                                <a href="#{{url}}" class="product_teaser" data-product-id="{{id}}">
+                                    <div class="product_teaser_image">
+                                        {{#primary_image}}
+                                            <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-300}}" class="lazy" alt="{{title}}"/>
                                             <noscript>
-                                                <img src="{{url-500}}" data-src="{{url-500}}" class="noscript" alt="{{title}}"/>
+                                                <img src="{{url-300}}" data-src="{{url-300}}" class="noscript" alt="{{title}}"/>
                                             </noscript>
-                                        </figure>
-                                        {{/all_images}}
-                                        
+                                        {{/primary_image}}                  
                                     </div>
-                                </div>
-                                <div class="details">
-                                    <div class="product_detail_name">{{title}}</div>
-                                    <div class="product_detail_price">{{price_with_currency}}</div>
-                                    <div class="product_detail_description">{{description}}</div>
-                                    <div class="product_detail_cart">
-                                    {{#add_to_cart}}
-                                        {{#variations_select}}{{/variations_select}}
-                                        <label class="variations_select_label">Select size</label>
-                                        {{#add_to_cart_button}}Add to cart{{/add_to_cart_button}}
-                                    {{/add_to_cart}}
+                                    <div class="product_teaser_hover">
+                                        <div class="wrapper">
+                                            <h2 class="product_teaser_title">{{title}}</h2>
+                                            <span class="product_teaser_price">{{price_with_currency}}</span>
+                                            {{#out_of_stock}}<span class="product_teaser_stock">out of stock</span>{{/out_of_stock}}
+                                        </div>
                                     </div>
-                                    <div class="product_detail_social">
-                                        {{! facebook_like_button }}
-                                        <a href="https://twitter.com/intent/tweet?original_referer={{store_url}}&related=tictail&text=Worth checking out! {{title}}" target="_blank" class="tweetbutton" title="Tweet">Tweet</a>
-                                        {{pinterest_pin_it_button}}
+                                </a>
+                                <section class="product_detail" data-product-id="{{id}}">
+                                    <div class="product_slide">
+                                        <div class="product_slide_wrapper">
+                                            {{#all_images}}
+                                            <figure class="product_slide_figure">
+                                                <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-500}}" alt="{{title}} - {{position}}"/>
+                                                <noscript>
+                                                    <img src="{{url-500}}" data-src="{{url-500}}" class="noscript" alt="{{title}}"/>
+                                                </noscript>
+                                            </figure>
+                                            {{/all_images}}
+                                            
+                                        </div>
                                     </div>
-                                    <ul class="product_detail_terms">
-                                        <li>
-                                            {{#return_policy}}Return Policy{{/return_policy}}
-                                        </li>
-                                        <li>
-                                            {{#terms}}Terms &amp; Conditions{{/terms}}
-                                        </li>
-                                    </ul>                                    
-                                </div>
-                            </section>
-                        </article>                        
-                        {{/products}}
-                        {{! END list of products }}
+                                    <div class="details">
+                                        <div class="product_detail_name">{{title}}</div>
+                                        <div class="product_detail_price">{{price_with_currency}}</div>
+                                        <div class="product_detail_description">{{description}}</div>
+                                        <div class="product_detail_cart">
+                                        {{#add_to_cart}}
+                                            {{#variations_select}}{{/variations_select}}
+                                            <label class="variations_select_label">Select size</label>
+                                            {{#add_to_cart_button}}Add to cart{{/add_to_cart_button}}
+                                        {{/add_to_cart}}
+                                        </div>
+                                        <div class="product_detail_social">
+                                            {{! facebook_like_button }}
+                                            <a href="https://twitter.com/intent/tweet?original_referer={{store_url}}&related=tictail&text=Worth checking out! {{title}}" target="_blank" class="tweetbutton" title="Tweet">Tweet</a>
+                                            {{pinterest_pin_it_button}}
+                                        </div>
+                                        <ul class="product_detail_terms">
+                                            <li>
+                                                {{#return_policy}}Return Policy{{/return_policy}}
+                                            </li>
+                                            <li>
+                                                {{#terms}}Terms &amp; Conditions{{/terms}}
+                                            </li>
+                                        </ul>                                    
+                                    </div>
+                                </section>
+                            </article>                        
+                            {{/products}}
+                            {{! END list of products }}
+                        </div>
                     </div>
+                    {{/list_page}}
+                    
+                    {{! This block is rendered when displaying a single product }}
+                    {{#product_page}}
+                    {{#product}}
+                    <div class="product_single">
+                        <article class="product_detail" data-product-id="{{id}}">
+                            <div class="product_slide">
+                                <div class="product_slide_wrapper">
+                                    {{#all_images}}
+                                    <figure class="product_slide_figure">
+                                        <img src="{{url-500}}" alt="{{title}} - {{position}}"/>
+                                    </figure>
+                                    {{/all_images}}
+                                    
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="product_detail_name">{{title}}</div>
+                                <div class="product_detail_price">{{price_with_currency}}</div>
+                                <div class="product_detail_description">{{description}}</div>
+                                <div class="product_detail_cart">
+                                {{#add_to_cart}}
+                                    {{#variations_select}}{{/variations_select}}
+                                    <label class="variations_select_label">Select size</label>
+                                    {{#add_to_cart_button}}Add to cart{{/add_to_cart_button}}
+                                {{/add_to_cart}}
+                                </div>
+                                <div class="product_detail_social">
+                                    {{! facebook_like_button }}
+                                    <a href="https://twitter.com/intent/tweet?original_referer={{store_url}}&related=tictail&text=Worth checking out! {{title}}" target="_blank" class="tweetbutton" title="Tweet">Tweet</a>
+                                    {{pinterest_pin_it_button}}
+                                </div>
+                                <ul class="product_detail_terms">
+                                    <li>
+                                        {{#return_policy}}Return Policy{{/return_policy}}
+                                    </li>
+                                    <li>
+                                        {{#terms}}Terms &amp; Conditions{{/terms}}
+                                    </li>
+                                </ul>                                    
+                            </div>
+                        </article>
+                    </div>
+                    {{/product}}
+                    {{/product_page}}
+                    {{! END single product }}
+                
+                    {{! This block is rendered when displaying the about page }}
+                    {{#about_page}}
+                    <article class="about_page">
+                        <div class="post html_content">
+                        <h2>About</h2>
+                        {{store_description}}
+                        </div>
+                    </article>
+                    {{/about_page}}
+                    {{! END single product }}
+                
                 </section>
-                {{/list_page}}
-        
-                {{#product_page}}
-                {{! This block is rendered when displaying a single product }}
-                {{#product}}
-                <article class="product_detail">
-                    <div class="slide">
-                        <div class="slide_wrapper">
-                        {{#all_images}}
-                        <figure
-                            data-small="{{url-300}}"
-                            data-medium="{{url-500}}"
-                            data-large="{{url-1000}}"
-                            data-retina-small="{{url-500}}"
-                            data-retina-medium="{{url-1000}}"
-                            data-retina-large="{{url-2000}}"
-                            ></figure>
-                        {{/all_images}}
-                        </div>
-                        <div class="product_detail_name">{{name}}</div>
-                        <div class="product_detail_description">{{description}}</div>
-                        <div class="product_detail_price">{{price_with_currency}}</div>
-                        <div class="product_detail_cart">
-                        {{#add_to_cart}}
-                            {{#variations_select}}{{/variations_select}}
-                            {{#add_to_cart_button}}{{/add_to_cart_button}}
-                        {{/add_to_cart}}
-                        </div>
-                    </div>
-                </article>
-                {{/product}}
-                {{/product_page}}
-                {{! END single product }}
             </div>
         </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//tictail.krmg.se/js/vendor/jquery.hammer.js"></script>	
+    <script src="http://tictail.krmg.se/js/vendor/jquery.hammer.js"></script>
+    <script src="http://tictail.krmg.se/js/vendor/sammy-0.7.4.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.3/TweenLite.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.3/plugins/CSSPlugin.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.3/plugins/ScrollToPlugin.min.js"></script>
-    <script src="//tictail.krmg.se/js/polyfills.js"></script>	
-    <script src="//tictail.krmg.se/js/teaser.js"></script>	
-    <script src="//tictail.krmg.se/js/swipe.js"></script>	
-	<script src="//tictail.krmg.se/js/slide.js"></script>	
-    <script src="//tictail.krmg.se/js/lazy.js"></script>	
-    <script src="//tictail.krmg.se/js/menu.js"></script>
-    <script src="//tictail.krmg.se/js/select-box.js"></script>	
-
+    <script src="http://tictail.krmg.se/js/polyfills.js"></script>	
+    <script src="http://tictail.krmg.se/js/swipe.js"></script>	
+    <script src="http://tictail.krmg.se/js/menu.js"></script>
+    <script src="http://tictail.krmg.se/js/select-box.js"></script>
+    <script src="http://tictail.krmg.se/js/page-helpers.js"></script>
+    <script src="http://tictail.krmg.se/js/app.js"></script>
     {{!
     <script>
     $('a.klarna_popup').click(function(e) {
@@ -242,6 +271,7 @@
 Want to create your own awsome Tictail theme?
 Check out the documentation at https://tictail.com/docs
 -->
+
 
 
 

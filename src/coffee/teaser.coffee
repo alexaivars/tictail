@@ -27,6 +27,12 @@ removeToInsertLater = (element) ->
     else
       parentNode.appendChild element
 
+
+
+#/product/dan-tee-white
+
+app = null
+
 $(document).ready ->
   handler = null
   ref = $(".product")
@@ -36,34 +42,87 @@ $(document).ready ->
       handler.add new Product(element)
     handler.draw()
 
+  app = $.sammy ".page_content", () ->
+    @get "#/", (context) ->
+      # Index page
+      return
+
+    @get "#/product/:name", (context) ->
+      # context.log "its #{@params["name"]}"
+      handler.show "/product/#{@params["name"]}"
+        
+  app.run('#/')
+
+class Handler
+  constructor: ->
+    @container = $(".product_list")[0]
+    @products = []
+    @draw_pending = false
+    $(window).on "resize", () => @redraw()
+    @
+
+  add: (product) ->
+    @products.push product
+    @
+
+  show: (url) ->
+    for product in @products
+      if product.url == url
+        product.toggle()
+    @
+
+  redraw: ->
+    if @draw_pending then return
+    @draw_pending = true
+    requestAnimationFrame () => @draw()
+
+  draw: ->
+    max = 0
+    # insertFunction = removeToInsertLater(@container)
+    for product in @products
+      product.reset()
+    # insertFunction()
+    
+    for product in @products
+      height = product.height()
+      max = height if height > max
+    
+    # insertFunction = removeToInsertLater(@container)
+    for product in @products
+      product.resize(max)
+    # insertFunction()
+
+    @draw_pending = false
+    return
+
+
 class Product
   constructor: (element) ->
     @element = if element instanceof jQuery then element else $(element)
     @teaser = new ProductTeaser @element.find(".product_teaser").first()
     @detail = new ProductDetail @element.find(".product_detail")[0], @element[0]
+    @url = @element.data("url")
     # Fast click
-    @element[0].addEventListener "click", ((event) ->
+    @element.on "click", (event) ->
       event.preventDefault()
       event.stopPropagation()
       event.stopImmediatePropagation()
-    ), false
-    Hammer(@element[0]).on "tap doubletap", (event) => @toggle(event)
-    
-    ###
-    @teaser.element.on "click", (event) => @toggle(event)
-    @teaser.element.on "touch", (event) =>
-      alert( "touch" )
+      return false
 
-    @teaser.element.on "tap", (event) =>
-      alert( "touch" )
-    ###
-    return
-  
-  toggle: (event) ->
+    Hammer(@element[0]).on "tap doubletap", (event) => @selected(event)
+    @
+
+  selected: (event) ->
+    app.setLocation "##{@url}"
     event.preventDefault()
+    return
+
+  toggle: (event) ->
+    event.preventDefault() if event
     @detail.moveNode()
-    
-    @detail.show(@teaser.height() * 0.5)
+    @teaser.select()
+    # @detail.show(@teaser.height() * 0.5)
+    @detail.show(0)
     return false
 
   reset: ->
@@ -106,10 +165,8 @@ layoutSlide = () ->
     cosoleole.log img.height()
 
 loadSlide = (elm) ->
-  console.log elm
   src = elm.getAttribute("data-src")
   if src?
-    console.log elm.removeAttribute("data-src")
     elm.src = src
 
   # img.onload = ->
@@ -139,6 +196,7 @@ class ProductDetail
     obj.find(".product_slide").first().width(width)
     obj.find(".product_slide").first().height(height)
     swipe = obj.find(".product_slide").first()[0].swipe
+    
         
     next = obj.next()
     while next.length && next.hasClass("product_detail")
@@ -147,12 +205,14 @@ class ProductDetail
 
     obj.toggleClass("selected",true)
     slides = obj.find(".product_slide_figure img")
-    for slide in slides
-      loadSlide slide
-
     if swipe?
       swipe.setup()
     
+
+    for slide in slides
+      loadSlide slide
+    
+
     # unless inView(@element)
     TweenLite.to window, 0.25,
       scrollTo:
@@ -188,40 +248,33 @@ class ProductTeaser
     @heightHover = @hover.height()
     @
 
-class Handler
-  constructor: ->
-    @container = $(".product_list")[0]
-    @products = []
-    @draw_pending = false
-    $(window).on "resize", () => @redraw()
+  select: (toggle = true)->
+    # ToDo: better solution for deslecting
+    $(".product_teaser").toggleClass "selected", false
+    @element.toggleClass "selected", toggle
     @
 
-  add: (product) ->
-    @products.push product
-    @
-
-  redraw: ->
-    if @draw_pending then return
-    @draw_pending = true
-    requestAnimationFrame () => @draw()
-
-  draw: ->
-    max = 0
-    # insertFunction = removeToInsertLater(@container)
-    for product in @products
-      product.reset()
-    # insertFunction()
-    
-    for product in @products
-      height = product.height()
-      max = height if height > max
-    
-    # insertFunction = removeToInsertLater(@container)
-    for product in @products
-      product.resize(max)
-    # insertFunction()
-
-    @draw_pending = false
-    return
-
-
+enquire.register "screen and (min-width: 300px) and (max-width: 500px)",
+  match : () ->
+    console.log "match 1"
+  unmatch: () ->
+    console.log "unmatch"
+  setup: () ->
+    console.log "setup"
+  deferSetup: true
+.register "screen and (min-width: 500px) and (max-width: 800px)",
+  match : () ->
+    console.log "match 2"
+  unmatch: () ->
+    console.log "unmatch"
+  setup: () ->
+    console.log "setup"
+  deferSetup: true
+.register "screen and (min-width: 800px)",
+  match : () ->
+    console.log "match 3"
+  unmatch: () ->
+    console.log "unmatch"
+  setup: () ->
+    console.log "setup"
+  deferSetup: true

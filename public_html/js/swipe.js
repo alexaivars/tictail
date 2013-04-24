@@ -156,11 +156,12 @@
 
     Swipe.prototype.setup = function() {
       var bounds, pos, slide;
+      this.pageWidth = $(window).width();
       this.slides = this.element.children;
       this.slidePos = new Array(this.slides.length);
       bounds = this.container.getBoundingClientRect();
-      this.width = bounds.width || this.container.offsetWidth;
-      this.height = bounds.height || this.container.offsetHeight;
+      this.width = $(this.container).width();
+      this.height = $(this.container).height();
       this.element.style.width = (this.slides.length * this.width) + 'px';
       pos = this.slides.length;
       while (pos--) {
@@ -306,7 +307,7 @@
             this.container.removeAttribute("data-click");
             this.clickAction = "none";
           }
-        } else if (event.offsetX > this.width * 0.5) {
+        } else if (event.pageX > this.pageWidth * 0.5) {
           if (this.clickAction === "next") {
             return;
           }

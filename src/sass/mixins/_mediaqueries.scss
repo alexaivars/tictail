@@ -8,12 +8,11 @@
 *
 ****************************************************************************** */
 
-$xsmall	: 0;		// 0 Ref IPHONES
-$small	: em(612, $basefont); // Ref IPADS PORTRAIT
-$medium	: em(810, 18); // Ref IPADS LANDSCAPE, SMALL LAPTOPS
-$large  : em(1008, 18);
 
-
+$column-2		: em(300);
+$column-3		: em(600);
+$column-4		: em(900);
+$column-5		: em(1200);
 
 // RETINA
 @mixin mq-highdensity() {
@@ -23,6 +22,36 @@ $large  : em(1008, 18);
 					only screen and (min-device-pixel-ratio: 1.5) { @content; }
 }
 
+@mixin breakpoint($point) {
+  @if $point == 1 {
+    @media (min-width: em(300,$basefont)) { @content; }
+  }
+  @else if $point == 2 {
+    @media (min-width: em(600,$basefont)) { @content; }
+  }
+  @else if $point == 3 {
+    @media (min-width: em(900,$basefont))  { @content; }
+  }
+  @else if $point == 4 {
+    @media (min-width: em(1200,$basefont))  { @content; }
+  }
+  @else if $point == 5 {
+    @media (min-width: em(1500,$basefont))  { @content; }
+  }
+  @else if $point == 6 {
+    @media (min-width: em(1800,$basefont))  { @content; }
+  }
+  @else if $point == 7 {
+    @media (min-width: em(2100,$basefont))  { @content; }
+  }
+}
+
+
+/*
+$xsmall	: 0;		// 0 Ref IPHONES
+$small	: em(612, $basefont); // Ref IPADS PORTRAIT
+$medium	: em(810, 18); // Ref IPADS LANDSCAPE, SMALL LAPTOPS
+$large  : em(1008, 18);
 // EXTRA SMALL (MOBILE)
 @mixin mq-default() {
 	@media only screen and (max-width : $small) { @content; }
@@ -65,4 +94,4 @@ $large  : em(1008, 18);
 }
 
 
-
+*/

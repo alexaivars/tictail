@@ -18,6 +18,7 @@ $color_product_hover: #FF4C4C;
 	}
 }
 
+.selected .product_teaser_hover,
 .no-touch .product_teaser:hover .product_teaser_hover {
 	visibility:visible;
 }
