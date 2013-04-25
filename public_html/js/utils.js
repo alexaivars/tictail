@@ -6,10 +6,10 @@
   }
 
   krmg.RE = {
-    wash: /<(script|head|style|iframe|frame|noscript)[^\>]*>[\s\S]*?<\/.*?\1>/gi,
-    wash: /<(!doctype|head|html|body).*?>/gi,
-    wash: /<\/.*?(head|html|body)>/gi,
-    wash: /<!--[\s\S]*?-->/gi,
+    wash1: /<(script|head|style|iframe|frame|noscript)[^\>]*>[\s\S]*?<\/.*?\1>/gi,
+    wash2: /<(!doctype|head|html|body).*?>/gi,
+    wash3: /<\/.*?(head|html|body)>/gi,
+    wash4: /<!--[\s\S]*?-->/gi,
     clean: /^\/\#|^\/|\#|\/\#/
   };
 
