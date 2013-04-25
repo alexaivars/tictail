@@ -1,20 +1,11 @@
 (function() {
-  var SelectLable;
+  var _base, _ref;
 
-  $(document).ready(function() {
-    var elm, instance, ref, _i, _len, _results;
-    ref = $(".variations_select_label");
-    if (ref.length) {
-      _results = [];
-      for (_i = 0, _len = ref.length; _i < _len; _i++) {
-        elm = ref[_i];
-        _results.push(instance = new SelectLable(elm));
-      }
-      return _results;
-    }
-  });
+  if ((_ref = (_base = typeof exports !== "undefined" && exports !== null ? exports : this).krmg) == null) {
+    _base.krmg = {};
+  }
 
-  SelectLable = (function() {
+  krmg.SelectLable = (function() {
 
     SelectLable.prototype.prefix = '';
 

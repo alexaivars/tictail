@@ -1,56 +1,86 @@
-
-/*
-images = $("img.lazy").toArray()
-pending = false
-
-load = (elm, express) ->
-  img = new Image()
-  src = elm.getAttribute("data-src")
-  img.onload = ->
-    unless not elm.parent
-      elm.parent.replaceChild img, elm
-    else
-      elm.src = src
-    unless express
-      TweenLite.from elm, 0.25,
-        opacity : 0
-
-  img.src = src
-
-inView = (elm) ->
-  rect = elm.parentNode.getBoundingClientRect()
-  height = (window.innerHeight or document.documentElement.clientHeight)
-  rect.top >= 0 and rect.top <= height or rect.bottom >= 0 and rect.bottom <= height
-
-addEventListener = (event, fn) ->
-  (if window.addEventListener then @addEventListener(event, fn, false) else (if (window.attachEvent) then @attachEvent("on" + event, fn) else this["on" + event] = fn))
-
-processScroll = (express) ->
-  unless pending or images.length then return
-  queue = []
-  pending = false
-  for img in images
-    queue.push img if inView img
-	
-  for img in queue
-    images.splice images.indexOf(img), 1
-    load img, express
-
-
-processScroll()
-
-addEventListener "resize", ->
-  pending = true
-  requestAnimationFrame () -> processScroll()
-
-addEventListener "scroll", ->
-  pending = true
-  requestAnimationFrame () -> processScroll()
-*/
-
-
 (function() {
+  var DATA_NAME, inView, lazy_list, _base, _ref;
 
+  if ((_ref = (_base = typeof exports !== "undefined" && exports !== null ? exports : this).krmg) == null) {
+    _base.krmg = {};
+  }
 
+  "use strict";
+
+  DATA_NAME = "data-src";
+
+  lazy_list = [];
+
+  inView = function(elm, height) {
+    var offsetParent, rect;
+    offsetParent = elm.offsetParent;
+    rect = elm.parentNode.getBoundingClientRect();
+    if (rect.top === 0) {
+      if (offsetParent) {
+        return rect = offsetParent.getBoundingClientRect();
+      } else {
+        return false;
+      }
+    } else {
+      return rect.top >= 0 && rect.top <= height || rect.bottom >= 0 && rect.bottom <= height;
+    }
+  };
+
+  krmg.LazyImage = {
+    init: function() {
+      var img, node, _i, _len;
+      node = document.getElementsByTagName("img");
+      for (_i = 0, _len = node.length; _i < _len; _i++) {
+        img = node[_i];
+        if (img.getAttribute(DATA_NAME) != null) {
+          lazy_list.push(img);
+        }
+      }
+      return this;
+    },
+    load: function() {
+      var height, img, update, _i, _j, _len, _len1;
+      height = window.innerHeight || document.documentElement.clientHeight;
+      update = [];
+      for (_i = 0, _len = lazy_list.length; _i < _len; _i++) {
+        img = lazy_list[_i];
+        if (inView(img, height)) {
+          update.push(img);
+        }
+      }
+      for (_j = 0, _len1 = update.length; _j < _len1; _j++) {
+        img = update[_j];
+        this.get(img);
+      }
+      return this;
+    },
+    get: function(elm, notween) {
+      var img, src;
+      img = new Image();
+      src = elm.getAttribute(DATA_NAME);
+      if (elm.src !== src) {
+        elm.src = src;
+      }
+      /*
+      img.onload = ->
+        elm.getAttribute(DATA_NAME)
+        lazy_list.splice(lazy_list.indexOf(elm), 1) if Array::indexOf
+        if elm.parentNode?
+          elm.parentNode.replaceChild img, elm
+        else
+          elm.className = ""
+          elm.removeAttribute(DATA_NAME)
+          elm.src = src
+        unless notween
+          try
+            TweenLite.from elm, 0.25,
+              opacity : 0
+          catch e
+            console.log "missing TweenLite"
+      */
+
+      return this;
+    }
+  };
 
 }).call(this);

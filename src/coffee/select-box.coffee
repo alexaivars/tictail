@@ -1,10 +1,5 @@
-$(document).ready ->
-  ref = $(".variations_select_label")
-  if ref.length
-    for elm in ref
-      instance = new SelectLable(elm)
-
-class SelectLable
+(exports ? this).krmg ?= {}
+class krmg.SelectLable
   
   prefix: ''
 

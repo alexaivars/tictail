@@ -1,44 +1,16 @@
-
 "use strict"
-# requestAnimationFrame polyfil
-(->
-  lastTime = 0
-  vendors = ["ms", "moz", "webkit", "o"]
-  x = 0
-
-  while x < vendors.length and not window.requestAnimationFrame
-    window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"]
-    window.cancelAnimationFrame = window[vendors[x] + "CancelAnimationFrame"] or window[vendors[x] + "CancelRequestAnimationFrame"]
-    ++x
-  unless window.requestAnimationFrame
-    window.requestAnimationFrame = (callback, element) ->
-      currTime = new Date().getTime()
-      timeToCall = Math.max(0, 16 - (currTime - lastTime))
-      id = window.setTimeout(->
-        callback currTime + timeToCall
-      , timeToCall)
-      lastTime = currTime + timeToCall
-      id
-  unless window.cancelAnimationFrame
-    window.cancelAnimationFrame = (id) ->
-      clearTimeout id
-)()
-
 # utilities
 noop = () ->
-  
 offloadFn = (fn) ->           # offload a functions execution
   setTimeout(fn || noop, 0)
-
 # check browser capabilities
 BROWSER =
   addEventListener: !!window.addEventListener
   touch: Modernizr.touch
   transitions: Modernizr.csstransitions
 
-
-# expose public swipe constuctor and api
-class (exports ? this).Swipe
+(exports ? this).krmg ?= {}
+class krmg.Swipe
   constructor: (@container, options) ->
     # quit if no root element
     unless container then return

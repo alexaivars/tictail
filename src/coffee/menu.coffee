@@ -1,10 +1,5 @@
-$(document).ready ->
-  menu = new SlideMenu $(".page_body").first()
-  # menu = new SlideMenu $(".page_body")
-
-
-
-class SlideMenu
+(exports ? this).krmg ?= {}
+class krmg.SlideMenu
   constructor: (@container) ->
     @touch = Hammer @container
     @touch.on "touch dragleft dragright swipeleft swiperight release", (event) => @touchHandler(event)
@@ -58,7 +53,5 @@ class SlideMenu
     else if Modernizr.csstransforms
       @container.css "transform", "translate(#{px}px, 0)"
     else
-
       @container.css "left", "#{px - @width}px"
-
 

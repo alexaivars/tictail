@@ -1,12 +1,11 @@
 (function() {
-  var SlideMenu;
+  var _base, _ref;
 
-  $(document).ready(function() {
-    var menu;
-    return menu = new SlideMenu($(".page_body").first());
-  });
+  if ((_ref = (_base = typeof exports !== "undefined" && exports !== null ? exports : this).krmg) == null) {
+    _base.krmg = {};
+  }
 
-  SlideMenu = (function() {
+  krmg.SlideMenu = (function() {
 
     function SlideMenu(container) {
       var _this = this;

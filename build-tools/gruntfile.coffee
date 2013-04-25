@@ -7,6 +7,7 @@
 module.exports = (grunt) ->
   # Project configuration.
   grunt.initConfig(
+    pkg: grunt.file.readJSON('package.json')
     sass:
       dist:
         options: # Target options
@@ -21,7 +22,25 @@ module.exports = (grunt) ->
           precision: "8"
         files:
           "../public_html/css/main.css": "../src/sass/main.scss"
-    
+    uglify:
+      options:
+        #except: ['jQuery', 'Backbone', 'TweenLite']
+        mangle: true
+        banner: '/*! Kramgo Tictail Theme - v<%= pkg.version %> - copyrightish (c) <%= grunt.template.today("yyyy-mm-dd") %> Alexander Aivars, Kramgo AB */'
+      dist:
+        files:
+          "../public_html/js/dist/kramgo.min.js" : [ "../public_html/js/*.js" ]
+      vendor:
+        options:
+          mangle: false
+        files:
+          "../public_html/js/dist/vendor-pack.min.js" : [ "../public_html/js/vendor/TweenLite.min.js",
+                                                          "../public_html/js/vendor/CSSPlugin.min.js",
+                                                          "../public_html/js/vendor/ScrollToPlugin.min.js",
+                                                          "../public_html/js/vendor/polyfills.js",
+                                                          "../public_html/js/vendor/jquery.hammer.js",
+                                                          "../public_html/js/vendor/sammy-0.7.4.min.js"]
+      
     coffee:
       source:
         expand: true
@@ -49,8 +68,10 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-connect"
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-livereload"
+  grunt.loadNpmTasks "grunt-contrib-uglify"
 
   # grunt.loadNpmTasks "grunt-contrib-watch"
   # Register task(s).
   grunt.registerTask "default", ['sass:dev','coffee', 'regarde']
+  grunt.registerTask "dist", ['sass:dev','coffee', 'uglify']
   # grunt.registerTask "default", ['sass:dev','coffee', 'livereload-start', 'regarde']

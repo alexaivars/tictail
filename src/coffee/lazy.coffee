@@ -1,49 +1,58 @@
-###
-images = $("img.lazy").toArray()
-pending = false
+(exports ? this).krmg ?= {}
 
-load = (elm, express) ->
-  img = new Image()
-  src = elm.getAttribute("data-src")
-  img.onload = ->
-    unless not elm.parent
-      elm.parent.replaceChild img, elm
-    else
-      elm.src = src
-    unless express
-      TweenLite.from elm, 0.25,
-        opacity : 0
+"use strict"
 
-  img.src = src
+DATA_NAME = "data-src"
+lazy_list = []
 
-inView = (elm) ->
+inView = (elm, height) ->
+  offsetParent = elm.offsetParent
   rect = elm.parentNode.getBoundingClientRect()
-  height = (window.innerHeight or document.documentElement.clientHeight)
-  rect.top >= 0 and rect.top <= height or rect.bottom >= 0 and rect.bottom <= height
+  
+  if rect.top == 0
+    if offsetParent
+      rect = offsetParent.getBoundingClientRect()
+    else
+      return false
+  else
+    return rect.top >= 0 and rect.top <= height or rect.bottom >= 0 and rect.bottom <= height
+  
+krmg.LazyImage =
+  init: ->
+    node = document.getElementsByTagName "img"
+    for img in node
+      lazy_list.push img if img.getAttribute(DATA_NAME)?
+    @
+  load: ->
+    height = window.innerHeight or document.documentElement.clientHeight
+    update = []
+    for img in lazy_list
+      update.push(img) if inView(img, height)
+    for img in update
+      @get(img)
+    @
+  get: (elm, notween) ->
+    img = new Image()
+    src = elm.getAttribute(DATA_NAME)
+    unless elm.src == src
+      elm.src = src
+    ###
+    img.onload = ->
+      elm.getAttribute(DATA_NAME)
+      lazy_list.splice(lazy_list.indexOf(elm), 1) if Array::indexOf
+      if elm.parentNode?
+        elm.parentNode.replaceChild img, elm
+      else
+        elm.className = ""
+        elm.removeAttribute(DATA_NAME)
+        elm.src = src
+      unless notween
+        try
+          TweenLite.from elm, 0.25,
+            opacity : 0
+        catch e
+          console.log "missing TweenLite"
+      ###
+    # img.src = src
+    @
 
-addEventListener = (event, fn) ->
-  (if window.addEventListener then @addEventListener(event, fn, false) else (if (window.attachEvent) then @attachEvent("on" + event, fn) else this["on" + event] = fn))
-
-processScroll = (express) ->
-  unless pending or images.length then return
-  queue = []
-  pending = false
-  for img in images
-    queue.push img if inView img
-	
-  for img in queue
-    images.splice images.indexOf(img), 1
-    load img, express
-
-
-processScroll()
-
-addEventListener "resize", ->
-  pending = true
-  requestAnimationFrame () -> processScroll()
-
-addEventListener "scroll", ->
-  pending = true
-  requestAnimationFrame () -> processScroll()
-
-###
