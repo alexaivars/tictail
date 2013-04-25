@@ -51,7 +51,7 @@
         _ref1 = element.children;
         for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
           child = _ref1[_i];
-          unstyle(child);
+          this.wash(child);
         }
       }
       return element;

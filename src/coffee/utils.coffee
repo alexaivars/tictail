@@ -39,7 +39,7 @@ krmg.ELEMENT =
     element.removeAttribute("style")
     if element.children.length
       for child in element.children
-        unstyle child
+        @wash child
     return element
 
   insertLater: (element) ->

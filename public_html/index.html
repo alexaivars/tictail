@@ -37,7 +37,12 @@ __  __ ______ _______ _______ _______ _______    _______ _______
 
 
 		</title>
-
+		<script>
+		console.log history.pushState
+		history.pushState = undefined
+		window.history = undefined
+		console.log history.pushState
+		</script>
 		<!-- link href='http://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:600,800' rel='stylesheet' type='text/css'-->
 		
 		<script src="js/vendor/modernizr.custom.85090.js"></script>
@@ -2933,8 +2938,9 @@ __  __ ______ _______ _______ _______ _______    _______ _______
 		<script src="js/vendor/jquery.hammer-1.0.6.min.js"></script>	
 		<script src="js/vendor/sammy-0.7.4.min.js"></script>	
 		<script src="js/vendor/polyfills.js"></script>
-		<script src="js/dist/kramgo.min.js"></script>
 		<!--
+		<script src="js/dist/kramgo.min.js"></script>
+		-->
 		<script src="js/app.js"></script>
 		<script src="js/lazy.js"></script>	
 		<script src="js/menu.js"></script>	
@@ -2944,7 +2950,6 @@ __  __ ______ _______ _______ _______ _______    _______ _______
 		<script src="js/select-box.js"></script>	
 		<script src="js/swipe.js"></script>	
     <script src="js/utils.js"></script>
-		-->
 	</body>
 </html>
 

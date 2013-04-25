@@ -56,7 +56,8 @@
         console.log(context.params);
         category = context.params["splat"][0];
         cat = category;
-        return context.load("products/" + category).then(function(html) {
+        console.log(cat);
+        return context.load("/products/" + category).then(function(html) {
           krmg.HTML.read(html, PAGE_SELECTOR);
           setup();
         });
@@ -74,10 +75,10 @@
         name = context.params["splat"][0];
         cat = name;
         console.log(name);
-        context.load("page/" + name).then(function(html) {
+        context.load("/page/" + name).then(function(html) {
           krmg.ProductList.flush();
           krmg.HTML.read(html, PAGE_SELECTOR);
-          return clean();
+          return setup();
         });
       });
       return this.bind("event-context-after", function(event) {

@@ -2,6 +2,7 @@ scrolling = false
 resizing = false
 cat = "index"
 
+
 setup = () ->
   krmg.ProductList.flush().load().index()
   krmg.LazyImage.init()
@@ -45,7 +46,8 @@ $(document).ready ->
       console.log context.params
       category = context.params["splat"][0]
       cat = category
-      context.load("products/#{category}")
+      console.log cat
+      context.load("/products/#{category}")
       .then (html) ->
         krmg.HTML.read(html, PAGE_SELECTOR)
         setup()
@@ -63,11 +65,11 @@ $(document).ready ->
       name = context.params["splat"][0]
       cat = name
       console.log name
-      context.load("page/#{name}")
+      context.load("/page/#{name}")
       .then (html) ->
         krmg.ProductList.flush()
         krmg.HTML.read(html, PAGE_SELECTOR)
-        clean()
+        setup()
       return
 
     @bind "event-context-after", (event) ->
