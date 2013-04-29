@@ -59,13 +59,15 @@
         this.container_bounds = this.container[0].getBoundingClientRect();
         this.list_bounds = $(".product_list")[0].getBoundingClientRect();
       } else if (action = "write") {
-        this.hover.css({
-          position: "absolute",
-          top: Math.round((this.container_bounds.height - this.hover_bounds.height) * 0.5)
-        });
+        /*
+        @hover.css
+          position: "absolute"
+          top: Math.round((@container_bounds.height - @hover_bounds.height ) * 0.5)
+        */
+
         this.slider.css({
           width: this.list_bounds.width,
-          height: Math.round(this.list_bounds.width * 0.5625)
+          height: Math.round(this.list_bounds.width * (2 / 3))
         });
         this.slider.width(this.list_bounds.width);
       }

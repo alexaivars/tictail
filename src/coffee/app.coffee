@@ -12,7 +12,16 @@ setup = () ->
   $(".product_slide_figure img").on "dragstart", (event) ->
     event.preventDefault()
     return false
-  
+ 
+  ref = $(".product_single .product_slide")
+  if ref.length
+    for elm in ref
+      swipe = new krmg.Swipe elm,
+        continuous: true
+        disableScroll: false
+        stopPropagation: false
+        mouse: true
+
   ref = $(".variations_select_label")
   if ref.length
     for elm in ref

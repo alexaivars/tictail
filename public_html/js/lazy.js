@@ -55,8 +55,7 @@
       return this;
     },
     get: function(elm, notween) {
-      var img, src;
-      img = new Image();
+      var src;
       src = elm.getAttribute(DATA_NAME);
       if (elm.src !== src) {
         elm.src = src;

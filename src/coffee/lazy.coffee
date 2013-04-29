@@ -32,7 +32,7 @@ krmg.LazyImage =
       @get(img)
     @
   get: (elm, notween) ->
-    img = new Image()
+    # img = new Image()
     src = elm.getAttribute(DATA_NAME)
     unless elm.src == src
       elm.src = src

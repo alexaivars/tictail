@@ -37,13 +37,14 @@ class krmg.Product
       @container_bounds = @container[0].getBoundingClientRect()
       @list_bounds = $(".product_list")[0].getBoundingClientRect()
     else if action = "write"
+      ###
       @hover.css
         position: "absolute"
         top: Math.round((@container_bounds.height - @hover_bounds.height ) * 0.5)
-      
+      ###
       @slider.css
         width: @list_bounds.width
-        height: Math.round(@list_bounds.width * 0.5625 )
+        height: Math.round(@list_bounds.width * (2/3) )
       @slider.width( @list_bounds.width )
 
     return @container_bounds

@@ -8,7 +8,7 @@
   cat = "index";
 
   setup = function() {
-    var element, elm, insert, instance, ref, _i, _j, _len, _len1, _results;
+    var element, elm, insert, instance, ref, swipe, _i, _j, _k, _len, _len1, _len2, _results;
     krmg.ProductList.flush().load().index();
     krmg.LazyImage.init();
     krmg.LazyImage.load();
@@ -16,18 +16,30 @@
       event.preventDefault();
       return false;
     });
-    ref = $(".variations_select_label");
+    ref = $(".product_single .product_slide");
     if (ref.length) {
       for (_i = 0, _len = ref.length; _i < _len; _i++) {
         elm = ref[_i];
+        swipe = new krmg.Swipe(elm, {
+          continuous: true,
+          disableScroll: false,
+          stopPropagation: false,
+          mouse: true
+        });
+      }
+    }
+    ref = $(".variations_select_label");
+    if (ref.length) {
+      for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
+        elm = ref[_j];
         instance = new krmg.SelectLable(elm);
       }
     }
     ref = $(".html_content");
     if (ref.length) {
       _results = [];
-      for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
-        element = ref[_j];
+      for (_k = 0, _len2 = ref.length; _k < _len2; _k++) {
+        element = ref[_k];
         insert = krmg.ELEMENT.insertLater(element);
         krmg.ELEMENT.wash(element);
         element.className = element.className.replace(/html_content\s*/, "");

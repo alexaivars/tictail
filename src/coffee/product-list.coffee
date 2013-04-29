@@ -9,7 +9,8 @@ class ProductList
     obj = null
     for product in @list
       obj = product if product.url == url
-  
+    
+    return unless obj
 
     for product in @list
       product.select(false) if product != obj && product.row == obj.row

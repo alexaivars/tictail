@@ -313,12 +313,23 @@ h1 {
 
 .product_teaser_image {
   position: relative;
-  padding-bottom: 150%;
+  font-size: 0;
 }
 .product_teaser_image img {
-  position: absolute;
+  position: relative;
   display: block;
+  display: inline-block;
   width: 100%;
+  vertical-align: middle;
+}
+.product_teaser_image:before {
+  position: relative;
+  content: '';
+  display: inline-block;
+  padding-bottom: 150%;
+  margin-right: -0.25em;
+  vertical-align: middle;
+  background: red;
 }
 
 .selected .product_teaser_hover,
@@ -339,9 +350,37 @@ h1 {
   font-family: 'Open Sans';
   font-weight: 400;
   letter-spacing: 0.125em;
+  font-size: 0;
+}
+.lt-ie9 .product_teaser_hover {
+  background: transparent;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#70FF4C4C,endColorstr=#70FF4C4C);
+  zoom: 1;
 }
 .product_teaser_hover .wrapper {
+  font-size: 16px;
+  font-size: 1rem;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
   width: 100%;
+}
+.boxsizing .product_teaser_hover .wrapper {
+  /* Acceptable values are border, content, and padding - content is the default W3C model */
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  padding: 0.5em;
+}
+.product_teaser_hover:before {
+  content: '';
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  margin-right: -0.25em;
+  vertical-align: middle;
+  background: red;
 }
 
 .product_detail {

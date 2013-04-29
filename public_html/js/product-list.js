@@ -20,6 +20,9 @@
           obj = product;
         }
       }
+      if (!obj) {
+        return;
+      }
       _ref1 = this.list;
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         product = _ref1[_j];
