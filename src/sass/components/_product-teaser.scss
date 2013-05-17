@@ -61,6 +61,7 @@ $color_product_hover_ie: "#70FF4C4C";
 
 	.wrapper {
 		@include font-size(16);
+		font-weight: 700;
 		position: relative;
 		display: inline-block;
 		vertical-align: middle;

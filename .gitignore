@@ -4,4 +4,4 @@ public_html/templates_c/*
 fabfile/deploy_id_rsa*
 *.pyc
 *.tmp
-
+fabfile/deploy_id_rsa*

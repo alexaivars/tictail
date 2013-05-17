@@ -10,12 +10,14 @@
     function SlideMenu(container) {
       var _this = this;
       this.container = container;
+      this.menu = $('.page_menu').first();
+      this.tt = $('#tt_colophon').first();
       this.touch = Hammer(this.container);
       this.touch.on("touch dragleft dragright swipeleft swiperight release", function(event) {
         return _this.touchHandler(event);
       });
       this.navigation = this.container.find(".page_navigation").first();
-      this.width = 200;
+      this.width = 256;
       this.left = 0;
       this.setOffset(this.left);
       Hammer($("[data-action=menu-toggle]").first()).on("tap", function(event) {
@@ -68,8 +70,13 @@
 
     SlideMenu.prototype.resize = function() {
       this.navigation.css({
-        minHeight: Math.max(this.container.height(), $(window).height())
+        minHeight: "auto"
       });
+      if (this.container.height() < $(window).height()) {
+        this.navigation.css({
+          minHeight: $(window).height()
+        });
+      }
       return this;
     };
 
@@ -77,12 +84,29 @@
       this.dragX = px;
       this.left = px;
       if (Modernizr.csstransforms3d) {
-        return this.container.css("transform", "translate3d(" + px + "px, 0, 0) scale3d(1,1,1)");
+        this.container.css("transform", "translate3d(" + px + "px, 0, 0) scale3d(1,1,1)");
+        this.menu.css("transform", "translate3d(" + px + "px, 0, 0) scale3d(1,1,1)");
+        this.tt.css("transform", "translate3d(" + px + "px, 0, 0) scale3d(1,1,1)");
+        return this.tt.css("transform", (px === 0 ? "" : "translate3d(" + px + "px, 0)"));
       } else if (Modernizr.csstransforms) {
-        return this.container.css("transform", "translate(" + px + "px, 0)");
+        this.container.css("transform", "translate(" + px + "px, 0)");
+        this.menu.css("transform", "translate(" + px + "px, 0)");
+        return this.tt.css("transform", (px === 0 ? "" : "translate(" + px + "px, 0)"));
       } else {
-        return this.container.css("left", "" + (px - this.width) + "px");
+        this.container.css("left", "" + (px - this.width) + "px");
+        this.menu.css("left", "" + (px - this.width + this.width) + "px");
+        return this.tt.css("left", (px === 0 ? "" : "" + (px - width) + "px"));
       }
+    };
+
+    SlideMenu.prototype.close = function() {
+      var _this = this;
+      return TweenLite.to(this, 0.25, {
+        left: 0,
+        onUpdate: function() {
+          return _this.setOffset(_this.left);
+        }
+      });
     };
 
     return SlideMenu;
