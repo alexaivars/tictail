@@ -32,7 +32,7 @@ p + p {
 .product_detail_name {
 	@include font-size(24);
 	@include line-height($unit*2);
-	font-weight: 400;
+	font-weight: 600;
 	font-family: "Open Sans";
 	letter-spacing: em(2,24);
 	margin: em($unit,24) em($unit,24) 0 em($unit,24);
@@ -47,24 +47,39 @@ p + p {
 
 .product_detail_button {
 	@include experimental(appearance, none);
-	@include font-size(18);
-	@include line-height($unit*2);
+	@include font-size(12);
+	@include line-height($unit*3);
 	@include box-sizing();
 	border-collapse:collapse;
 	display: block;
-	font-weight: 400;
+	font-weight: 700;
 	font-family: "Open Sans";
-	border: em($size_stroke,18) solid $color_stroke;
+	letter-spacing: em(2, 12);
+	border: em($size_stroke,12) solid $color_stroke;
 	background: #FFF;
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	max-width: em($unit*14,18);
+	max-width: em($unit*28,12);
 	text-align: center;
 	margin: auto;
 	margin-top: em($unit);
+
+	&:hover {
+		background: black;
+		color: white;
+	}
 }
 
+.stock_label {
+	@extend .product_detail_button;
+	color: #CCC;
+	border-color: #CCC;
+	&:hover {
+		background: white;
+		color: #CCC;
+	}
+}
 .tictail_button {
 	@extend .product_detail_button;
 }

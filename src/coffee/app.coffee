@@ -1,5 +1,6 @@
 scrolling = false
 resizing = false
+menu = null
 cat = "index"
 
 
@@ -7,6 +8,7 @@ setup = () ->
   krmg.ProductList.flush().load().index()
   krmg.LazyImage.init()
   krmg.LazyImage.load()
+  menu.resize()
  
   # todo move this to swipe component 
   $(".product_slide_figure img").on "dragstart", (event) ->
@@ -36,9 +38,9 @@ setup = () ->
       insert()
 
 $(document).ready ->
+  menu = new krmg.SlideMenu $(".page_body").first()
   
   setup()
-  menu = new krmg.SlideMenu $(".page_body").first()
 
   PAGE_SELECTOR = ".page_column"
   $.sammy PAGE_SELECTOR, () ->
@@ -52,10 +54,8 @@ $(document).ready ->
       return
     
     @get /products\/(.*)/, (context) ->
-      console.log context.params
       category = context.params["splat"][0]
       cat = category
-      console.log cat
       context.load("/products/#{category}")
       .then (html) ->
         krmg.HTML.read(html, PAGE_SELECTOR)
@@ -73,19 +73,22 @@ $(document).ready ->
     @get /page\/(.*)/, (context) ->
       name = context.params["splat"][0]
       cat = name
-      console.log name
       context.load("/page/#{name}")
       .then (html) ->
         krmg.ProductList.flush()
         krmg.HTML.read(html, PAGE_SELECTOR)
         setup()
+      
       return
 
     @bind "event-context-after", (event) ->
-      target = $(".navigation a[href$='#{@path.replace /^\/\#|^\//, ""}']")
-      $(".navigation .selected").removeClass "selected" if target.length
-      target.addClass "selected"
-      $(".navigation ul").has(".selected").addClass "selected"
+      target = $("a[href$='#{@path.replace /^\/\#|^\//, ""}']")
+      $("a.selected").removeClass "selected"
+      if target.length
+        target.addClass "selected"
+      else
+        $("a[href='/']").addClass "selected"
+      menu.close()
       return
   .run()
 

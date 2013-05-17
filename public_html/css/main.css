@@ -86,7 +86,7 @@ select.rmStyle {
 .page_body {
   *zoom: 1;
   position: relative;
-  left: -12.5em;
+  left: -16em;
 }
 .page_body:after {
   content: "";
@@ -96,9 +96,9 @@ select.rmStyle {
 
 .page_navigation {
   background: black;
-  width: 12.5em;
+  width: 16em;
   float: left;
-  margin-right: -12.5em;
+  margin-right: -16em;
   height: 100%;
 }
 
@@ -109,9 +109,10 @@ select.rmStyle {
 .page_content {
   background: white;
   min-height: 100%;
-  margin-left: 12.5em;
+  margin-left: 16em;
   width: 100%;
   float: left;
+  margin-top: 3.25em;
 }
 
 .page_header {
@@ -132,12 +133,19 @@ select.rmStyle {
 h1 {
   font-size: 32px;
   font-size: 2rem;
+  font-family: "Open Sans";
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.125em;
   color: #000;
   text-transform: uppercase;
 }
 
 .page_menu {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
   margin: 1em 1em 0 1em;
 }
 
@@ -149,17 +157,17 @@ h1 {
   background: black;
   /* Old browsers */
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background: -moz-linear-gradient(left, black 12.5em, white 12.5em);
+  background: -moz-linear-gradient(left, black 16em, white 16em);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(12.5em, black), color-stop(12.5em, white));
+  background: -webkit-gradient(linear, left top, right top, color-stop(16em, black), color-stop(16em, white));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left, black 12.5em, white 12.5em);
+  background: -webkit-linear-gradient(left, black 16em, white 16em);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left, black 12.5em, white 12.5em);
+  background: -o-linear-gradient(left, black 16em, white 16em);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(left, black 12.5em, white 12.5em);
+  background: -ms-linear-gradient(left, black 16em, white 16em);
   /* IE10+ */
-  background: linear-gradient(to right, black 12.5em, white 12.5em);
+  background: linear-gradient(to right, black 16em, white 16em);
   /* W3C */
 }
 
@@ -174,9 +182,20 @@ h1 {
   text-decoration: none;
   padding: 0.5em 0;
   color: #999;
+  -webkit-transition: color 0.2s ease;
+  -moz-transition: color 0.2s ease;
+  -ms-transition: color 0.2s ease;
+  -o-transition: color 0.2s ease;
+  transition: color 0.2s ease;
 }
 .page_navigation a.selected {
-  color: #CCC;
+  color: #FFF;
+}
+.page_navigation a:active {
+  color: #666;
+}
+.page_navigation li > ul a {
+  color: #525252;
 }
 
 .search_container input {
@@ -192,6 +211,7 @@ h1 {
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+  color: #999;
   font-weight: 400;
   font-family: "PT Serif";
   border: 1px solid #666;
@@ -215,7 +235,7 @@ h1 {
   text-indent: 1em;
 }
 
-.page_menu a {
+.page_menu > div {
   display: block;
   background: url("img/icon-menu.gif") center center no-repeat;
   padding: 0.5em;
@@ -233,6 +253,7 @@ h1 {
   height: 16px;
   height: 18px;
   display: inline-block;
+  top: -6px;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -360,6 +381,7 @@ h1 {
 .product_teaser_hover .wrapper {
   font-size: 16px;
   font-size: 1rem;
+  font-weight: 700;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -419,7 +441,7 @@ p + p {
   font-size: 1.5rem;
   line-height: 32px;
   line-height: 2rem;
-  font-weight: 400;
+  font-weight: 600;
   font-family: "Open Sans";
   letter-spacing: 0.08333333em;
   margin: 0.66666667em 0.66666667em 0 0.66666667em;
@@ -432,16 +454,16 @@ p + p {
   margin: 0.88888889em 0.88888889em 0 0.88888889em;
 }
 
-.product_detail_button, .tictail_button, .variations_select_label, .tictail_variations_select {
+.product_detail_button, .stock_label, .tictail_button, .variations_select_label, .tictail_variations_select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
-  font-size: 18px;
-  font-size: 1.125rem;
-  line-height: 32px;
-  line-height: 2rem;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 48px;
+  line-height: 3rem;
   /* Acceptable values are border, content, and padding - content is the default W3C model */
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -449,17 +471,31 @@ p + p {
   -ms-box-sizing: border-box;
   border-collapse: collapse;
   display: block;
-  font-weight: 400;
+  font-weight: 700;
   font-family: "Open Sans";
-  border: 0.22222222em solid black;
+  letter-spacing: 0.16666667em;
+  border: 0.33333333em solid black;
   background: #FFF;
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 12.44444444em;
+  max-width: 37.33333333em;
   text-align: center;
   margin: auto;
   margin-top: 1em;
+}
+.product_detail_button:hover, .stock_label:hover, .tictail_button:hover, .variations_select_label:hover, .tictail_variations_select:hover {
+  background: black;
+  color: white;
+}
+
+.stock_label {
+  color: #CCC;
+  border-color: #CCC;
+}
+.stock_label:hover {
+  background: white;
+  color: #CCC;
 }
 
 .variations_select_label {

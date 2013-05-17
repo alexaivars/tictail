@@ -12,10 +12,24 @@
 		text-decoration: none;
 		padding: em($unit*0.5) 0;
 		color: #999;
+
+		-webkit-transition: color 0.2s ease;
+		-moz-transition: color 0.2s ease;
+		-ms-transition: color 0.2s ease;
+		-o-transition: color 0.2s ease;
+		transition: color 0.2s ease;
+
 		&.selected {
-			color: #CCC;
+			color: #FFF;
+		}
+		&:active {
+			color: #666;
 		}
 	}
+
+	li > ul a {
+		color: #525252;
+	} 
 }
 
 .search_container {
@@ -23,6 +37,7 @@
 		@include box-sizing();
 		@include font-size($basefont);
 		@include experimental(appearance, none);
+		color: #999;
 		font-weight: 400;
 		font-family: "PT Serif";
 		border: 1px solid #666; 
@@ -43,7 +58,7 @@
 	}
 }
 
-.page_menu a {
+.page_menu > div {
 	display: block;
 	background: url('img/icon-menu.gif') center center no-repeat;
 	padding: em($unit*.5);

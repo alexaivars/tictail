@@ -49,7 +49,7 @@ __  __ ______ _______ _______ _______ _______    _______ _______
 		Tictail lets you create a beautiful online store for free - tictail.com" />
 		<script type="text/javascript">
 			WebFontConfig = {
-				google: { families: [ 'PT+Serif::latin', 'Open+Sans:400,800:latin' ] }
+				google: { families: [ 'PT+Serif::latin', 'Open+Sans:400,600,800,700:latin' ] }
 			};
 			(function() {
 				var wf = document.createElement('script');
@@ -67,48 +67,61 @@ __  __ ______ _______ _______ _______ _______    _______ _______
 		<div class="page_body">
 			<div class="page_navigation">
 				<nav>
-					<ul>
-						<li><div class="search_container">
-								<form id="tictail_search" class="tictail_form tictail_search">
-									<input id="tictail_search_box" name="q" autocomplete="off"
-									type="text" title="Search" placeholder="Find product" />
-						</form></div></li>
-					</ul>
-					<ul>
-						<li>
-							<a href="/#products/tops" >Tops(1)</a>
-						</li>
-						<li>
-							<a href="/#products/jackets" >Jackets(1)</a>
-						</li>
-						<li>
-							<a href="/#products/knits" >Knits(10)</a>
-						</li>
-						<li>
-							<a href="/#products/accessories" >Accessories(3)</a>
-						</li>
-						<li>
-							<a href="/#products/jeans" >Jeans(21)</a>
-						</li>
-						<li>
-							<a href="/#products/women" >Women(41)</a>
-						</li>
-						<li>
-							<a href="/#products/man" >Man(4)</a>
-						</li>
-					</ul>
-					<ul>
-						<li class="">
-							<a href="http://shop.aivars.se/page/about">About</a>
-						</li>						
-					</ul>
-				</nav>
+            		<ul>
+                        <li><div class="search_container">
+    										<form id="tictail_search" class="tictail_form tictail_search">
+        								<input id="tictail_search_box" name="q" autocomplete="off" type="text" class="placeholder">
+    										<div id="tictail_search_results" class="results_box results-box" style="display: none; "></div><div id="tictail_search_results" class="results_box results-box" style="display: none; "></div><div id="tictail_search_results" class="results_box results-box" style="display: none; "></div></form></div></li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="/">All Products</a>
+                        </li>
+                        <li>
+                            <a href="/products/tops">Tops</a>
+                        </li>
+                        <li>
+                            <a href="/products/jackets">Jackets</a>
+                        </li>
+                        <li>
+                            <a href="/products/knits">Knits</a>
+                            <ul>
+                                <li><a href="/products/knits/special">special</a></li><li><a href="/products/knits/white">white</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/products/accessories">Accessories</a>
+                        </li>
+                        <li>
+                            <a href="/products/jeans">Jeans</a>
+                        </li>
+                        <li>
+                            <a href="/products/women">Women</a>
+                            <ul>
+                                <li><a href="/products/women/jeans-75293">Jeans</a></li><li><a href="/products/women/dresses">Dresses</a></li><li><a href="/products/women/tops-76136">Tops</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/products/man">Man</a>
+                            <ul>
+                                <li><a href="/products/man/jeans-75298">Jeans</a></li><li><a href="/products/man/t-shirt">T-shirt</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/products/test">Test</a>
+                        </li>
+                        <li>
+                            <a href="/products/empty">Empty</a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li class="">
+                            <a href="/page/about">About</a>
+                        </li>						
+            		</ul>
+                </nav>
 			</div>
 			<div id="page" class="page_content">
-				<menu class="page_menu">
-					<a href="#navigation" data-action="menu-toggle">navigation</a>
-				</menu>
-				
 				<section class="page_column">
 				<header class="page_header">
 				<a href="/dashboard/store/alexaivars/themes/preview/55128" >
@@ -2916,6 +2929,9 @@ __  __ ______ _______ _______ _______ _______    _______ _______
 				</section>
 			</div>
 		</div>
+		</div>
+		<div class="page_menu">
+			<div data-action="menu-toggle">navigation<div>
 		</div>
 
 		<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

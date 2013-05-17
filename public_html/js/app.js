@@ -1,9 +1,11 @@
 (function() {
-  var cat, resizing, scrolling, setup;
+  var cat, menu, resizing, scrolling, setup;
 
   scrolling = false;
 
   resizing = false;
+
+  menu = null;
 
   cat = "index";
 
@@ -12,6 +14,7 @@
     krmg.ProductList.flush().load().index();
     krmg.LazyImage.init();
     krmg.LazyImage.load();
+    menu.resize();
     $(".product_slide_figure img").on("dragstart", function(event) {
       event.preventDefault();
       return false;
@@ -50,9 +53,9 @@
   };
 
   $(document).ready(function() {
-    var PAGE_SELECTOR, menu;
-    setup();
+    var PAGE_SELECTOR;
     menu = new krmg.SlideMenu($(".page_body").first());
+    setup();
     PAGE_SELECTOR = ".page_column";
     return $.sammy(PAGE_SELECTOR, function() {
       this.get("/", function(context) {
@@ -65,10 +68,8 @@
       });
       this.get(/products\/(.*)/, function(context) {
         var category;
-        console.log(context.params);
         category = context.params["splat"][0];
         cat = category;
-        console.log(cat);
         return context.load("/products/" + category).then(function(html) {
           krmg.HTML.read(html, PAGE_SELECTOR);
           setup();
@@ -86,7 +87,6 @@
         var name;
         name = context.params["splat"][0];
         cat = name;
-        console.log(name);
         context.load("/page/" + name).then(function(html) {
           krmg.ProductList.flush();
           krmg.HTML.read(html, PAGE_SELECTOR);
@@ -95,12 +95,14 @@
       });
       return this.bind("event-context-after", function(event) {
         var target;
-        target = $(".navigation a[href$='" + (this.path.replace(/^\/\#|^\//, "")) + "']");
+        target = $("a[href$='" + (this.path.replace(/^\/\#|^\//, "")) + "']");
+        $("a.selected").removeClass("selected");
         if (target.length) {
-          $(".navigation .selected").removeClass("selected");
+          target.addClass("selected");
+        } else {
+          $("a[href='/']").addClass("selected");
         }
-        target.addClass("selected");
-        $(".navigation ul").has(".selected").addClass("selected");
+        menu.close();
       });
     }).run();
   });

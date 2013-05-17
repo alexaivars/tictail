@@ -1,4 +1,4 @@
-$navigation_width: 200;
+$navigation_width: 256;
 $navigation_color: #000000;
 $content_color: #FFFFFF;
 $unit: 16;
@@ -35,6 +35,7 @@ $unit: 16;
 	margin-left: em($navigation_width);
 	width: 100%;
 	float: left;
+	margin-top: em( 20 + $unit*2);
 }
 
 .page_header {
@@ -55,14 +56,23 @@ $unit: 16;
 
 h1 {
 	@include font-size($unit*2);
+	font-family: "Open Sans";
 	text-align: center;
+	font-weight: 600;
+	letter-spacing: em(4, $unit*2);
 	color: #000;
 	text-transform: uppercase;
 }
 
 .page_menu {
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
 	margin: em($unit) em($unit) 0 em($unit);
 }
+
+
 .product_list {
 	margin: em($unit);
 }
@@ -70,10 +80,10 @@ h1 {
 .page_body {
 	background: $navigation_color; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-	background: -moz-linear-gradient(left,  $navigation_color em(200), $content_color em(200)); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(em(200),$navigation_color), color-stop(em(200),$content_color)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  $navigation_color em(200),$content_color em(200)); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  $navigation_color em(200),$content_color em(200)); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  $navigation_color em(200),$content_color em(200)); /* IE10+ */
-	background: linear-gradient(to right,  $navigation_color em(200),$content_color em(200)); /* W3C */
+	background: -moz-linear-gradient(left,  $navigation_color em($navigation_width), $content_color em($navigation_width)); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(em($navigation_width),$navigation_color), color-stop(em($navigation_width),$content_color)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  $navigation_color em($navigation_width),$content_color em($navigation_width)); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  $navigation_color em($navigation_width),$content_color em($navigation_width)); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  $navigation_color em($navigation_width),$content_color em($navigation_width)); /* IE10+ */
+	background: linear-gradient(to right,  $navigation_color em($navigation_width),$content_color em($navigation_width)); /* W3C */
 }
