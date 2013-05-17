@@ -1,3 +1,9 @@
+.hamburger-icon {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAoAQMAAACYdQu8AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABVJREFUGJVj+A8BHxgoZFALDFP3AACJ/73ZME9a1AAAAABJRU5ErkJggg==');
+	background-size: 30px 20px;
+}
+
+
 .page_navigation {
 	ul + ul {
 		margin-top: em($unit);
@@ -59,8 +65,10 @@
 }
 
 .page_menu > div {
+	@extend .hamburger-icon;
 	display: block;
-	background: url('img/icon-menu.gif') center center no-repeat;
+	background-repeat: no-repeat;
+	background-position: center center;
 	padding: em($unit*.5);
 	margin-left: em(-$unit*.5);
 	width: em($unit*2);

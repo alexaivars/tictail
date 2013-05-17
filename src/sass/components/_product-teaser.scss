@@ -1,5 +1,9 @@
-$color_product_hover: #FF4C4C;
-$color_product_hover_ie: "#70FF4C4C";
+/* ******************************
+
+PRODUCT TEASER
+
+****************************** */
+
 .product_teaser {
 	position: relative;
 	margin: em($unit*0.5);
@@ -9,7 +13,6 @@ $color_product_hover_ie: "#70FF4C4C";
 
 .product_teaser_image {
 	position: relative;
-	// padding-bottom: 150%;
 	font-size: 0;
 
 	img {
@@ -34,10 +37,6 @@ $color_product_hover_ie: "#70FF4C4C";
 }
 
 
-.selected .product_teaser_hover,
-.no-touch .product_teaser:hover .product_teaser_hover {
-	visibility:visible;
-}
 
 .product_teaser_hover {
 	visibility:hidden;
@@ -80,5 +79,8 @@ $color_product_hover_ie: "#70FF4C4C";
 		vertical-align: middle;
 		background: red;
 	}
+
+	.selected &												{ visibility:visible; }
+	.no-touch .product_teaser:hover & { visibility:visible; }
 }
 

@@ -5,7 +5,14 @@ cat = "index"
 
 
 setup = () ->
-  krmg.ProductList.flush().load().index()
+  ref = $(".variations_select_label")
+  if ref.length
+    for elm in ref
+      instance = new krmg.SelectLable(elm)
+  
+  krmg.ProductList.flush().load()
+
+  krmg.ProductList.index()
   krmg.LazyImage.init()
   krmg.LazyImage.load()
   menu.resize()
@@ -24,10 +31,6 @@ setup = () ->
         stopPropagation: false
         mouse: true
 
-  ref = $(".variations_select_label")
-  if ref.length
-    for elm in ref
-      instance = new krmg.SelectLable(elm)
   
   ref = $(".html_content")
   if ref.length

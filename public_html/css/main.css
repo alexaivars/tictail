@@ -171,6 +171,11 @@ h1 {
   /* W3C */
 }
 
+.hamburger-icon, .page_menu > div {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAoAQMAAACYdQu8AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABVJREFUGJVj+A8BHxgoZFALDFP3AACJ/73ZME9a1AAAAABJRU5ErkJggg==");
+  background-size: 30px 20px;
+}
+
 .page_navigation ul + ul {
   margin-top: 1em;
 }
@@ -237,7 +242,8 @@ h1 {
 
 .page_menu > div {
   display: block;
-  background: url("img/icon-menu.gif") center center no-repeat;
+  background-repeat: no-repeat;
+  background-position: center center;
   padding: 0.5em;
   margin-left: -0.5em;
   width: 2em;
@@ -325,6 +331,11 @@ h1 {
   width: 25%;
 }
 
+/* ******************************
+
+PRODUCT TEASER
+
+****************************** */
 .product_teaser {
   position: relative;
   margin: 0.5em;
@@ -351,11 +362,6 @@ h1 {
   margin-right: -0.25em;
   vertical-align: middle;
   background: red;
-}
-
-.selected .product_teaser_hover,
-.no-touch .product_teaser:hover .product_teaser_hover {
-  visibility: visible;
 }
 
 .product_teaser_hover {
@@ -403,6 +409,12 @@ h1 {
   margin-right: -0.25em;
   vertical-align: middle;
   background: red;
+}
+.selected .product_teaser_hover {
+  visibility: visible;
+}
+.no-touch .product_teaser:hover .product_teaser_hover {
+  visibility: visible;
 }
 
 .product_detail {
@@ -504,8 +516,8 @@ p + p {
 
 .tictail_variations_select {
   display: block;
-  margin-bottom: -3.11111111em;
-  opacity: 0;
+  margin-bottom: -5.66666667em;
+  opacity: 0.0;
 }
 
 .tictail_variations_select + .variations_select_label {

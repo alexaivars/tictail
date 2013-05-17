@@ -11,7 +11,15 @@
 
   setup = function() {
     var element, elm, insert, instance, ref, swipe, _i, _j, _k, _len, _len1, _len2, _results;
-    krmg.ProductList.flush().load().index();
+    ref = $(".variations_select_label");
+    if (ref.length) {
+      for (_i = 0, _len = ref.length; _i < _len; _i++) {
+        elm = ref[_i];
+        instance = new krmg.SelectLable(elm);
+      }
+    }
+    krmg.ProductList.flush().load();
+    krmg.ProductList.index();
     krmg.LazyImage.init();
     krmg.LazyImage.load();
     menu.resize();
@@ -21,21 +29,14 @@
     });
     ref = $(".product_single .product_slide");
     if (ref.length) {
-      for (_i = 0, _len = ref.length; _i < _len; _i++) {
-        elm = ref[_i];
+      for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
+        elm = ref[_j];
         swipe = new krmg.Swipe(elm, {
           continuous: true,
           disableScroll: false,
           stopPropagation: false,
           mouse: true
         });
-      }
-    }
-    ref = $(".variations_select_label");
-    if (ref.length) {
-      for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
-        elm = ref[_j];
-        instance = new krmg.SelectLable(elm);
       }
     }
     ref = $(".html_content");
