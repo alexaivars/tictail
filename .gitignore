@@ -3,4 +3,4 @@ node_modules
 public_html/templates_c/*
 *.pyc
 *.tmp
-
+fabfile/deploy_id_rsa*
