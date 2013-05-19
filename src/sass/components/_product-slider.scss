@@ -1,9 +1,13 @@
+/* ******************************
+
+PRODUCT SLIDER
+
+****************************** */
+
 
 .product_slide {
 	// @include experimental(backface-visibility, hidden );
   display:block;
-  overflow: hidden;
-  // visibility: hidden;
   overflow: hidden;
   position: relative;
 	width:100%;
@@ -39,7 +43,3 @@
 	.lt-ie9 &[data-click="next"] { cursor: url(css/next.cur), e-resize; }
 	.lt-ie9 &[data-click="prev"] { cursor: url(css/prev.cur), w-resize; }
 }
-
-// remove when slide js is implemented
-
-

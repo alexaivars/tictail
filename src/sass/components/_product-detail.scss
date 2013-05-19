@@ -1,6 +1,8 @@
-$size_stroke: 4;
-$color_stroke: #000;
+/* ******************************
 
+PRODUCT DETAIL
+
+****************************** */
 
 .product_detail {
 	margin: em($unit*0.5);
@@ -10,10 +12,11 @@ $color_stroke: #000;
 	&.selected {
 		display:block;
 	}
+	.product_single & {
+		display: block;
+	}
 }
-.product_single .product_detail {
-	display: block;
-}
+
 .product_detail_description {
 	@include font-size(18);
 	@include line-height(27);
@@ -25,9 +28,6 @@ $color_stroke: #000;
 	max-width: em($unit*33);
 }
 
-p + p {
-	margin-top: em(24,18);
-}
 
 .product_detail_name {
 	@include font-size(24);
@@ -87,6 +87,15 @@ p + p {
 .variations_select_label {
 	@extend .product_detail_button;
 	display: none;
+	&:before {
+		@extend .arrow-icon;
+		content: "";
+		display: block;
+		float: right;
+		margin-right: em($unit * 0.5, 12);
+		width: em($unit, 12);
+		height: em($unit * 3, 12);
+	}
 }
 .tictail_variations_select {
 	@extend .product_detail_button;

@@ -5,7 +5,7 @@ class krmg.Product
     @detail = @container.find(".product_detail").first()
     @slider = @container.find(".product_slide").first()
     @images = @container.find(".product_slide_figure img")
-    @hover  = @container.find(".product_teaser_hover .wrapper").first()
+    # @hover  = @container.find(".product_teaser_hover .product_teaser_hover_body").first()
     @swipe  = null
     @detail.detach()
     @detail.show() #ToDo. instead of jquery show, we should toggle a class. maby .loading 
@@ -31,9 +31,9 @@ class krmg.Product
     @
   size: (action)->
     if action == "reset"
-      @hover.removeAttr("style")
+      # @hover.removeAttr("style")
     else if action == "load"
-      @hover_bounds = @hover[0].getBoundingClientRect()
+      # @hover_bounds = @hover[0].getBoundingClientRect()
       @container_bounds = @container[0].getBoundingClientRect()
       @list_bounds = $(".product_list")[0].getBoundingClientRect()
     else if action = "write"

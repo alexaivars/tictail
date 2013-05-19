@@ -13,7 +13,6 @@
       this.detail = this.container.find(".product_detail").first();
       this.slider = this.container.find(".product_slide").first();
       this.images = this.container.find(".product_slide_figure img");
-      this.hover = this.container.find(".product_teaser_hover .wrapper").first();
       this.swipe = null;
       this.detail.detach();
       this.detail.show();
@@ -53,9 +52,8 @@
 
     Product.prototype.size = function(action) {
       if (action === "reset") {
-        this.hover.removeAttr("style");
+
       } else if (action === "load") {
-        this.hover_bounds = this.hover[0].getBoundingClientRect();
         this.container_bounds = this.container[0].getBoundingClientRect();
         this.list_bounds = $(".product_list")[0].getBoundingClientRect();
       } else if (action = "write") {

@@ -1,9 +1,16 @@
 // global variables and settings
-
 $basefont: 16;
 $text-line: 24;
 $color_product_hover: #FF4C4C;
 $color_product_hover_ie: "#70FF4C4C";
+$color_product_hover_text: #FFF;
+$color_stroke: #000;
+
+$size_stroke: 4;
+$navigation_width: 256;
+$navigation_color: #000000;
+$content_color: #FFFFFF;
+$unit: 16;
 
 // General imports
 @import "mixins/reset";
@@ -15,7 +22,6 @@ $color_product_hover_ie: "#70FF4C4C";
 @import "components/page-layout";
 @import "components/navigation";
 @import "components/social";
-@import "components/product-layout";
 @import "components/product-teaser";
 @import "components/product-detail";
 @import "components/product-slider";
@@ -28,11 +34,36 @@ body {
 	@include experimental(font-smoothing, antialiased);
 }
 
+.hamburger-icon {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAoAQMAAACYdQu8AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABVJREFUGJVj+A8BHxgoZFALDFP3AACJ/73ZME9a1AAAAABJRU5ErkJggg==');
+	background-size: 30px 20px;
+}
+
+.arrow-icon {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAMAAADHqI+lAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFAAAA////pdmf3QAAAAJ0Uk5T/wDltzBKAAAAK0lEQVR42lzIyREAIAgAMdJ/044HiuwvG9HT6TvmUL2G4j08n+E6h7QhwAAJ1AA5atNy8AAAAABJRU5ErkJggg==');
+	background-size: 8px 4px;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
 .html_content {
 	visibility:hidden;
 	.no-js & {
 		visibility:visible;
 	}
+}
+
+p + p {
+	margin-top: em(24,18);
+}
+h1 {
+	@include font-size($unit*2);
+	font-family: "Open Sans";
+	text-align: center;
+	font-weight: 600;
+	letter-spacing: em(4, $unit*2);
+	color: #000;
+	text-transform: uppercase;
 }
 
 .post {

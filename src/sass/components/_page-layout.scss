@@ -1,7 +1,8 @@
-$navigation_width: 256;
-$navigation_color: #000000;
-$content_color: #FFFFFF;
-$unit: 16;
+/* ******************************
+
+PAGE LAYOUT
+
+****************************** */
 
 .page {
 	position: relative;
@@ -16,7 +17,6 @@ $unit: 16;
 		display: table;
 		clear: both;
 	}
-
 }
 .page_navigation {
 	background: $navigation_color;
@@ -28,7 +28,6 @@ $unit: 16;
 .page_navigation nav {
 	margin: em($unit);
 }
-
 .page_content {
 	background: $content_color;
 	min-height: 100%;
@@ -37,7 +36,6 @@ $unit: 16;
 	float: left;
 	margin-top: em( 20 + $unit*2);
 }
-
 .page_header {
 	display: block;
 	margin-bottom: em($unit*3);
@@ -46,24 +44,11 @@ $unit: 16;
 		text-decoration: none;
 	}
 }
-
 .page_column {
 	margin: auto;
 	max-width: em(1200);
 	margin: auto;
 }
-
-
-h1 {
-	@include font-size($unit*2);
-	font-family: "Open Sans";
-	text-align: center;
-	font-weight: 600;
-	letter-spacing: em(4, $unit*2);
-	color: #000;
-	text-transform: uppercase;
-}
-
 .page_menu {
 	display: block;
 	position: fixed;
@@ -71,12 +56,6 @@ h1 {
 	top: 0;
 	margin: em($unit) em($unit) 0 em($unit);
 }
-
-
-.product_list {
-	margin: em($unit);
-}
-
 .page_body {
 	background: $navigation_color; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
