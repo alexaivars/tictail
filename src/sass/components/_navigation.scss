@@ -48,6 +48,11 @@
 		width: 100%;
 		padding: em($unit*.5);
 		background: transparent;	
+		&:disabled {
+			border-color: #666;
+			color: #999;
+			opacity: 1;
+		}
 		&:focus {
 			@include experimental(appearance, none);
 			outline:0px none transparent;

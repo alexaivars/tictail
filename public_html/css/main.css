@@ -211,6 +211,11 @@ PAGE LAYOUT
   padding: 0.5em;
   background: transparent;
 }
+.search_container input:disabled {
+  border-color: #666;
+  color: #999;
+  opacity: 1;
+}
 .search_container input:focus {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -607,6 +612,12 @@ body {
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
+}
+.no-touch body {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .hamburger-icon, .page_menu > div {

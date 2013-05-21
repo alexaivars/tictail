@@ -4,74 +4,102 @@ class krmg.SlideMenu
    
     @menu = $('.page_menu').first()
     @tt   = $('#tt_colophon').first()
+    
+    @content = [@menu, @container]
+    if @tt.length
+      @content.push @tt
 
+      
     @touch = Hammer @container
-    @touch.on "touch dragleft dragright swipeleft swiperight release", (event) => @touchHandler(event)
+    @touch.on "dragleft dragright swipeleft swiperight release dragup dragdown", (event) => @touchHandler(event)
     @navigation =  @container.find(".page_navigation").first()
     @width = 256
-    @left = 0
-    @setOffset(@left)
+    @close()
+
     Hammer($("[data-action=menu-toggle]").first()).on "tap", (event) => @actionHandler(event)
+    document.getElementById("tictail_search_box").disabled = true
     $(window).on "resize", () => @resize()
+
     @resize()
     return
 
   actionHandler: (event) ->
+    event.stopPropagation()
     event.preventDefault()
-    event.gesture.preventDefault()
-    TweenLite.to @, 0.25,
-      left: ( if @left > 0 then 0 else @width )
-      onUpdate: () =>
-        @setOffset @left
+    if @state == "open"
+      @close()
+    else
+      @open()
 
   touchHandler: (event) ->
     # disable browser scrolling
-    event.preventDefault()
     switch event.type
-      when "touch"
-        @delta = @dragX
-      when "dragright", "dragleft"
-        event.gesture.preventDefault()
-        @setOffset Math.max(0,Math.min(@width,event.gesture.deltaX + @delta))
-      when "swiperight"
-        @setOffset @width, true
-      when "swipeleft"
-        @setOffset 0, true
-      when "release"
-        if @dragX > @width * 0.5
-          @setOffset @width, true
+      when "dragup", "dragdown"
+        if @change
+          event.preventDefault()
+          event.gesture.preventDefault()
         else
-          @setOffset 0, true
+          @ignore = true
+          
+      when "dragright", "dragleft"
+        return if @ignore
+        @change = true
+        event.preventDefault()
+        event.gesture.preventDefault()
+        if @state == "open"
+          x = Math.max(0,Math.min(@width,@width + event.gesture.deltaX))
+        else
+          x = Math.max(0,Math.min(@width,event.gesture.deltaX))
+        TweenLite.set @content,
+          x: x
+          overwrite: true
+      when "swiperight"
+        event.preventDefault()
+        @open()
+      when "swipeleft"
+        event.preventDefault()
+        @close()
+      when "release"
+        event.preventDefault()
+        if @change
+          if Math.abs(event.gesture.deltaX) > @width * 0.5
+            if @state == "open"
+              @close()
+            else
+              @open()
+          else
+            if @state == "open"
+              @open()
+            else
+              @close()
+
+        @ignore = false
+        @change = false
     return
 
   resize: () ->
     @navigation.css
       minHeight: "auto"
-
     if @container.height() < $(window).height()
       @navigation.css
         minHeight: $(window).height()
     @
-
-  setOffset:  (px) ->
-    @dragX = px
-    @left = px
-    if Modernizr.csstransforms3d
-      @container.css "transform", "translate3d(#{px}px, 0, 0) scale3d(1,1,1)"
-      @menu.css "transform", "translate3d(#{px}px, 0, 0) scale3d(1,1,1)"
-      @tt.css "transform", "translate3d(#{px}px, 0, 0) scale3d(1,1,1)"
-      @tt.css "transform", (if (px is 0) then "" else "translate3d(#{px}px, 0)")
-    else if Modernizr.csstransforms
-      @container.css "transform", "translate(#{px}px, 0)"
-      @menu.css "transform", "translate(#{px}px, 0)"
-      @tt.css "transform", (if (px is 0) then "" else "translate(#{px}px, 0)")
-    else
-      @container.css "left", "#{px - @width}px"
-      @menu.css "left", "#{px - @width + @width}px"
-      @tt.css "left", (if (px is 0) then "" else "#{px - width}px")
-
-  close: () ->
-    TweenLite.to @, 0.25,
-      left: 0
-      onUpdate: () =>
-        @setOffset @left
+  open: (fn) ->
+    TweenLite.to @content, 0.25,
+      x: @width
+      overwrite: true
+      onComplete: () =>
+        @state = "open"
+        console.log "open"
+        setTimeout () ->
+          document.getElementById("tictail_search_box").disabled = false
+        , 400
+  
+  close: (fn) ->
+    console.log fn
+    TweenLite.to @content, 0.25,
+      x: 0
+      overwrite: true
+      onComplete: () =>
+        @state = "closed"
+        document.getElementById("tictail_search_box").disabled = true
