@@ -2,7 +2,7 @@ scrolling = false
 resizing = false
 menu = null
 cat = "index"
-
+single = null
 
 setup = () ->
   ref = $(".variations_select_label")
@@ -15,23 +15,17 @@ setup = () ->
   krmg.ProductList.index()
   krmg.LazyImage.init()
   krmg.LazyImage.load()
-  menu.resize()
  
   # todo move this to swipe component 
   $(".product_slide_figure img").on "dragstart", (event) ->
     event.preventDefault()
     return false
  
-  ref = $(".product_single .product_slide")
+  ref = $(".product_single")
   if ref.length
     for elm in ref
-      swipe = new krmg.Swipe elm,
-        continuous: true
-        disableScroll: false
-        stopPropagation: false
-        mouse: true
+      single = new krmg.Product $(elm)
 
-  
   ref = $(".html_content")
   if ref.length
     for element in ref
@@ -41,8 +35,29 @@ setup = () ->
       insert()
 
 $(document).ready ->
-  menu = new krmg.SlideMenu $(".page_body").first()
+  menu_targets   = [document.getElementById("page") ]
+  tictail_menu   = $('#tt_colophon')
+  menu_options   = {}
+  if Modernizr.touch
+    menu_options   =
+      onToggle: () ->
+        $("#menu_blocker").show()
+      onOpened: () ->
+        setTimeout () ->
+          $("#menu_blocker").hide()
+        , 400
+      onClosed: () ->
+        setTimeout () ->
+          $("#menu_blocker").hide()
+        , 400
+
+  if tictail_menu.length
+    menu_targets.push(tictail_menu.first()[0])
   
+  menu = new krmg.SlideMenu(document.getElementById("navigation"), menu_targets, menu_options)
+ 
+  Hammer($(".navigation_toggle")).on "tap", () ->
+    menu.toggle()
   setup()
 
   PAGE_SELECTOR = ".page_column"
@@ -95,18 +110,32 @@ $(document).ready ->
       return
   .run()
 
-$(window).on "scroll", () ->
+
+
+
+
+onscroll = () ->
   unless scrolling
     scrolling = true
     window.requestAnimationFrame () ->
       krmg.LazyImage.load()
       scrolling = false
-      
+
+if Modernizr.touch
+  document.addEventListener "touchmove", onscroll
+else
+  $(window).on "scroll", onscroll
+
+
 $(window).on "resize", () ->
   unless resizing
     resizing = true
     window.requestAnimationFrame () ->
       krmg.ProductList.index()
       krmg.LazyImage.load()
+      if single
+        single.size("load")
+        single.size("write")
+        single.swipe.setup()
       resizing = false
 

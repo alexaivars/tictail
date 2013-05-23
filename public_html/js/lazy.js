@@ -44,7 +44,7 @@
       update = [];
       for (_i = 0, _len = lazy_list.length; _i < _len; _i++) {
         img = lazy_list[_i];
-        if (inView(img, height)) {
+        if (inView(img, height * 2)) {
           update.push(img);
         }
       }

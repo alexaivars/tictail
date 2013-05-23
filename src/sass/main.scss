@@ -65,6 +65,7 @@ p + p {
 }
 h1 {
 	@include font-size($unit*2);
+	@include line-height($unit*3);
 	font-family: "Open Sans";
 	text-align: center;
 	font-weight: 600;
@@ -89,8 +90,24 @@ h1 {
 		text-align: center;
 	}
 
-	text-align: justify; text-justify: newspaper
+	// text-align: justify; text-justify: newspaper
 }
 
+// Tictail - menu blocker
+.touch #menu_blocker {
+	display: block;
+	position: absolute;
+	top: 0;
+	content: "#";
+	height: 70px;
+	width: 100%;
+	min-width: 1024px;
+	background: transparent;
+	padding-left: 100%;
+	z-index: 100;
+}
 
-
+#tt_colophon {
+	margin-top: em(16);
+	margin-right: em(8);
+}

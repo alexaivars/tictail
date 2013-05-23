@@ -61,6 +61,7 @@ PRODUCT DETAIL
 	padding: 0;
 	width: 100%;
 	max-width: em($unit*28,12);
+	min-height: em(58,12);
 	text-align: center;
 	margin: auto;
 	margin-top: em($unit);
@@ -99,12 +100,17 @@ PRODUCT DETAIL
 }
 .tictail_variations_select {
 	@extend .product_detail_button;
+	position: relative;
 	display: block;
 	margin-bottom: em((-2 + $size_stroke + $unit) * -2 -$unit*2, 12);
-	opacity: 0.0;
+	opacity: 0;
+	z-index: 100;
 }
 .tictail_variations_select + .variations_select_label {
 	display: block;
+}
+.product_detail_cart {
+	margin: em($unit*2) auto 0 auto;
 }
 
 .product_detail_terms {

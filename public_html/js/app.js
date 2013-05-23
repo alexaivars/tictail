@@ -1,5 +1,5 @@
 (function() {
-  var cat, menu, resizing, scrolling, setup;
+  var cat, menu, onscroll, resizing, scrolling, setup, single;
 
   scrolling = false;
 
@@ -9,8 +9,10 @@
 
   cat = "index";
 
+  single = null;
+
   setup = function() {
-    var element, elm, insert, instance, ref, swipe, _i, _j, _k, _len, _len1, _len2, _results;
+    var element, elm, insert, instance, ref, _i, _j, _k, _len, _len1, _len2, _results;
     ref = $(".variations_select_label");
     if (ref.length) {
       for (_i = 0, _len = ref.length; _i < _len; _i++) {
@@ -22,21 +24,15 @@
     krmg.ProductList.index();
     krmg.LazyImage.init();
     krmg.LazyImage.load();
-    menu.resize();
     $(".product_slide_figure img").on("dragstart", function(event) {
       event.preventDefault();
       return false;
     });
-    ref = $(".product_single .product_slide");
+    ref = $(".product_single");
     if (ref.length) {
       for (_j = 0, _len1 = ref.length; _j < _len1; _j++) {
         elm = ref[_j];
-        swipe = new krmg.Swipe(elm, {
-          continuous: true,
-          disableScroll: false,
-          stopPropagation: false,
-          mouse: true
-        });
+        single = new krmg.Product($(elm));
       }
     }
     ref = $(".html_content");
@@ -54,8 +50,34 @@
   };
 
   $(document).ready(function() {
-    var PAGE_SELECTOR;
-    menu = new krmg.SlideMenu($(".page_body").first());
+    var PAGE_SELECTOR, menu_options, menu_targets, tictail_menu;
+    menu_targets = [document.getElementById("page")];
+    tictail_menu = $('#tt_colophon');
+    menu_options = {};
+    if (Modernizr.touch) {
+      menu_options = {
+        onToggle: function() {
+          return $("#menu_blocker").show();
+        },
+        onOpened: function() {
+          return setTimeout(function() {
+            return $("#menu_blocker").hide();
+          }, 400);
+        },
+        onClosed: function() {
+          return setTimeout(function() {
+            return $("#menu_blocker").hide();
+          }, 400);
+        }
+      };
+    }
+    if (tictail_menu.length) {
+      menu_targets.push(tictail_menu.first()[0]);
+    }
+    menu = new krmg.SlideMenu(document.getElementById("navigation"), menu_targets, menu_options);
+    Hammer($(".navigation_toggle")).on("tap", function() {
+      return menu.toggle();
+    });
     setup();
     PAGE_SELECTOR = ".page_column";
     return $.sammy(PAGE_SELECTOR, function() {
@@ -108,7 +130,7 @@
     }).run();
   });
 
-  $(window).on("scroll", function() {
+  onscroll = function() {
     if (!scrolling) {
       scrolling = true;
       return window.requestAnimationFrame(function() {
@@ -116,7 +138,13 @@
         return scrolling = false;
       });
     }
-  });
+  };
+
+  if (Modernizr.touch) {
+    document.addEventListener("touchmove", onscroll);
+  } else {
+    $(window).on("scroll", onscroll);
+  }
 
   $(window).on("resize", function() {
     if (!resizing) {
@@ -124,6 +152,11 @@
       return window.requestAnimationFrame(function() {
         krmg.ProductList.index();
         krmg.LazyImage.load();
+        if (single) {
+          single.size("load");
+          single.size("write");
+          single.swipe.setup();
+        }
         return resizing = false;
       });
     }

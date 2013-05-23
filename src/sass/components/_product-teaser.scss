@@ -45,9 +45,6 @@ PRODUCT TEASER
 	text-align: center;
 	text-transform: uppercase;
 	color: $color_product_hover_text;
-	font-family: 'Open Sans';
-	font-weight: 700;
-	letter-spacing: em(2);	
 	font-size: 0;
 	.lt-ie9 & {
 		background:transparent;
@@ -70,8 +67,11 @@ PRODUCT TEASER
 }
 
 .product_teaser_hover_wrapper {
-	@include font-size(16);
+	@include breakpoint(1) { @include font-size(12); }
+	@include breakpoint(2) { @include font-size(16); }
+	font-family: 'Open Sans';
 	font-weight: 700;
+	letter-spacing: em(2);	
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;

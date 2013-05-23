@@ -27,7 +27,7 @@ krmg.LazyImage =
     height = window.innerHeight or document.documentElement.clientHeight
     update = []
     for img in lazy_list
-      update.push(img) if inView(img, height)
+      update.push(img) if inView(img, height * 2)
     for img in update
       @get(img)
     @

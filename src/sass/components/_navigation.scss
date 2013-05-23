@@ -1,8 +1,11 @@
 
 
 .page_navigation {
+	ul {
+		margin: em($unit);
+	}
 	ul + ul {
-		margin-top: em($unit);
+		margin-top: em($unit*2);
 	}
 
 	li {
@@ -66,14 +69,41 @@
 }
 
 .page_menu > div {
+padding: em($unit*.5);
+	margin-left: em(-$unit*.5);
+	width: em($unit*2);
+	
+}
+
+#navigation {
+	-webkit-transform: translateZ(0);
+	position: fixed;
+	height: 100%;
+	width: em($navigation_width);
+	margin-left: em(-$navigation_width);
+	top: 0;
+	z-index: 99999;
+}
+#navigation nav {
+	width: 100%;
+	height: 100%;
+	background: #000;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.navigation_toggle {
 	@extend .hamburger-icon;
 	display: block;
 	background-repeat: no-repeat;
 	background-position: center center;
-	padding: em($unit*.5);
-	margin-left: em(-$unit*.5);
-	width: em($unit*2);
+	width: em($unit*4);
+	line-height: em($unit*4);
+	height: em($unit*4.5);
+	position: absolute;
+	top: 0;
+	left: 100%;
+	z-index: 999999;	
 	overflow: hidden;
 	text-indent: 150%;
-	
 }

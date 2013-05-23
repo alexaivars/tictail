@@ -1,39 +1,38 @@
+
 (exports ? this).krmg ?= {}
 class krmg.SlideMenu
-  constructor: (@container) ->
-   
-    @menu = $('.page_menu').first()
-    @tt   = $('#tt_colophon').first()
+  @IS_ACTIVE: "open"
+  @IS_INACTIVE: "close"
+  constructor: (@menu, @content , @options = {}) ->
     
-    @content = [@menu, @container]
-    if @tt.length
-      @content.push @tt
-
+    @animate = @content
+    @animate.push @menu
+ 
       
-    @touch = Hammer @container
-    @touch.on "dragleft dragright swipeleft swiperight release dragup dragdown", (event) => @touchHandler(event)
-    @navigation =  @container.find(".page_navigation").first()
-    @width = 256
+    @touch = Hammer(window)
+    @touch.on "dragstart dragleft dragright swipeleft swiperight release dragup dragdown", (event) => @touchHandler(event)
+
+    @width = @menu.offsetWidth
     @close()
-
-    Hammer($("[data-action=menu-toggle]").first()).on "tap", (event) => @actionHandler(event)
-    document.getElementById("tictail_search_box").disabled = true
-    $(window).on "resize", () => @resize()
-
-    @resize()
     return
 
   actionHandler: (event) ->
     event.stopPropagation()
     event.preventDefault()
-    if @state == "open"
+    if @state == SlideMenu.IS_ACTIVE
       @close()
     else
       @open()
 
   touchHandler: (event) ->
+    # Ignore touches if user i swiping a slide show, should probably make a more general solution.
+    return if event.result && event.result instanceof krmg.Swipe
     # disable browser scrolling
     switch event.type
+      when "dragstart"
+        if event.target && event.target.className == "product_slide_figure"
+          @ignore = true
+
       when "dragup", "dragdown"
         if @change
           event.preventDefault()
@@ -54,52 +53,51 @@ class krmg.SlideMenu
           x: x
           overwrite: true
       when "swiperight"
+        return if @ignore
         event.preventDefault()
         @open()
       when "swipeleft"
+        return if @ignore
         event.preventDefault()
         @close()
       when "release"
         event.preventDefault()
         if @change
-          if Math.abs(event.gesture.deltaX) > @width * 0.5
-            if @state == "open"
+          if @state == SlideMenu.IS_ACTIVE
+            if Math.abs(event.gesture.deltaX) > @width * 0.5 && event.gesture.direction == Hammer.DIRECTION_LEFT
               @close()
             else
               @open()
           else
-            if @state == "open"
+            if Math.abs(event.gesture.deltaX) > @width * 0.5 && event.gesture.direction == Hammer.DIRECTION_RIGHT
               @open()
             else
               @close()
-
         @ignore = false
         @change = false
-    return
-
-  resize: () ->
-    @navigation.css
-      minHeight: "auto"
-    if @container.height() < $(window).height()
-      @navigation.css
-        minHeight: $(window).height()
-    @
-  open: (fn) ->
-    TweenLite.to @content, 0.25,
+    return false
+  open: () ->
+    TweenLite.to @animate, 0.25,
       x: @width
       overwrite: true
       onComplete: () =>
-        @state = "open"
-        console.log "open"
-        setTimeout () ->
-          document.getElementById("tictail_search_box").disabled = false
-        , 400
-  
+        @state = SlideMenu.IS_ACTIVE
+        @options.onOpened.call() if @options.onOpened
+    @
   close: (fn) ->
-    console.log fn
-    TweenLite.to @content, 0.25,
+    TweenLite.to @animate, 0.25,
       x: 0
       overwrite: true
       onComplete: () =>
-        @state = "closed"
-        document.getElementById("tictail_search_box").disabled = true
+        @state = SlideMenu.IS_INACTIVE
+        @options.onClosed.call() if @options.onClosed
+        return
+     @
+  toggle: () ->
+    @options.onToggle.call() if @options.onToggle
+    if @state == SlideMenu.IS_ACTIVE
+      @close()
+    else
+      @open()
+    @
+

@@ -7,37 +7,30 @@
 
   krmg.SlideMenu = (function() {
 
-    function SlideMenu(container) {
+    SlideMenu.IS_ACTIVE = "open";
+
+    SlideMenu.IS_INACTIVE = "close";
+
+    function SlideMenu(menu, content, options) {
       var _this = this;
-      this.container = container;
-      this.menu = $('.page_menu').first();
-      this.tt = $('#tt_colophon').first();
-      this.content = [this.menu, this.container];
-      if (this.tt.length) {
-        this.content.push(this.tt);
-      }
-      this.touch = Hammer(this.container);
-      this.touch.on("dragleft dragright swipeleft swiperight release dragup dragdown", function(event) {
+      this.menu = menu;
+      this.content = content;
+      this.options = options != null ? options : {};
+      this.animate = this.content;
+      this.animate.push(this.menu);
+      this.touch = Hammer(window);
+      this.touch.on("dragstart dragleft dragright swipeleft swiperight release dragup dragdown", function(event) {
         return _this.touchHandler(event);
       });
-      this.navigation = this.container.find(".page_navigation").first();
-      this.width = 256;
+      this.width = this.menu.offsetWidth;
       this.close();
-      Hammer($("[data-action=menu-toggle]").first()).on("tap", function(event) {
-        return _this.actionHandler(event);
-      });
-      document.getElementById("tictail_search_box").disabled = true;
-      $(window).on("resize", function() {
-        return _this.resize();
-      });
-      this.resize();
       return;
     }
 
     SlideMenu.prototype.actionHandler = function(event) {
       event.stopPropagation();
       event.preventDefault();
-      if (this.state === "open") {
+      if (this.state === SlideMenu.IS_ACTIVE) {
         return this.close();
       } else {
         return this.open();
@@ -46,7 +39,15 @@
 
     SlideMenu.prototype.touchHandler = function(event) {
       var x;
+      if (event.result && event.result instanceof krmg.Swipe) {
+        return;
+      }
       switch (event.type) {
+        case "dragstart":
+          if (event.target && event.target.className === "product_slide_figure") {
+            this.ignore = true;
+          }
+          break;
         case "dragup":
         case "dragdown":
           if (this.change) {
@@ -75,24 +76,30 @@
           });
           break;
         case "swiperight":
+          if (this.ignore) {
+            return;
+          }
           event.preventDefault();
           this.open();
           break;
         case "swipeleft":
+          if (this.ignore) {
+            return;
+          }
           event.preventDefault();
           this.close();
           break;
         case "release":
           event.preventDefault();
           if (this.change) {
-            if (Math.abs(event.gesture.deltaX) > this.width * 0.5) {
-              if (this.state === "open") {
+            if (this.state === SlideMenu.IS_ACTIVE) {
+              if (Math.abs(event.gesture.deltaX) > this.width * 0.5 && event.gesture.direction === Hammer.DIRECTION_LEFT) {
                 this.close();
               } else {
                 this.open();
               }
             } else {
-              if (this.state === "open") {
+              if (Math.abs(event.gesture.deltaX) > this.width * 0.5 && event.gesture.direction === Hammer.DIRECTION_RIGHT) {
                 this.open();
               } else {
                 this.close();
@@ -102,46 +109,49 @@
           this.ignore = false;
           this.change = false;
       }
+      return false;
     };
 
-    SlideMenu.prototype.resize = function() {
-      this.navigation.css({
-        minHeight: "auto"
-      });
-      if (this.container.height() < $(window).height()) {
-        this.navigation.css({
-          minHeight: $(window).height()
-        });
-      }
-      return this;
-    };
-
-    SlideMenu.prototype.open = function(fn) {
+    SlideMenu.prototype.open = function() {
       var _this = this;
-      return TweenLite.to(this.content, 0.25, {
+      TweenLite.to(this.animate, 0.25, {
         x: this.width,
         overwrite: true,
         onComplete: function() {
-          _this.state = "open";
-          console.log("open");
-          return setTimeout(function() {
-            return document.getElementById("tictail_search_box").disabled = false;
-          }, 400);
+          _this.state = SlideMenu.IS_ACTIVE;
+          if (_this.options.onOpened) {
+            return _this.options.onOpened.call();
+          }
         }
       });
+      return this;
     };
 
     SlideMenu.prototype.close = function(fn) {
       var _this = this;
-      console.log(fn);
-      return TweenLite.to(this.content, 0.25, {
+      TweenLite.to(this.animate, 0.25, {
         x: 0,
         overwrite: true,
         onComplete: function() {
-          _this.state = "closed";
-          return document.getElementById("tictail_search_box").disabled = true;
+          _this.state = SlideMenu.IS_INACTIVE;
+          if (_this.options.onClosed) {
+            _this.options.onClosed.call();
+          }
         }
       });
+      return this;
+    };
+
+    SlideMenu.prototype.toggle = function() {
+      if (this.options.onToggle) {
+        this.options.onToggle.call();
+      }
+      if (this.state === SlideMenu.IS_ACTIVE) {
+        this.close();
+      } else {
+        this.open();
+      }
+      return this;
     };
 
     return SlideMenu;

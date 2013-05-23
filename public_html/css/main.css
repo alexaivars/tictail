@@ -99,18 +99,6 @@ PAGE LAYOUT
   clear: both;
 }
 
-.page_navigation {
-  background: black;
-  width: 16em;
-  float: left;
-  margin-right: -16em;
-  height: 100%;
-}
-
-.page_navigation nav {
-  margin: 1em;
-}
-
 .page_content {
   background: white;
   min-height: 100%;
@@ -161,8 +149,11 @@ PAGE LAYOUT
   /* W3C */
 }
 
+.page_navigation ul {
+  margin: 1em;
+}
 .page_navigation ul + ul {
-  margin-top: 1em;
+  margin-top: 2em;
 }
 .page_navigation li {
   text-align: center;
@@ -231,12 +222,40 @@ PAGE LAYOUT
 }
 
 .page_menu > div {
-  display: block;
-  background-repeat: no-repeat;
-  background-position: center center;
   padding: 0.5em;
   margin-left: -0.5em;
   width: 2em;
+}
+
+#navigation {
+  -webkit-transform: translateZ(0);
+  position: fixed;
+  height: 100%;
+  width: 16em;
+  margin-left: -16em;
+  top: 0;
+  z-index: 99999;
+}
+
+#navigation nav {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.navigation_toggle {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 4em;
+  line-height: 4em;
+  height: 4.5em;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 999999;
   overflow: hidden;
   text-indent: 150%;
 }
@@ -333,9 +352,6 @@ PRODUCT TEASER
   text-align: center;
   text-transform: uppercase;
   color: white;
-  font-family: 'Open Sans';
-  font-weight: 700;
-  letter-spacing: 0.125em;
   font-size: 0;
 }
 .lt-ie9 .product_teaser_hover {
@@ -360,13 +376,25 @@ PRODUCT TEASER
 }
 
 .product_teaser_hover_wrapper {
-  font-size: 16px;
-  font-size: 1rem;
+  font-family: 'Open Sans';
   font-weight: 700;
+  letter-spacing: 0.125em;
   position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 100%;
+}
+@media (min-width: 18.75em) {
+  .product_teaser_hover_wrapper {
+    font-size: 12px;
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 37.5em) {
+  .product_teaser_hover_wrapper {
+    font-size: 16px;
+    font-size: 1rem;
+  }
 }
 .boxsizing .product_teaser_hover_wrapper {
   /* Acceptable values are border, content, and padding - content is the default W3C model */
@@ -487,6 +515,7 @@ PRODUCT DETAIL
   padding: 0;
   width: 100%;
   max-width: 37.33333333em;
+  min-height: 4.83333333em;
   text-align: center;
   margin: auto;
   margin-top: 1em;
@@ -518,13 +547,19 @@ PRODUCT DETAIL
 }
 
 .tictail_variations_select {
+  position: relative;
   display: block;
   margin-bottom: -5.66666667em;
-  opacity: 0.0;
+  opacity: 0;
+  z-index: 100;
 }
 
 .tictail_variations_select + .variations_select_label {
   display: block;
+}
+
+.product_detail_cart {
+  margin: 2em auto 0 auto;
 }
 
 .product_detail_terms {
@@ -559,21 +594,44 @@ PRODUCT SLIDER
 
 ****************************** */
 .product_slide {
-  display: block;
-  overflow: hidden;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .product_slide_wrapper {
+  position: absolute;
+}
+
+.product_slide_wrapper > * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.Xproduct_slide {
   display: block;
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: inherit;
 }
 
-.product_slide_figure {
+.Xproduct_slide_wrapper {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.Xproduct_slide_figure {
   display: block;
   float: left;
   width: 100%;
@@ -620,7 +678,7 @@ body {
   user-select: none;
 }
 
-.hamburger-icon, .page_menu > div {
+.hamburger-icon, .navigation_toggle {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAAoAQMAAACYdQu8AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABVJREFUGJVj+A8BHxgoZFALDFP3AACJ/73ZME9a1AAAAABJRU5ErkJggg==");
   background-size: 30px 20px;
 }
@@ -646,6 +704,8 @@ p + p {
 h1 {
   font-size: 32px;
   font-size: 2rem;
+  line-height: 48px;
+  line-height: 3rem;
   font-family: "Open Sans";
   text-align: center;
   font-weight: 600;
@@ -659,8 +719,6 @@ h1 {
   padding: 4em;
   max-width: 30em;
   margin: auto;
-  text-align: justify;
-  text-justify: newspaper;
 }
 .post h2 {
   font-size: 32px;
@@ -671,4 +729,22 @@ h1 {
   margin-bottom: 2em;
   text-transform: uppercase;
   text-align: center;
+}
+
+.touch #menu_blocker {
+  display: block;
+  position: absolute;
+  top: 0;
+  content: "#";
+  height: 70px;
+  width: 100%;
+  min-width: 1024px;
+  background: transparent;
+  padding-left: 100%;
+  z-index: 100;
+}
+
+#tt_colophon {
+  margin-top: 1em;
+  margin-right: 0.5em;
 }

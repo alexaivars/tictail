@@ -15,9 +15,9 @@ class ProductList
     for product in @list
       product.select(false) if product != obj && product.row == obj.row
    
-    obj.select()
     @active = obj
     @insert_detail obj, obj.row + 1
+    obj.select()
 
     offset = 0
     TweenLite.to window, 0.25,

@@ -5,20 +5,28 @@ class krmg.Product
     @detail = @container.find(".product_detail").first()
     @slider = @container.find(".product_slide").first()
     @images = @container.find(".product_slide_figure img")
+    @parent = @container.parent()
     # @hover  = @container.find(".product_teaser_hover .product_teaser_hover_body").first()
     @swipe  = null
-    @detail.detach()
-    @detail.show() #ToDo. instead of jquery show, we should toggle a class. maby .loading 
-    @row = 0
-    @url = @teaser.attr("href").replace krmg.RE.clean, ""
+    
+    if @teaser.length
+      @detail.detach()
+      @detail.show() #ToDo. instead of jquery show, we should toggle a class. maby .loading 
+      @row = 0
+      @url = @teaser.attr("href").replace krmg.RE.clean, ""
+    else
+      @size("load")
+      @size("write")
+      @select true
     @
+
   select: (@selected = true) ->
     if @selected
       for img in @images
         src = img.getAttribute("data-src")
         img.removeAttribute("data-src")
         img.src = src if src?
-      if not @swipe and @images.length > 1
+      if not @swipe # and @images.length > 1
         @swipe = new krmg.Swipe @slider[0],
           continuous: true
           disableScroll: false
@@ -33,21 +41,11 @@ class krmg.Product
     if action == "reset"
       # @hover.removeAttr("style")
     else if action == "load"
-      # @hover_bounds = @hover[0].getBoundingClientRect()
-      @container_bounds = @container[0].getBoundingClientRect()
-      @list_bounds = $(".product_list")[0].getBoundingClientRect()
+      @parent_bounds = @parent[0].getBoundingClientRect()
+      @bounds = @container[0].getBoundingClientRect()
     else if action = "write"
-      ###
-      @hover.css
-        position: "absolute"
-        top: Math.round((@container_bounds.height - @hover_bounds.height ) * 0.5)
-      ###
-      @slider.css
-        width: @list_bounds.width
-        height: Math.round(@list_bounds.width * (2/3) )
-      @slider.width( @list_bounds.width )
-
-    return @container_bounds
+      @slider.height( Math.round(@parent_bounds.width * (2/3) ))
+    return @bounds
   top: ->
     @container.position().top
   delete: ->
