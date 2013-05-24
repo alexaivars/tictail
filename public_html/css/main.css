@@ -131,24 +131,6 @@ PAGE LAYOUT
   margin: 1em 1em 0 1em;
 }
 
-.page_body {
-  background: black;
-  /* Old browsers */
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background: -moz-linear-gradient(left, black 16em, white 16em);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(16em, black), color-stop(16em, white));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left, black 16em, white 16em);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left, black 16em, white 16em);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(left, black 16em, white 16em);
-  /* IE10+ */
-  background: linear-gradient(to right, black 16em, white 16em);
-  /* W3C */
-}
-
 .page_navigation ul {
   margin: 1em;
 }
@@ -221,12 +203,6 @@ PAGE LAYOUT
   text-indent: 1em;
 }
 
-.page_menu > div {
-  padding: 0.5em;
-  margin-left: -0.5em;
-  width: 2em;
-}
-
 #navigation {
   -webkit-transform: translateZ(0);
   position: fixed;
@@ -234,6 +210,7 @@ PAGE LAYOUT
   width: 16em;
   margin-left: -16em;
   top: 0;
+  left: 0;
   z-index: 99999;
 }
 
@@ -243,6 +220,16 @@ PAGE LAYOUT
   background: #000;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.no-history #navigation {
+  margin-left: 0;
+}
+.no-history .navigation_toggle {
+  display: none;
+}
+.no-history .page_column {
+  padding-left: 16em;
 }
 
 .navigation_toggle {
@@ -342,6 +329,10 @@ PRODUCT TEASER
   background: red;
 }
 
+.product_teaser_price {
+  font-weight: 400;
+}
+
 .product_teaser_hover {
   visibility: hidden;
   position: absolute;
@@ -370,6 +361,7 @@ PRODUCT TEASER
 }
 .selected .product_teaser_hover {
   visibility: visible;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .no-touch .product_teaser:hover .product_teaser_hover {
   visibility: visible;
@@ -519,6 +511,7 @@ PRODUCT DETAIL
   text-align: center;
   margin: auto;
   margin-top: 1em;
+  text-transform: uppercase;
 }
 .product_detail_button:hover, .stock_label:hover, .tictail_button:hover, .variations_select_label:hover, .tictail_variations_select:hover {
   background: black;
@@ -712,6 +705,7 @@ h1 {
   letter-spacing: 0.125em;
   color: #000;
   text-transform: uppercase;
+  padding: 0 0.5em 0 0.5em;
 }
 
 .post {
@@ -729,6 +723,10 @@ h1 {
   margin-bottom: 2em;
   text-transform: uppercase;
   text-align: center;
+}
+
+#menu_blocker {
+  display: none;
 }
 
 .touch #menu_blocker {

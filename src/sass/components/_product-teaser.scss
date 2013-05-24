@@ -34,7 +34,9 @@ PRODUCT TEASER
 		background: red;
 	}
 }
-
+.product_teaser_price {
+	font-weight: 400;
+}
 .product_teaser_hover {
 	visibility:hidden;
 	position: absolute;
@@ -62,7 +64,7 @@ PRODUCT TEASER
 		background: red;
 	}
 
-	.selected &												{ visibility:visible; }
+	.selected &												{ visibility:visible; background-color: rgba($color_product_selected, 0.70); }
 	.no-touch .product_teaser:hover & { visibility:visible; }
 }
 

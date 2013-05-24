@@ -61,7 +61,7 @@ $(document).ready ->
   setup()
 
   PAGE_SELECTOR = ".page_column"
-  $.sammy PAGE_SELECTOR, () ->
+  app = $.sammy( PAGE_SELECTOR, () ->
     @get "/", (context) ->
       unless cat == "index"
         context.load("/")
@@ -108,7 +108,9 @@ $(document).ready ->
         $("a[href='/']").addClass "selected"
       menu.close()
       return
-  .run()
+  )
+  if Modernizr.history
+    app.run()
 
 
 

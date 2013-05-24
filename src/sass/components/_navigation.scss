@@ -68,12 +68,6 @@
 	}
 }
 
-.page_menu > div {
-padding: em($unit*.5);
-	margin-left: em(-$unit*.5);
-	width: em($unit*2);
-	
-}
 
 #navigation {
 	-webkit-transform: translateZ(0);
@@ -82,6 +76,7 @@ padding: em($unit*.5);
 	width: em($navigation_width);
 	margin-left: em(-$navigation_width);
 	top: 0;
+	left: 0;
 	z-index: 99999;
 }
 #navigation nav {
@@ -90,6 +85,18 @@ padding: em($unit*.5);
 	background: #000;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
+}
+
+.no-history {
+	#navigation {
+		margin-left: 0;
+	}
+	.navigation_toggle {
+		display: none;
+	}
+	.page_column {
+		padding-left: em($navigation_width);
+	}
 }
 
 .navigation_toggle {

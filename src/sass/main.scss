@@ -2,6 +2,7 @@
 $basefont: 16;
 $text-line: 24;
 $color_product_hover: #FF4C4C;
+$color_product_selected: #000000;
 $color_product_hover_ie: "#70FF4C4C";
 $color_product_hover_text: #FFF;
 $color_stroke: #000;
@@ -72,6 +73,7 @@ h1 {
 	letter-spacing: em(4, $unit*2);
 	color: #000;
 	text-transform: uppercase;
+	padding: 0 em($unit, $unit*2) 0 em($unit, $unit*2);
 }
 
 .post {
@@ -94,6 +96,9 @@ h1 {
 }
 
 // Tictail - menu blocker
+#menu_blocker {
+	display: none;
+}
 .touch #menu_blocker {
 	display: block;
 	position: absolute;

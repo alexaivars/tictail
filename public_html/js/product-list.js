@@ -33,7 +33,7 @@
       this.active = obj;
       this.insert_detail(obj, obj.row + 1);
       obj.select();
-      offset = 0;
+      offset = 40;
       TweenLite.to(window, 0.25, {
         scrollTo: {
           y: obj.detail.offset().top - offset,

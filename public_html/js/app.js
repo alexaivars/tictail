@@ -50,7 +50,7 @@
   };
 
   $(document).ready(function() {
-    var PAGE_SELECTOR, menu_options, menu_targets, tictail_menu;
+    var PAGE_SELECTOR, app, menu_options, menu_targets, tictail_menu;
     menu_targets = [document.getElementById("page")];
     tictail_menu = $('#tt_colophon');
     menu_options = {};
@@ -80,7 +80,7 @@
     });
     setup();
     PAGE_SELECTOR = ".page_column";
-    return $.sammy(PAGE_SELECTOR, function() {
+    app = $.sammy(PAGE_SELECTOR, function() {
       this.get("/", function(context) {
         if (cat !== "index") {
           context.load("/").then(function(html) {
@@ -127,7 +127,10 @@
         }
         menu.close();
       });
-    }).run();
+    });
+    if (Modernizr.history) {
+      return app.run();
+    }
   });
 
   onscroll = function() {
