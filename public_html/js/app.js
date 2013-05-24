@@ -7,7 +7,7 @@
 
   menu = null;
 
-  cat = "index";
+  cat = null;
 
   single = null;
 
@@ -65,9 +65,18 @@
           }, 400);
         },
         onClosed: function() {
+          $('#tictail_search_box').val("");
+          $('.results_box').hide();
           return setTimeout(function() {
             return $("#menu_blocker").hide();
           }, 400);
+        }
+      };
+    } else {
+      menu_options = {
+        onClosed: function() {
+          $('#tictail_search_box').val("");
+          return $('.results_box').hide();
         }
       };
     }
@@ -99,12 +108,20 @@
         });
       });
       this.get(/product\/(.*)/, function(context) {
-        var name, target;
+        var name, product, target;
+        console.log(context);
         name = context.params["splat"][0];
         target = $(".page_column a[href$='product/" + name + "']");
         $(".page_column .selected").removeClass("selected");
         target.addClass("selected");
-        krmg.ProductList.show(this.path);
+        product = krmg.ProductList.show(this.path);
+        if (!product) {
+          context.load("/product/" + name).then(function(html) {
+            krmg.ProductList.flush();
+            krmg.HTML.read(html, PAGE_SELECTOR);
+            return setup();
+          });
+        }
       });
       this.get(/page\/(.*)/, function(context) {
         var name;
@@ -122,8 +139,6 @@
         $("a.selected").removeClass("selected");
         if (target.length) {
           target.addClass("selected");
-        } else {
-          $("a[href='/']").addClass("selected");
         }
         menu.close();
       });

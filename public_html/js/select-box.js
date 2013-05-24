@@ -22,9 +22,27 @@
     }
 
     SelectLable.prototype.setup = function() {
-      var _this = this;
+      var html, index, opt, _i, _len, _ref1,
+        _this = this;
       this.select.on('change', function(event) {
         return _this.changed();
+      });
+      this.options = $("<div class='variations_option_container'>");
+      this.options.on("click", function(event) {
+        _this.select[0].selectedIndex = event.target.getAttribute("data-index");
+        _this.changed();
+        return _this.options.slideToggle("fast");
+      });
+      html = "";
+      _ref1 = this.select[0].options;
+      for (index = _i = 0, _len = _ref1.length; _i < _len; index = ++_i) {
+        opt = _ref1[index];
+        html += "<div class='variations_option' data-index='" + index + "'>" + opt.innerHTML + "</div>";
+      }
+      this.options[0].innerHTML = html;
+      this.label.after(this.options);
+      this.label.on("click", function(event) {
+        return _this.options.slideToggle("fast");
       });
       this.changed();
     };

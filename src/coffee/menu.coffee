@@ -45,13 +45,17 @@ class krmg.SlideMenu
         @change = true
         event.preventDefault()
         event.gesture.preventDefault()
-        if @state == "open"
-          x = Math.max(0,Math.min(@width,@width + event.gesture.deltaX))
-        else
-          x = Math.max(0,Math.min(@width,event.gesture.deltaX))
-        TweenLite.set @content,
-          x: x
-          overwrite: true
+        limit = 20
+
+        if Math.abs(event.gesture.deltaX) > limit
+          if @state == "open"
+            x = Math.max(0,Math.min(@width,@width + event.gesture.deltaX - limit))
+          else
+            x = Math.max(0,Math.min(@width,event.gesture.deltaX - limit))
+          TweenLite.set @content,
+            x: x
+            overwrite: true
+
       when "swiperight"
         return if @ignore
         event.preventDefault()
@@ -87,6 +91,7 @@ class krmg.SlideMenu
   close: (fn) ->
     TweenLite.to @animate, 0.25,
       x: 0
+      clearProps: "x"
       overwrite: true
       onComplete: () =>
         @state = SlideMenu.IS_INACTIVE

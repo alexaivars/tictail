@@ -14,7 +14,23 @@ class krmg.SelectLable
     @
 
   setup: () ->
+
     @select.on 'change', (event) => @changed()
+    @options = $("<div class='variations_option_container'>")
+    @options.on "click", (event) =>
+      @select[0].selectedIndex = event.target.getAttribute("data-index")
+      @changed()
+      @options.slideToggle("fast")
+    html = ""
+    for opt, index in @select[0].options
+      html += "<div class='variations_option' data-index='#{index}'>#{opt.innerHTML}</div>"
+    
+    @options[0].innerHTML = html
+
+    @label.after(@options)
+    @label.on "click", (event) =>
+      @options.slideToggle("fast")
+    
     @changed()
     return
 

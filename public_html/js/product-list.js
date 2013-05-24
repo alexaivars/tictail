@@ -10,7 +10,8 @@
     }
 
     ProductList.prototype.show = function(url) {
-      var obj, offset, product, _i, _j, _len, _len1, _ref, _ref1;
+      var obj, offset, product, _i, _j, _len, _len1, _ref, _ref1,
+        _this = this;
       url = url.replace(krmg.RE.clean, "");
       obj = null;
       _ref = this.list;
@@ -21,7 +22,7 @@
         }
       }
       if (!obj) {
-        return;
+        return false;
       }
       _ref1 = this.list;
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
@@ -34,10 +35,12 @@
       this.insert_detail(obj, obj.row + 1);
       obj.select();
       offset = 40;
+      setTimeout(function() {});
       TweenLite.to(window, 0.25, {
         scrollTo: {
           y: obj.detail.offset().top - offset,
-          x: $(window).scrollLeft()
+          x: $(window).scrollLeft(),
+          autoKill: false
         },
         ease: Power2.easeIn
       });

@@ -114,6 +114,26 @@
         this.touch.on("tap swipeleft dragleft swiperight dragright touch release", function(event) {
           return _this.dragHandler(event);
         });
+        this.touch.on("click mousemove", function(event) {
+          var x, y;
+          y = event.pageY - _this.bounds.top;
+          x = event.pageX - _this.bounds.left;
+          if (_this.direction !== 1 && x > _this.width * 0.5) {
+            _this.container.setAttribute("data-direction", "next");
+            _this.direction = 1;
+          } else if (_this.direction !== -1 && x < _this.width * 0.5) {
+            _this.container.setAttribute("data-direction", "prev");
+            _this.direction = -1;
+          }
+          if (event.type === "click") {
+            if (_this.direction === 1) {
+              _this.next();
+            }
+            if (_this.direction === -1) {
+              return _this.prev();
+            }
+          }
+        });
         this.touch.on("click", function(event) {
           return event.preventDefault();
         });

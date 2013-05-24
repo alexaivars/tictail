@@ -1,7 +1,7 @@
 scrolling = false
 resizing = false
 menu = null
-cat = "index"
+cat =  null # "index"
 single = null
 
 setup = () ->
@@ -47,9 +47,17 @@ $(document).ready ->
           $("#menu_blocker").hide()
         , 400
       onClosed: () ->
+        $('#tictail_search_box').val("")
+        $('.results_box').hide()
         setTimeout () ->
           $("#menu_blocker").hide()
         , 400
+  else
+    menu_options   =
+      onClosed: () ->
+        $('#tictail_search_box').val("")
+        $('.results_box').hide()
+
 
   if tictail_menu.length
     menu_targets.push(tictail_menu.first()[0])
@@ -81,11 +89,18 @@ $(document).ready ->
         return
 
     @get /product\/(.*)/, (context) ->
+      console.log context
       name = context.params["splat"][0]
       target = $(".page_column a[href$='product/#{name}']")
       $(".page_column .selected").removeClass "selected"
       target.addClass "selected"
-      krmg.ProductList.show @path
+      product = krmg.ProductList.show(@path)
+      unless product
+        context.load("/product/#{name}")
+        .then (html) ->
+          krmg.ProductList.flush()
+          krmg.HTML.read(html, PAGE_SELECTOR)
+          setup()
       return
     
     @get /page\/(.*)/, (context) ->
@@ -104,8 +119,8 @@ $(document).ready ->
       $("a.selected").removeClass "selected"
       if target.length
         target.addClass "selected"
-      else
-        $("a[href='/']").addClass "selected"
+        # else
+        # $("a[href='/']").addClass "selected"
       menu.close()
       return
   )

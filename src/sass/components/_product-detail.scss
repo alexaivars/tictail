@@ -66,6 +66,7 @@ PRODUCT DETAIL
 	margin: auto;
 	margin-top: em($unit);
 	text-transform: uppercase;
+	cursor: hand; cursor: pointer;
 	&:hover {
 		background: black;
 		color: white;
@@ -101,10 +102,34 @@ PRODUCT DETAIL
 .tictail_variations_select {
 	@extend .product_detail_button;
 	position: relative;
-	display: block;
-	margin-bottom: em((-2 + $size_stroke + $unit) * -2 -$unit*2, 12);
-	opacity: 0;
+	display: none;
+	// display: block;
+	// margin-bottom: em((-2 + $size_stroke + $unit) * -2 -$unit*2, 12);
+	// opacity: 0;
 	z-index: 100;
+}
+.variations_option_container {
+	@include box-sizing();
+	border: em($size_stroke) solid $color_stroke;
+	max-width: em($unit*28);
+	margin: auto;
+	border-top: 0;
+	display:none;
+}
+.variations_option {
+	@extend .product_detail_button;
+	border-bottom: 0;
+	border-left: 0;
+	border-right: 0;
+	@include box-sizing();
+	min-height: em(54,12);
+	
+	margin: 0;
+	&:first-child {
+		border-top: 0;
+		min-height: em(50,12);
+	}
+	
 }
 .tictail_variations_select + .variations_select_label {
 	display: block;

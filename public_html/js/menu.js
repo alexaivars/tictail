@@ -38,7 +38,7 @@
     };
 
     SlideMenu.prototype.touchHandler = function(event) {
-      var x;
+      var limit, x;
       if (event.result && event.result instanceof krmg.Swipe) {
         return;
       }
@@ -65,15 +65,18 @@
           this.change = true;
           event.preventDefault();
           event.gesture.preventDefault();
-          if (this.state === "open") {
-            x = Math.max(0, Math.min(this.width, this.width + event.gesture.deltaX));
-          } else {
-            x = Math.max(0, Math.min(this.width, event.gesture.deltaX));
+          limit = 20;
+          if (Math.abs(event.gesture.deltaX) > limit) {
+            if (this.state === "open") {
+              x = Math.max(0, Math.min(this.width, this.width + event.gesture.deltaX - limit));
+            } else {
+              x = Math.max(0, Math.min(this.width, event.gesture.deltaX - limit));
+            }
+            TweenLite.set(this.content, {
+              x: x,
+              overwrite: true
+            });
           }
-          TweenLite.set(this.content, {
-            x: x,
-            overwrite: true
-          });
           break;
         case "swiperight":
           if (this.ignore) {
@@ -131,6 +134,7 @@
       var _this = this;
       TweenLite.to(this.animate, 0.25, {
         x: 0,
+        clearProps: "x",
         overwrite: true,
         onComplete: function() {
           _this.state = SlideMenu.IS_INACTIVE;

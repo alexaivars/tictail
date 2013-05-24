@@ -82,6 +82,19 @@ class krmg.Swipe
     if not @touch && @length > 1
       @touch = Hammer @container
       @touch.on "tap swipeleft dragleft swiperight dragright touch release", (event) => @dragHandler(event)
+      @touch.on "click mousemove", (event) =>
+        y = event.pageY - @bounds.top
+        x = event.pageX - @bounds.left
+        if @direction != 1 && x > @width * 0.5
+          @container.setAttribute("data-direction","next")
+          @direction = 1
+        else if @direction != -1 && x < @width * 0.5
+          @container.setAttribute("data-direction","prev")
+          @direction = -1
+        if event.type == "click"
+          @next() if @direction == 1
+          @prev() if @direction == -1
+
       @touch.on "click", (event) ->
         event.preventDefault()
       

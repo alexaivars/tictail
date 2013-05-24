@@ -10,7 +10,7 @@ class ProductList
     for product in @list
       obj = product if product.url == url
     
-    return unless obj
+    return false unless obj
 
     for product in @list
       product.select(false) if product != obj && product.row == obj.row
@@ -20,10 +20,12 @@ class ProductList
     obj.select()
 
     offset = 40
+    setTimeout () =>
     TweenLite.to window, 0.25,
       scrollTo:
         y: obj.detail.offset().top - offset
         x: $(window).scrollLeft()
+        autoKill:false
       ease: Power2.easeIn
     @
   insert_detail: (obj, row) ->

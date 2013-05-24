@@ -9,7 +9,7 @@
 	}
 
 	li {
-		text-align: center;
+		// text-align: center;
 	}
 
 	a {
@@ -29,6 +29,9 @@
 		}
 		&:active {
 			color: #666;
+		}
+		&:hover {
+			color: #EEE;
 		}
 	}
 
@@ -113,4 +116,49 @@
 	z-index: 999999;	
 	overflow: hidden;
 	text-indent: 150%;
+	cursor: hand; cursor: pointer;
+}
+
+#tictail_search_results {
+	padding-top: em($unit * 0.5 );
+	
+	.item {
+		display: block;
+		position: relative;
+		overflow: hidden;
+		text-align: left;
+		cursor: hand; cursor: pointer;
+		
+	}
+	.thumb {
+		display: block;
+		float: left;
+		padding-right: em($unit);
+	}
+	.title,
+	.price {
+		display: block;
+		@include font-size(12);
+		letter-spacing: em(2,12);
+		color: #FFF;
+		font-family: 'Open Sans';
+		text-transform: uppercase;
+	}
+	.title {
+		font-weight: 700;
+	}
+	.item:hover a:after { visibility:visible; }
+	.item a:after {
+		display: block;
+		content: "";
+		position: absolute;
+		background-color: rgba($color_product_hover, 0.70);
+		width: 100%;
+		height: 100%;
+		top: 0;
+		visibility:hidden;
+
+	}
+
+	
 }
