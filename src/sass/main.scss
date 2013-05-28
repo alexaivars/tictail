@@ -13,6 +13,9 @@ $navigation_color: #000000;
 $content_color: #FFFFFF;
 $unit: 16;
 
+$font-heading: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-text: "PT Serif", "Times New Roman", Times, serif;
+
 // General imports
 @import "mixins/reset";
 @import "mixins/typography";
@@ -30,7 +33,7 @@ $unit: 16;
 body {
 	@include line-height($text-line);
 	font-weight: 400;
-	font-family: "PT Serif";
+	font-family: $font-text;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	@include experimental(font-smoothing, antialiased);
 
@@ -67,7 +70,7 @@ p + p {
 h1 {
 	@include font-size($unit*2);
 	@include line-height($unit*3);
-	font-family: "Open Sans";
+	font-family: $font-heading;
 	text-align: center;
 	font-weight: 600;
 	letter-spacing: em(4, $unit*2);
@@ -84,15 +87,13 @@ h1 {
 
 	h2 {
 		@include font-size($unit * 2);
-		font-family: 'Open Sans';
+		font-family: $font-heading;
 		font-weight: 400;
 		letter-spacing: em(2);	
 		margin-bottom: em($unit * 4, $unit * 2);
 		text-transform: uppercase;
 		text-align: center;
 	}
-
-	// text-align: justify; text-justify: newspaper
 }
 
 // Tictail - menu blocker

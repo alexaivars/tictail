@@ -71,7 +71,7 @@ PRODUCT TEASER
 .product_teaser_hover_wrapper {
 	@include breakpoint(1) { @include font-size(12); }
 	@include breakpoint(2) { @include font-size(16); }
-	font-family: 'Open Sans';
+	font-family: $font-heading;
 	font-weight: 700;
 	letter-spacing: em(2);	
 	position: relative;

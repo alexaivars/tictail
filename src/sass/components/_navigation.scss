@@ -47,7 +47,7 @@
 		@include experimental(appearance, none);
 		color: #999;
 		font-weight: 400;
-		font-family: "PT Serif";
+		font-family: $font-text;
 		border: 1px solid #666; 
 		margin: 0;
 		display: block;
@@ -141,7 +141,7 @@
 		@include font-size(12);
 		letter-spacing: em(2,12);
 		color: #FFF;
-		font-family: 'Open Sans';
+		font-family: $font-heading;
 		text-transform: uppercase;
 	}
 	.title {

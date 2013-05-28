@@ -1,4 +1,3 @@
-
 (exports ? this).krmg ?= {}
 class krmg.SlideMenu
   @IS_ACTIVE: "open"

@@ -176,7 +176,7 @@ PAGE LAYOUT
   appearance: none;
   color: #999;
   font-weight: 400;
-  font-family: "PT Serif";
+  font-family: "PT Serif", "Times New Roman", Times, serif;
   border: 1px solid #666;
   margin: 0;
   display: block;
@@ -272,7 +272,7 @@ PAGE LAYOUT
   font-size: 0.75rem;
   letter-spacing: 0.16666667em;
   color: #FFF;
-  font-family: 'Open Sans';
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 #tictail_search_results .title {
@@ -297,10 +297,9 @@ PAGE LAYOUT
   font-size: 11px;
   font-size: 0.6875rem;
   inherit: none;
-  height: 16px;
   height: 18px;
   display: inline-block;
-  top: -5px;
+  top: -6px;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -413,7 +412,7 @@ PRODUCT TEASER
 }
 
 .product_teaser_hover_wrapper {
-  font-family: 'Open Sans';
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.125em;
   position: relative;
@@ -503,7 +502,7 @@ PRODUCT DETAIL
   margin: 0.88888889em auto 0 auto;
   font-style: normal;
   font-weight: 400;
-  font-family: "PT Serif";
+  font-family: "PT Serif", "Times New Roman", Times, serif;
   text-align: center;
   max-width: 33em;
 }
@@ -514,7 +513,7 @@ PRODUCT DETAIL
   line-height: 32px;
   line-height: 2rem;
   font-weight: 600;
-  font-family: "Open Sans";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: 0.08333333em;
   margin: 0.66666667em 0.66666667em 0 0.66666667em;
   text-transform: uppercase;
@@ -544,7 +543,7 @@ PRODUCT DETAIL
   border-collapse: collapse;
   display: block;
   font-weight: 700;
-  font-family: "Open Sans";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: 0.16666667em;
   border: 0.33333333em solid black;
   background: #FFF;
@@ -575,14 +574,16 @@ PRODUCT DETAIL
 }
 
 .variations_select_label {
+  position: relative;
   display: none;
 }
 .variations_select_label:before {
   content: "";
   display: block;
-  float: right;
-  margin-right: 0.66666667em;
   width: 1.33333333em;
+  position: absolute;
+  left: 100%;
+  margin-left: -2em;
   height: 4em;
 }
 
@@ -638,7 +639,7 @@ PRODUCT DETAIL
   font-size: 12px;
   font-size: 0.75rem;
   font-weight: 400;
-  font-family: "Open Sans";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   display: block;
   color: #595959;
   text-decoration: none;
@@ -715,13 +716,10 @@ PRODUCT SLIDER
 }
 
 .product_slide[data-direction="next"] {
-  cursor: url(next.png) 32 32, e-resize;
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAABACAYAAAByZdXUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhhJREFUeNrkmdFtgzAQQG3TAegEoZ2Az3wmG7R//SQbpBt0k2aD0M9+JSMwQRUmCJmgvZMOCdEUYnznQ6qlUxwSoqfj8jhs+7hYfBtjThDPX3VdGeXhIBAigzgAXD4HoDXEDiIlqJUmkG0nAPIOLwW93cDl22kAJe3kfLl83KcpZmkJ8QTzGo5VakAE9YkgCERQKR5TAyKoqgO1hHmG2YteQ/1Bxb2nYsd6eoW6atSACAo1cCAorKe1NJQb+pBEuSZx5qSFVC1DnUyllKlc2ur21i/2oBq6fJUa0BWBNiTQUvRvPzZIoBkJ9IVboMmUkwgKs7vitnoy9UQAOPasziLQJOTkntVzDijLkeaeQEsq9kYNiNPqjguoY/UqxOrWMI9QgbIDhUKJAIVYPZEEmmJ1UaApVhcH8rV6FCAfq1sTeYxZPTrQmNWdBtCQ1VUyNCRQVaBrUM7oj+4N+HSnnJ1fxe1mAnOM8VQ8BFNAnHE5kW7AqmLEu38LsYOsbDRrZktZwdhG74f+6I2MGVgydJFhGjOyfindMeI/aE+90E2trBWG8e6rnbBjchLeg1qTH/rA6ARhyin25XyUZhGenRMMV2beOvYtQn/PBsKwb9hYBhjWxc8pq7Ciy8N2TjBeHgqxL3uGYm7COE+Y0gj3vmPbU9GFZ/+lfYMypL1dbmPY1xso1ubcTUBzgmk9JG5fXyD9h/3O+BFgABFWeC5HhnBVAAAAAElFTkSuQmCC") 32 32, e-resize;
 }
 .product_slide[data-direction="prev"] {
-  cursor: url(prev.png) 0 32, w-resize;
-}
-.lt-ie9 .product_slide[data-direction="next"] {
-  cursor: url(css/next.cur), e-resize;
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAABACAYAAAByZdXUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAltJREFUeNrMmr1SwkAQgJMchWV8AqKVJXSW0EkHbwCddvIIPol0jpVSUskbEF/AIZ2d0Fm662yYJSaSn9vb3MxO/u6Yb/Yu3yUXOl4LymW3G8LmBSIyLYF5g7iG2BplmB5sNpgZiBhiaJRhMDNhCvORJDujBDOmMYMwCwAZfe3333jNKMBMYfMEcUYwM37dKMA80uEDwMyzdToOYRBkSoczgFnk1TNtghHPEDkGYXAQ7+hOiv9rY4Rh8LYelIURA2IwPXLMpAyMCFCefQFmW7a9EYD5Y98qv2EswhTa1znQKfs6BSpj3yql0xCmtPDEMyQBUytDdewrlqG69hUBamJf60BN7WsVKGPfNcSoqn2tATHhpfad1LGvFSAmvMb2rVKCAph7Zt+5K5hcD0kJr1aXMRgctHeuYQ4ZYi/7YsIrnaHMy74qTDqouX37mjApUMSOd55yQaAhgfwambpQD4i66IK6LIXqaWbIo7lp2Aaog6kZ1CvNXSpQR2LEiRPi+TwMI9LALewncC5WAWJgS4LCDI1dQhXO9gSV0LMzQvlwbq0GRFAxgxpg1hBUDYhBvcPuDY4raSjf5UJC7Qe0vEICFbd6UKWyC6sHVRtIWz2o00jS6rUXG6Ss3nh9yLbVrayg2bS6tTVGW1a3ugprw+q+J1CaWD2QAGJW31a1uggQg+ozgW7KuEoMKMfqURmBigJloBbM6gMnd9kJqy+Z1adFAnX6zZWgQoLKtbrzr9IAsMpYPcRzakA5Vj8SqO8pFhrch09aEHNVoDyrq/87BrrqE7psRfPf1Y8AAwBDu5ZYdKxCqgAAAABJRU5ErkJggg==") 0 32, w-resize;
 }
 .lt-ie9 .product_slide[data-direction="prev"] {
   cursor: url(css/prev.cur), w-resize;
@@ -731,7 +729,7 @@ body {
   line-height: 24px;
   line-height: 1.5rem;
   font-weight: 400;
-  font-family: "PT Serif";
+  font-family: "PT Serif", "Times New Roman", Times, serif;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -774,7 +772,7 @@ h1 {
   font-size: 2rem;
   line-height: 48px;
   line-height: 3rem;
-  font-family: "Open Sans";
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
   font-weight: 600;
   letter-spacing: 0.125em;
@@ -792,7 +790,7 @@ h1 {
 .post h2 {
   font-size: 32px;
   font-size: 2rem;
-  font-family: 'Open Sans';
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   letter-spacing: 0.125em;
   margin-bottom: 2em;

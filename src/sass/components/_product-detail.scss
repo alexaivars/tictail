@@ -23,7 +23,7 @@ PRODUCT DETAIL
 	margin: em($unit,18) auto 0 auto;
 	font-style: normal;
 	font-weight: 400;
-	font-family: "PT Serif";
+	font-family: $font-text;
 	text-align: center;
 	max-width: em($unit*33);
 }
@@ -33,7 +33,7 @@ PRODUCT DETAIL
 	@include font-size(24);
 	@include line-height($unit*2);
 	font-weight: 600;
-	font-family: "Open Sans";
+	font-family: $font-heading;
 	letter-spacing: em(2,24);
 	margin: em($unit,24) em($unit,24) 0 em($unit,24);
 	text-transform: uppercase;
@@ -53,7 +53,7 @@ PRODUCT DETAIL
 	border-collapse:collapse;
 	display: block;
 	font-weight: 700;
-	font-family: "Open Sans";
+	font-family: $font-heading;
 	letter-spacing: em(2, 12);
 	border: em($size_stroke,12) solid $color_stroke;
 	background: #FFF;
@@ -88,14 +88,16 @@ PRODUCT DETAIL
 
 .variations_select_label {
 	@extend .product_detail_button;
+	position: relative;
 	display: none;
 	&:before {
 		@extend .arrow-icon;
 		content: "";
 		display: block;
-		float: right;
-		margin-right: em($unit * 0.5, 12);
 		width: em($unit, 12);
+		position: absolute;
+		left: 100%;
+		margin-left: em(-$unit*2);
 		height: em($unit * 3, 12);
 	}
 }
@@ -144,7 +146,7 @@ PRODUCT DETAIL
 	a {
 		@include font-size(12);
 		font-weight: 400;
-		font-family: "Open Sans";		
+		font-family: $font-heading;		
 		display: block;
 		color: #595959;
 		text-decoration: none;
