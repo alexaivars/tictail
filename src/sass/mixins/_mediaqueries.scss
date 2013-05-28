@@ -1,14 +1,3 @@
-/*
-* Copyright © 2012 Alexander Aivars, Kramgo AB
-*/
-
-/*******************************************************************************
-*
-* MEDIAQUERIES
-*
-****************************************************************************** */
-
-
 $column-2		: em(300);
 $column-3		: em(600);
 $column-4		: em(900);
@@ -46,52 +35,3 @@ $column-5		: em(1200);
   }
 }
 
-
-/*
-$xsmall	: 0;		// 0 Ref IPHONES
-$small	: em(612, $basefont); // Ref IPADS PORTRAIT
-$medium	: em(810, 18); // Ref IPADS LANDSCAPE, SMALL LAPTOPS
-$large  : em(1008, 18);
-// EXTRA SMALL (MOBILE)
-@mixin mq-default() {
-	@media only screen and (max-width : $small) { @content; }
-	.oldie { @content; }
-}
-
-// SMALL AND MEDIUM AND LARGE
-@mixin mq-small-medium-large() {
-	@media only screen and (min-width : $small) { @content; }
-	.oldie { @content; }
-}
-
-// SMALL AND MEDIUM
-@mixin mq-small-medium() {
-	@media only screen and (min-width : $small) and (max-width : $large) { @content; }
-	.oldie { @content; }
-}
-
-// MEDIUM AND LARGE
-@mixin mq-medium-large() {
-	@media only screen and (min-width: $medium) { @content; }
-	.oldie { @content; }
-}
-
-// SMALL
-@mixin mq-small() {
-	@media only screen and (min-width : $small) and (max-width : $medium) { @content;}
-}
-
-// MEDIUM
-@mixin mq-medium() {
-	@media only screen and (min-width : $medium) and (max-width : $large) { @content; }
-	.oldie { @content; }
-}
-
-// LARGE
-@mixin mq-large() {
-	@media only screen and (min-width : $large) { @content; } 
-	.oldie { @content; }
-}
-
-
-*/

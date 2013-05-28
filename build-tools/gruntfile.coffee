@@ -40,6 +40,12 @@ module.exports = (grunt) ->
                                                           "../public_html/js/vendor/polyfills.js",
                                                           "../public_html/js/vendor/jquery.hammer.js",
                                                           "../public_html/js/vendor/sammy-0.7.4.min.js"]
+    includereplace:
+      dist:
+        options:
+          includesDir: '../public_html'
+        src: '../src/mustache/tictail.mustache'
+        dest: '../dist'
       
     coffee:
       source:
@@ -69,9 +75,10 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-coffee"
   grunt.loadNpmTasks "grunt-contrib-livereload"
   grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-include-replace"
 
   # grunt.loadNpmTasks "grunt-contrib-watch"
   # Register task(s).
   grunt.registerTask "default", ['sass:dev','coffee', 'regarde']
-  grunt.registerTask "dist", ['sass:dev','coffee', 'uglify']
+  grunt.registerTask "dist", ['sass:dev','coffee', 'uglify', 'includereplace']
   # grunt.registerTask "default", ['sass:dev','coffee', 'livereload-start', 'regarde']
