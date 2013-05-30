@@ -22,13 +22,15 @@
       return html;
     },
     read: function(html, target) {
-      var container, doc;
+      var container, doc, e;
+
       html = this.wash(html);
       doc = document;
       if ((document.implementation != null) && (document.implementation.createHTMLDocument != null)) {
         try {
           doc = document.implementation.createHTMLDocument("");
-        } catch (e) {
+        } catch (_error) {
+          e = _error;
           doc = document;
         }
       }
@@ -37,7 +39,8 @@
       $(target).first().html($(container).find(target).first().html());
       try {
         return TT.store.domReady();
-      } catch (e) {
+      } catch (_error) {
+        e = _error;
         return console.log("Missing TT.store.domReady");
       }
     }
@@ -46,6 +49,7 @@
   krmg.ELEMENT = {
     wash: function(element) {
       var child, _i, _len, _ref1;
+
       element.removeAttribute("style");
       if (element.children.length) {
         _ref1 = element.children;
@@ -58,6 +62,7 @@
     },
     insertLater: function(element) {
       var nextSibling, parentNode;
+
       parentNode = element.parentNode;
       nextSibling = element.nextSibling;
       parentNode.removeChild(element);

@@ -6,13 +6,13 @@
   }
 
   krmg.SlideMenu = (function() {
-
     SlideMenu.IS_ACTIVE = "open";
 
     SlideMenu.IS_INACTIVE = "close";
 
     function SlideMenu(menu, content, options) {
       var _this = this;
+
       this.menu = menu;
       this.content = content;
       this.options = options != null ? options : {};
@@ -39,6 +39,7 @@
 
     SlideMenu.prototype.touchHandler = function(event) {
       var limit, x;
+
       if (event.result && event.result instanceof krmg.Swipe) {
         return;
       }
@@ -117,6 +118,7 @@
 
     SlideMenu.prototype.open = function() {
       var _this = this;
+
       TweenLite.to(this.animate, 0.25, {
         x: this.width,
         overwrite: true,
@@ -132,6 +134,7 @@
 
     SlideMenu.prototype.close = function(fn) {
       var _this = this;
+
       TweenLite.to(this.animate, 0.25, {
         x: 0,
         clearProps: "x",

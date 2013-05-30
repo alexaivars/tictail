@@ -2,11 +2,17 @@
 
 .page_navigation {
 	ul {
-		margin: em($unit);
+		margin: em($unit * 2);
 	}
+	
 	ul + ul {
-		margin-top: em($unit*2);
+		margin-top: em($unit);
 	}
+	li > ul {
+		margin-top: 0;
+		margin-bottom: em($unit);
+	}
+
 
 	li {
 		// text-align: center;
@@ -15,7 +21,7 @@
 	a {
 		display: block;
 		text-decoration: none;
-		padding: em($unit*0.5) 0;
+		padding: em($unit*0.25) 0;
 		color: #999;
 
 		-webkit-transition: color 0.2s ease;
@@ -54,6 +60,12 @@
 		width: 100%;
 		padding: em($unit*.5);
 		background: transparent;	
+		
+		&::-webkit-input-placeholder { color: #808080; }
+		&:-moz-placeholder { color: #808080; }
+		&::-moz-placeholder {  color: #808080; }
+		&:-ms-input-placeholder { color: #808080; }
+
 		&:disabled {
 			border-color: #666;
 			color: #999;
@@ -121,7 +133,7 @@
 
 #tictail_search_results {
 	padding-top: em($unit * 0.5 );
-	
+	color: #CCC;	
 	.item {
 		display: block;
 		position: relative;
@@ -130,19 +142,32 @@
 		cursor: hand; cursor: pointer;
 		
 	}
+	.item + .item {
+		margin-top: em($unit * 0.5);
+	}
+
+	.result {
+		padding: 0;
+	}
 	.thumb {
 		display: block;
 		float: left;
-		padding-right: em($unit);
+		margin-right: em($unit*0.5);
+		img {
+			display: block;
+		}
 	}
 	.title,
 	.price {
 		display: block;
 		@include font-size(12);
+		line-height: em(15,12);
 		letter-spacing: em(2,12);
 		color: #FFF;
 		font-family: $font-heading;
 		text-transform: uppercase;
+		position: relative;
+		z-index: 10;
 	}
 	.title {
 		font-weight: 700;

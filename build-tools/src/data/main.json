@@ -1,0 +1,18 @@
+{
+	"title" : "main-json",
+  "stooges": [
+    { "name": "Moe" },
+    { "name": "Larry" },
+    { "name": "Curly" }
+  ],
+	"navigation" : [
+		{
+			"url" : "http://www.google.com",
+			"is_current" : "true"	
+		},	
+		{
+			"url" : "http://www.yahoo.com",
+			"is_current" : "false"	
+		}	
+	]
+}

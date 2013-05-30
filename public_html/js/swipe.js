@@ -6,10 +6,10 @@
   }
 
   krmg.Swipe = (function() {
-
     function Swipe(container, options) {
       var api,
         _this = this;
+
       this.container = container;
       this.options = options != null ? options : {};
       this.wrapper = this.container.children[0];
@@ -69,6 +69,7 @@
 
     Swipe.prototype.teardown = function() {
       var node, _i, _len, _ref1;
+
       if (this.touch) {
         this.touch.off();
       }
@@ -86,6 +87,7 @@
     Swipe.prototype.setup = function() {
       var node, point, slide, _i, _j, _len, _len1, _ref1, _ref2,
         _this = this;
+
       this.length = this.wrapper.children.length;
       point = 0;
       if (this.length > 1) {
@@ -116,6 +118,7 @@
         });
         this.touch.on("click mousemove", function(event) {
           var x, y;
+
           y = event.pageY - _this.bounds.top;
           x = event.pageX - _this.bounds.left;
           if (_this.direction !== 1 && x > _this.width * 0.5) {
@@ -145,6 +148,7 @@
         if (this.options.mouse) {
           this.touch.on("click mousemove", function(event) {
             var x, y;
+
             y = event.pageY - _this.bounds.top;
             x = event.pageX - _this.bounds.left;
             if (_this.direction !== 1 && x > _this.width * 0.5) {
@@ -169,6 +173,7 @@
 
     Swipe.prototype.layout = function() {
       var node, pos, _i, _len, _ref1;
+
       _ref1 = this.slides;
       for (pos = _i = 0, _len = _ref1.length; _i < _len; pos = ++_i) {
         node = _ref1[pos];
@@ -196,6 +201,7 @@
 
     Swipe.prototype.dragHandler = function(event) {
       var dist;
+
       if (this.offset == null) {
         this.offset = 0;
       }
@@ -246,6 +252,7 @@
 
     Swipe.prototype.move = function(quiet) {
       var _this = this;
+
       return this.t = TweenLite.to(this.wrapper, this.speed / 1000, {
         x: 0,
         overwrite: true,

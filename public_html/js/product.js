@@ -6,13 +6,13 @@
   }
 
   krmg.Product = (function() {
-
     function Product(container) {
       this.container = container;
       this.teaser = this.container.find(".product_teaser").first();
       this.detail = this.container.find(".product_detail").first();
       this.slider = this.container.find(".product_slide").first();
       this.images = this.container.find(".product_slide_figure img");
+      this.index = this.container.find(".product_slider_index").first();
       this.parent = this.container.parent();
       this.swipe = null;
       if (this.teaser.length) {
@@ -29,7 +29,9 @@
     }
 
     Product.prototype.select = function(selected) {
-      var img, src, _i, _len, _ref1;
+      var img, src, _i, _len, _ref1,
+        _this = this;
+
       this.selected = selected != null ? selected : true;
       if (this.selected) {
         _ref1 = this.images;
@@ -42,11 +44,21 @@
           }
         }
         if (!this.swipe) {
+          if (this.index.length && this.index.children().length > 1) {
+            this.index.children()[0].className = "active";
+            this.index.show();
+          }
           this.swipe = new krmg.Swipe(this.slider[0], {
             continuous: true,
             disableScroll: false,
             stopPropagation: false,
-            mouse: true
+            mouse: true,
+            transitionEnd: function(swipe, index, slide) {
+              if (_this.index.length) {
+                _this.index.children().removeClass("active");
+                return _this.index.children()[index].className = "active";
+              }
+            }
           });
         } else if (this.swipe) {
           this.swipe.setup();
@@ -75,6 +87,7 @@
 
     Product.prototype["delete"] = function() {
       var prop;
+
       for (prop in this) {
         if (this[prop] instanceof jQuery) {
           this[prop].off();

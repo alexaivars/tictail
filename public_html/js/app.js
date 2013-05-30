@@ -13,6 +13,7 @@
 
   setup = function() {
     var element, elm, insert, instance, ref, _i, _j, _k, _len, _len1, _len2, _results;
+
     ref = $(".variations_select_label");
     if (ref.length) {
       for (_i = 0, _len = ref.length; _i < _len; _i++) {
@@ -50,10 +51,15 @@
   };
 
   $(document).ready(function() {
-    var PAGE_SELECTOR, app, menu_options, menu_targets, tictail_menu;
+    var PAGE_SELECTOR, app, menu_options, menu_targets, search_box, tictail_menu;
+
     menu_targets = [document.getElementById("page")];
     tictail_menu = $('#tt_colophon');
     menu_options = {};
+    search_box = $("#tictail_search_box");
+    if (search_box.length) {
+      search_box.attr("placeholder", "Search");
+    }
     if (Modernizr.touch) {
       menu_options = {
         onToggle: function() {
@@ -100,6 +106,7 @@
       });
       this.get(/products\/(.*)/, function(context) {
         var category;
+
         category = context.params["splat"][0];
         cat = category;
         return context.load("/products/" + category).then(function(html) {
@@ -109,7 +116,7 @@
       });
       this.get(/product\/(.*)/, function(context) {
         var name, product, target;
-        console.log(context);
+
         name = context.params["splat"][0];
         target = $(".page_column a[href$='product/" + name + "']");
         $(".page_column .selected").removeClass("selected");
@@ -125,6 +132,7 @@
       });
       this.get(/page\/(.*)/, function(context) {
         var name;
+
         name = context.params["splat"][0];
         cat = name;
         context.load("/page/" + name).then(function(html) {
@@ -135,6 +143,7 @@
       });
       return this.bind("event-context-after", function(event) {
         var target;
+
         target = $("a[href$='" + (this.path.replace(/^\/\#|^\//, "")) + "']");
         $("a.selected").removeClass("selected");
         if (target.length) {

@@ -5,6 +5,7 @@ class krmg.Product
     @detail = @container.find(".product_detail").first()
     @slider = @container.find(".product_slide").first()
     @images = @container.find(".product_slide_figure img")
+    @index  = @container.find(".product_slider_index").first()
     @parent = @container.parent()
     # @hover  = @container.find(".product_teaser_hover .product_teaser_hover_body").first()
     @swipe  = null
@@ -27,11 +28,19 @@ class krmg.Product
         img.removeAttribute("data-src")
         img.src = src if src?
       if not @swipe # and @images.length > 1
+        if @index.length && @index.children().length > 1
+          @index.children()[0].className = "active"
+          @index.show()
+        
         @swipe = new krmg.Swipe @slider[0],
           continuous: true
           disableScroll: false
           stopPropagation: false
           mouse: true
+          transitionEnd: (swipe, index, slide) =>
+            if @index.length
+              @index.children().removeClass("active")
+              @index.children()[index].className = "active"
       else if  @swipe
         @swipe.setup()
     else

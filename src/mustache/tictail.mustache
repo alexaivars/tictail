@@ -48,9 +48,9 @@
         </title>
         <link rel="stylesheet" href="http://tictail.krmg.se/css/main.css">
 				<style>
-					@@include('css/main.css')
+					{{! @ @ include('css/main.css')}}
 				</style>
-        <script src="http://tictail.krmg.se/js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="http://tictail.krmg.se/js/vendor/modernizr.custom.85090.js"></script>
     </head>
     <body>
     <div class="page">
@@ -114,10 +114,7 @@
                                 <a href="{{url}}" class="product_teaser" data-product-id="{{id}}">
                                     <div class="product_teaser_image">
                                         {{#primary_image}}
-                                            <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-300}}" class="lazy" alt="{{title}}"/>
-                                            <noscript>
-                                                <img src="{{url-300}}" data-src="{{url-300}}" class="noscript" alt="{{title}}"/>
-                                            </noscript>
+                                            <img src="{{url-300}}" alt="{{title}}"/>
                                         {{/primary_image}}                  
                                     </div>
                                     <div class="product_teaser_hover">
@@ -133,13 +130,15 @@
                                         <div class="product_slide_wrapper">
                                             {{#all_images}}
                                             <figure class="product_slide_figure">
-                                                <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-500}}" alt="{{title}} - {{position}}"/>
+                                                <img src="//tictail.krmg.se/img/transparent.gif" data-src="{{url-1000}}" alt="{{title}} - {{position}}"/>
                                                 <noscript>
-                                                    <img src="{{url-500}}" data-src="{{url-500}}" class="noscript" alt="{{title}}"/>
+                                                    <img src="{{url-1000}}" alt="{{title}}"/>
                                                 </noscript>
                                             </figure>
                                             {{/all_images}}
-                                            
+																						<div class="product_slider_index">
+																							{{#all_images}}<i></i>{{/all_images}}
+																						</div>
                                         </div>
                                     </div>
                                     <div class="details">

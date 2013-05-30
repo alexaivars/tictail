@@ -6,7 +6,6 @@
   }
 
   krmg.SelectLable = (function() {
-
     SelectLable.prototype.prefix = '';
 
     function SelectLable(element) {
@@ -24,6 +23,7 @@
     SelectLable.prototype.setup = function() {
       var html, index, opt, _i, _len, _ref1,
         _this = this;
+
       this.select.on('change', function(event) {
         return _this.changed();
       });
@@ -48,11 +48,13 @@
     };
 
     SelectLable.prototype.changed = function() {
-      var $elm;
+      var $elm, e;
+
       try {
         $elm = $(this.select[0].options[this.select[0].selectedIndex]);
         return this.label.html($elm[0].innerHTML);
-      } catch (e) {
+      } catch (_error) {
+        e = _error;
         return console.log(e);
       }
     };

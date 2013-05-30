@@ -2,7 +2,6 @@
   var ProductList, _base, _ref;
 
   ProductList = (function() {
-
     function ProductList() {
       this.list = [];
       this.first = [];
@@ -12,6 +11,7 @@
     ProductList.prototype.show = function(url) {
       var obj, offset, product, _i, _j, _len, _len1, _ref, _ref1,
         _this = this;
+
       url = url.replace(krmg.RE.clean, "");
       obj = null;
       _ref = this.list;
@@ -48,7 +48,8 @@
     };
 
     ProductList.prototype.insert_detail = function(obj, row) {
-      var detail, parent, target;
+      var detail, e, parent, target;
+
       if (!this.container) {
         this.container = $(".product_list");
       }
@@ -60,7 +61,8 @@
       }
       try {
         parent.insertBefore(detail, target);
-      } catch (e) {
+      } catch (_error) {
+        e = _error;
         console.log(e);
       }
       return this;
@@ -68,6 +70,7 @@
 
     ProductList.prototype.load = function() {
       var child, ref, _i, _len;
+
       ref = $(".product_list .product");
       if (ref.length) {
         for (_i = 0, _len = ref.length; _i < _len; _i++) {
@@ -80,6 +83,7 @@
 
     ProductList.prototype.index = function() {
       var obj, open, p, r, row, top, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _m, _n, _ref, _ref1, _ref2, _ref3, _ref4;
+
       row = top = -1;
       open = [];
       while (this.first.length) {

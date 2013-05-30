@@ -111,4 +111,7 @@ PRODUCT TEASER
 	float: left;
 }
 
-
+.product_teaser_stock {
+	display: block;
+	margin-top: em($unit);
+}

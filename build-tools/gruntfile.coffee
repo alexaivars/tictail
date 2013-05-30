@@ -65,7 +65,48 @@ module.exports = (grunt) ->
       code:
         files: "../src/coffee/**/*.coffee"
         tasks: ["coffee"]
+      test:
+        cwd: "src/"
+        files: ["{,*/}*.mustache.html"]
+        tasks: ["consolidate"]
+  
+    assemble:
+      options:
+        flatten: true
+        data: "src/**/*.json"
+        ext: ".html"
+        partials: "src/*.mustache"
+      component:
+        files:
+          'dist/storefront': ['src/main.mustache']
+         
+    consolidate:
+      options:
+        engine: "mustache"
+      dist:
+        options:
+          local:
+            title: "test"
+            users: [
+              name: 'tom'
+              email: 'tom@mail.com'
+              password: 'computer1'
+            ,
+              name: "rick"
+              email: "rick@mail.com"
+              password: "secret1"
+            ]
 
+        files: [
+          expand: true
+          cwd: "src/"
+          src: ["{,*/}*.mustache.html"]
+          dest: "dist/"
+          ext: ".html"
+          filter: (srcFile) ->
+            not /\/_/.test(srcFile)
+        ]
+    
     )
   
   # Load plugin task(s).
@@ -76,7 +117,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-livereload"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-include-replace"
-
+  grunt.loadNpmTasks "grunt-consolidate"
+  grunt.loadNpmTasks "assemble"
   # grunt.loadNpmTasks "grunt-contrib-watch"
   # Register task(s).
   grunt.registerTask "default", ['sass:dev','coffee', 'regarde']

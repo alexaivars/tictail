@@ -13,6 +13,7 @@
 
   inView = function(elm, height) {
     var offsetParent, rect;
+
     offsetParent = elm.offsetParent;
     rect = elm.parentNode.getBoundingClientRect();
     if (rect.top === 0) {
@@ -29,6 +30,7 @@
   krmg.LazyImage = {
     init: function() {
       var img, node, _i, _len;
+
       node = document.getElementsByTagName("img");
       for (_i = 0, _len = node.length; _i < _len; _i++) {
         img = node[_i];
@@ -40,6 +42,7 @@
     },
     load: function() {
       var height, img, update, _i, _j, _len, _len1;
+
       height = window.innerHeight || document.documentElement.clientHeight;
       update = [];
       for (_i = 0, _len = lazy_list.length; _i < _len; _i++) {
@@ -56,6 +59,7 @@
     },
     get: function(elm, notween) {
       var src;
+
       src = elm.getAttribute(DATA_NAME);
       if (elm.src !== src) {
         elm.src = src;

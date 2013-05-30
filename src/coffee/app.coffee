@@ -38,6 +38,10 @@ $(document).ready ->
   menu_targets   = [document.getElementById("page") ]
   tictail_menu   = $('#tt_colophon')
   menu_options   = {}
+  
+  search_box     = $("#tictail_search_box")
+  if search_box.length
+    search_box.attr("placeholder", "Search")
   if Modernizr.touch
     menu_options   =
       onToggle: () ->
@@ -89,7 +93,6 @@ $(document).ready ->
         return
 
     @get /product\/(.*)/, (context) ->
-      console.log context
       name = context.params["splat"][0]
       target = $(".page_column a[href$='product/#{name}']")
       $(".page_column .selected").removeClass "selected"
