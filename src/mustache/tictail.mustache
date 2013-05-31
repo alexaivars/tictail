@@ -46,9 +46,8 @@
             {{! Add "About" on the about page }}
             {{#about_page}}- About{{/about_page}}
         </title>
-        <link rel="stylesheet" href="http://tictail.krmg.se/css/main.css">
 				<style>
-					{{! @ @ include('css/main.css')}}
+					{{!@@include('css/main.css')}}
 				</style>
         <script src="http://tictail.krmg.se/js/vendor/modernizr.custom.85090.js"></script>
     </head>
@@ -136,10 +135,10 @@
                                                 </noscript>
                                             </figure>
                                             {{/all_images}}
-																						<div class="product_slider_index">
-																							{{#all_images}}<i></i>{{/all_images}}
-																						</div>
                                         </div>
+																				<div class="product_slider_index">
+																					{{#all_images}}<i></i>{{/all_images}}
+																				</div>
                                     </div>
                                     <div class="details">
                                         <div class="product_detail_name">{{title}}</div>
