@@ -54,9 +54,12 @@
             stopPropagation: false,
             mouse: true,
             transitionEnd: function(swipe, index, slide) {
+              var i;
+
+              i = parseInt(slide.getAttribute("data-index"));
               if (_this.index.length) {
                 _this.index.children().removeClass("active");
-                return _this.index.children()[index].className = "active";
+                return _this.index.children()[i].className = "active";
               }
             }
           });

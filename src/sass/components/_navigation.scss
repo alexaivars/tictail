@@ -22,7 +22,7 @@
 		display: block;
 		text-decoration: none;
 		padding: em($unit*0.25) 0;
-		color: #999;
+		color: #CCC;
 
 		-webkit-transition: color 0.2s ease;
 		-moz-transition: color 0.2s ease;
@@ -42,7 +42,7 @@
 	}
 
 	li > ul a {
-		color: #525252;
+		color: #999;
 	} 
 }
 

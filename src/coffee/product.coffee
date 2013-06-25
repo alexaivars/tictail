@@ -38,9 +38,10 @@ class krmg.Product
           stopPropagation: false
           mouse: true
           transitionEnd: (swipe, index, slide) =>
+            i = parseInt(slide.getAttribute("data-index"))
             if @index.length
               @index.children().removeClass("active")
-              @index.children()[index].className = "active"
+              @index.children()[i].className = "active"
       else if  @swipe
         @swipe.setup()
     else

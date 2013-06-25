@@ -56,6 +56,10 @@ class krmg.Swipe
   setup: ->
     @length = @wrapper.children.length
     point = 0
+    
+    for child, index in @wrapper.children
+      child.setAttribute("data-index",index)
+    
     if @length > 1
       while @length < 5
         node = @wrapper.children[point].cloneNode(true)

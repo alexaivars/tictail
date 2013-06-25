@@ -85,11 +85,16 @@
     };
 
     Swipe.prototype.setup = function() {
-      var node, point, slide, _i, _j, _len, _len1, _ref1, _ref2,
+      var child, index, node, point, slide, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3,
         _this = this;
 
       this.length = this.wrapper.children.length;
       point = 0;
+      _ref1 = this.wrapper.children;
+      for (index = _i = 0, _len = _ref1.length; _i < _len; index = ++_i) {
+        child = _ref1[index];
+        child.setAttribute("data-index", index);
+      }
       if (this.length > 1) {
         while (this.length < 5) {
           node = this.wrapper.children[point].cloneNode(true);
@@ -100,9 +105,9 @@
       }
       this.slides = [];
       this.direction = 0;
-      _ref1 = this.wrapper.children;
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        slide = _ref1[_i];
+      _ref2 = this.wrapper.children;
+      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+        slide = _ref2[_j];
         this.slides.push(slide);
       }
       this.bounds = this.container.getBoundingClientRect();
@@ -161,9 +166,9 @@
           });
         }
       }
-      _ref2 = this.slides;
-      for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
-        node = _ref2[_j];
+      _ref3 = this.slides;
+      for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
+        node = _ref3[_k];
         node.style.width = "" + this.width + "px";
         node.style.height = "" + this.height + "px";
       }
