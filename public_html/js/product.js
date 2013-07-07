@@ -66,6 +66,15 @@
         } else if (this.swipe) {
           this.swipe.setup();
         }
+        if (!this.social) {
+          if (window.FB != null) {
+            FB.XFBML.parse(this.detail[0]);
+          }
+          if (window.twttr != null) {
+            twttr.widgets.load();
+          }
+          this.social = true;
+        }
       } else {
         this.detail.detach();
       }

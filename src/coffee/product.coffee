@@ -44,6 +44,14 @@ class krmg.Product
               @index.children()[i].className = "active"
       else if  @swipe
         @swipe.setup()
+
+      unless @social
+        if window.FB?
+          FB.XFBML.parse(@detail[0])
+        if window.twttr?
+          twttr.widgets.load()
+        @social = true
+
     else
       @detail.detach()
     @
