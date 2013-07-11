@@ -254,6 +254,34 @@ PAGE LAYOUT
 }
 
 #tictail_search_results {
+  background: transparent;
+  position: relative;
+  width: auto;
+  border: none;
+}
+
+#tictail_search_results .item {
+  border: none;
+  overflow: auto;
+  margin: 0;
+}
+
+#tictail_search_results .title {
+  border: none;
+  overflow: auto;
+  margin: 0;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+#tictail_search_results .thumb {
+  width: auto;
+  height: auto;
+  overflow: auto;
+  line-height: inherit;
+}
+
+#tictail_search_results {
   padding-top: 0.5em;
   color: #CCC;
 }

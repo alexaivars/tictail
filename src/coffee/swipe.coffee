@@ -76,8 +76,8 @@ class krmg.Swipe
     
     # cache size
     @bounds = @container.getBoundingClientRect()
-    @width = @bounds.width
-    @height = @bounds.height
+    @width = @bounds.width | @bounds.right - @bounds.left
+    @height = @bounds.height | @bounds.bottom - @bounds.top
     @wrapper.style.height = "#{@height}px"
     @wrapper.style.width = "#{@width}px"
     @wrapper.style.position = "absolute"

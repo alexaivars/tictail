@@ -70,8 +70,8 @@
           if (window.FB != null) {
             FB.XFBML.parse(this.detail[0]);
           }
-          if (window.twttr != null) {
-            twttr.widgets.load();
+          if ((window.twttr != null) && (window.twttr.widgets != null)) {
+            window.twttr.widgets.load();
           }
           this.social = true;
         }
@@ -82,13 +82,16 @@
     };
 
     Product.prototype.size = function(action) {
+      var width;
+
       if (action === "reset") {
 
       } else if (action === "load") {
         this.parent_bounds = this.parent[0].getBoundingClientRect();
         this.bounds = this.container[0].getBoundingClientRect();
       } else if (action = "write") {
-        this.slider.height(Math.round(this.parent_bounds.width * (2 / 3)));
+        width = this.parent_bounds.width | this.parent_bounds.right - this.parent_bounds.left;
+        this.slider.height(Math.round(width * (2 / 3)));
       }
       return this.bounds;
     };

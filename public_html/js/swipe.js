@@ -111,8 +111,8 @@
         this.slides.push(slide);
       }
       this.bounds = this.container.getBoundingClientRect();
-      this.width = this.bounds.width;
-      this.height = this.bounds.height;
+      this.width = this.bounds.width | this.bounds.right - this.bounds.left;
+      this.height = this.bounds.height | this.bounds.bottom - this.bounds.top;
       this.wrapper.style.height = "" + this.height + "px";
       this.wrapper.style.width = "" + this.width + "px";
       this.wrapper.style.position = "absolute";

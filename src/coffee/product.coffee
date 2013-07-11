@@ -48,8 +48,8 @@ class krmg.Product
       unless @social
         if window.FB?
           FB.XFBML.parse(@detail[0])
-        if window.twttr?
-          twttr.widgets.load()
+        if window.twttr? and window.twttr.widgets?
+          window.twttr.widgets.load()
         @social = true
 
     else
@@ -62,7 +62,8 @@ class krmg.Product
       @parent_bounds = @parent[0].getBoundingClientRect()
       @bounds = @container[0].getBoundingClientRect()
     else if action = "write"
-      @slider.height( Math.round(@parent_bounds.width * (2/3) ))
+      width = @parent_bounds.width | @parent_bounds.right - @parent_bounds.left 
+      @slider.height( Math.round(width * (2/3) ))
     return @bounds
   top: ->
     @container.position().top
