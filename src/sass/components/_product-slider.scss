@@ -27,30 +27,6 @@ PRODUCT SLIDER
 	overflow: hidden;
 }
 
-.Xproduct_slide {
-	// @include experimental(backface-visibility, hidden );
-  display:block;
-  overflow: hidden;
-  position: relative;
-	width:100%;
-}
-.Xproduct_slide_wrapper {
-	// @include experimental(backface-visibility, hidden );
-  display:block;
-  overflow: hidden;
-  position: relative;
-	width:100%;
-	height: 100%;
-
-}
-.Xproduct_slide_figure {
-	// @include experimental(backface-visibility, hidden );
-  display:block;
-	float:left;
-  width:100%;
-	height: inherit;
-  position: relative;
-}
 .product_slide_figure img { 
 	display: block;
 	height: 100%;

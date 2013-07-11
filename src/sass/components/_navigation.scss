@@ -132,7 +132,7 @@
 }
 
 
-// OVERIDE BASE.CSS
+// OVERIDE TICTAIL BASE.CSS
 #tictail_search_results {
 	background: transparent;
 	position: relative;
@@ -142,13 +142,13 @@
 
 #tictail_search_results .item {
 	border: none;
-	overflow: auto;
+	overflow: visible;
 	margin: 0;
 }
 
 #tictail_search_results .title {
 	border: none;
-	overflow: auto;
+	overflow: visible;
 	margin: 0;
 	text-overflow: clip;
 	white-space: normal;

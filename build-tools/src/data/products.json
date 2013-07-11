@@ -1,8 +1,0 @@
-{
-	"title" : "test",
-  "stooges": [
-    { "name": "Moe" },
-    { "name": "Larry" },
-    { "name": "Curly" }
-  ]
-}

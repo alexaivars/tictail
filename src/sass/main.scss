@@ -17,7 +17,7 @@ $font-heading: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-text: "PT Serif", "Times New Roman", Times, serif;
 
 // General imports
-@import "mixins/reset";
+// @import "mixins/reset";
 @import "mixins/typography";
 @import "mixins/utils";
 @import "mixins/mediaqueries";

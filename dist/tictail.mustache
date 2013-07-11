@@ -46,76 +46,9 @@
             {{! Add "About" on the about page }}
             {{#about_page}}- About{{/about_page}}
         </title>
+				<link href="{{assets_url}}/shared/css/base.css" rel="stylesheet" type="text/css">
 				<style>
-					/* *****************************
-	HTML RESET
-	http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-****************************** */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-select.rmStyle {
-  border: none;
-  display: block;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  opacity: 0;
-  position: absolute;
-}
-
-/* ******************************
+					/* ******************************
 
 PAGE LAYOUT
 
@@ -303,6 +236,34 @@ PAGE LAYOUT
 }
 
 #tictail_search_results {
+  background: transparent;
+  position: relative;
+  width: auto;
+  border: none;
+}
+
+#tictail_search_results .item {
+  border: none;
+  overflow: visible;
+  margin: 0;
+}
+
+#tictail_search_results .title {
+  border: none;
+  overflow: visible;
+  margin: 0;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+#tictail_search_results .thumb {
+  width: auto;
+  height: auto;
+  overflow: auto;
+  line-height: inherit;
+}
+
+#tictail_search_results {
   padding-top: 0.5em;
   color: #CCC;
 }
@@ -430,6 +391,8 @@ PRODUCT TEASER
 }
 
 .product_teaser_hover_wrapper {
+  font-size: 14px;
+  font-size: 0.875rem;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.125em;
@@ -709,29 +672,6 @@ PRODUCT SLIDER
   overflow: hidden;
 }
 
-.Xproduct_slide {
-  display: block;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-
-.Xproduct_slide_wrapper {
-  display: block;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.Xproduct_slide_figure {
-  display: block;
-  float: left;
-  width: 100%;
-  height: inherit;
-  position: relative;
-}
-
 .product_slide_figure img {
   display: block;
   height: 100%;
@@ -870,7 +810,6 @@ h1 {
 }
 
 				</style>
-				<link href="{{assets_url}}/shared/css/base.css" rel="stylesheet" type="text/css">
 				<script src="http://tictail.krmg.se/js/vendor/modernizr.custom.85090.js"></script>
     </head>
     <body>
@@ -1058,8 +997,8 @@ h1 {
         </div>
     </div>    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://tictail.krmg.se/js/dist/vendor-pack.min.js"></script>
-    <script src="http://tictail.krmg.se/js/dist/kramgo.min.js"></script>
+    <script src="//tictail.krmg.se/js/dist/vendor-pack.min.js"></script>
+    <script src="//tictail.krmg.se/js/dist/kramgo.min.js"></script>
     <script type="text/javascript">
 		WebFontConfig = {
 			google: { families: [ 'PT+Serif::latin', 'Open+Sans:400,700,800:latin' ] }
