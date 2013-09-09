@@ -95,8 +95,8 @@
         child = _ref1[index];
         child.setAttribute("data-index", index);
       }
-      if (this.length > 1) {
-        while (this.length < 5) {
+      if (this.length === 2) {
+        while (this.length < 4) {
           node = this.wrapper.children[point].cloneNode(true);
           point++;
           this.wrapper.appendChild(node);
