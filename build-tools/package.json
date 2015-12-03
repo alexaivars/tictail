@@ -6,9 +6,6 @@
   "author": "alexander aivars",
   "license": "MIT",
   "dependencies": {
-		"assemble": "~0.3.73",
-		"assemble-less": "~0.4.0",
-
 		"mustache": "~0.7.2",
 		"grunt-consolidate": "~0.1.0",
 		"coffee-script": "~1.4.0",
@@ -22,8 +19,6 @@
 		"grunt-contrib-connect" : "~0.1.2",
 		"grunt-contrib-livereload" : "~0.1.2",
 		"grunt-include-replace" : "~0.4.0"
-
-		
 	},
   "devDependencies": {
     "grunt": "~0.4.0"
